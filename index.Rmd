@@ -1,0 +1,30 @@
+--- 
+title: "Jeffrey's Answers to the ISLR Exercises"
+author: "Jeffrey Limbacher"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/ISLR-exercises
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+# Introduction
+
+I am writing this to write down my answers to "An Introduction to Statistical Learning: With Applications in R" by James, Witten, Hastie, and Tibshirani. I want to read through the book to learn the basic statistical methods that I see being used so often. Answering the questions allows me to feel like I am challenging myself to learn the material in the book as I read through it. I also want to get used to creating simple bookdowns.
+
+I will break up the solutions to the exercises by chapter. There is no guarantees that I will solve every problem or finish the book.
+
+I have a background in mathematics, so hopefully I should the background to breeze through this book and get the correct answers, but we are all hubmled from time to time.
+
+Please feel free to contact me with any questions.
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

@@ -1,0 +1,108 @@
+# Statistical Learning {#intro}
+
+1. 
+    (a) In the case of large $n$, small $p$, it would be best to use a complex learning method. Since there are only a few $p$ relative to the number of observations, the flexible method should be able to accurately capture the true $f$ without the complexity of the flexible model becoming out of control.
+    (b) In the case of small $n$, large $p$, it would be worse to use a flexible model. Flexible models require a large number of observations or we start fitting to the noise too much. In addition, our problem may even be underdetermined.
+    (c) If the relationship between $X$ and $Y$ is highly non-linear, we would expect flexible methods to be better. Flexible methods can fit to arbitrary $f$ much better.
+    (d) If $Var(\epsilon)$ is extremely high, a flexible model would be worse. This is because the flexible model will start fitting to the high variance whereas the rigid model will be more robust in ignoring the variance.
+    
+2. 
+    (a) Regression problem. CEO salary should be treated like a continuous response to the other factors. This is an inference problem since we are trying to understand how the factors interact with the response rather than simply predicting CEO salaries. $n=500$ and $p=3$ (profit, number of employees, and industry).
+    (b) Classification problem. The output is qualitative, *success* or *failure*. We are interested in prediction since we only care to guess whether our product will succeed. $n=20$, $p=13$ (price charged, marketing budget, competition price, and 10 others). As further justification that we are interested in prediction, the interplay between the variables and the outcome of the product will probably be highly non-linear resulting in using flexible models with uninterpretable results. 
+    (c) Regression problem. The % change is quantitative. This is most likely a prediction problem since one imagines we are trying to beat the market, so the goal of the algorithm may be to find strange patterns to boost the prediction results (similar to PCA). $n=52$ (weekly data), $p=3$.
+    
+3. Skipping this for now.
+
+4. Pass.
+
+5. Flexible models are able to capture a much wider range of $f$'s. They however, come at the cost of needing more training data in proportion to the observed response variables. In addition, their results may be hard to interpret. A more flexible approach may be appropriate when given a large $n$ (see #2, a.), when the relationship between $X$ and $Y$ is not obvious. A less flexible approach is preferred if we have a small $n$, interpretation is the goal, or when the possible shapes of $f$ is limited and understood.
+
+6. A parametric approach has parameters that control the model in an fixed way. These may be coefficients of a line, parameters for parametrized distrubtions, or even statistics of central tendency. Non-parametric approaches general try to estimate the shape of $f$ directly from the data, like using nearest neighbors to guess $Y$. A parametric approach allows one to understand the interaction between the $X$ and the $Y$. For example, if we have the coefficient of some $X_i$, say $\beta_i$, then we can figure out how changing $X_i$ might change $Y$. Parametric models also require less data. However, if we get the model assumptions wrong, then parametric approaches can give poor results.
+
+7. 
+    (a) We'll write some code to do this for us.
+    ```{r include=TRUE, echo=TRUE}
+d<-data.frame(Obs=c(1,2,3,4,5,6),
+      X_1=c(0,2,0,0,-1,1),
+      X_2=c(3,0,1,1,0,1),
+      X_3=c(0,0,3,2,1,1),
+      Y=c("Red","Red","Red","Green","Green","Red")
+      )
+d$Dist=apply(cbind(d$X_1,d$X_2,d$X_3), 1, function(x) sqrt(sum(x^2)))
+d
+    ```
+    (b) Our neighbor closest to the origin is observation 5, so we would predict Green.
+    (c) The three closest neighbors are 5,6, and 2 which are Green, Red, Red respectively. We would predict Red since there are more Red observations than Green observations.
+    (d) We would expect it the best $K$ to be small. The reason is that the higher the $K$ is, the more far away points we bring in. Over longer distances, the Bayes decision boundary can change a lot.
+    
+8. 
+    (a) This may be cheating, but I would rather just read in with the data function.
+    ```{r include=TRUE, echo=TRUE}
+    data("College",package="ISLR")
+    head(College)
+    ```
+    (b)
+    ```{r include=TRUE, echo=TRUE}
+    #rownames(College)=College[,1] #This is already done in the package data set.
+    head(College) #note that this pops up a little window, so you may want to run this
+    #code chunk in your own session.
+    ```
+    (c)
+        i.
+        ```{r include=TRUE, echo=TRUE}
+        summary(College)
+        ```
+        ii.
+        ```{r include=TRUE, echo=TRUE}
+        pairs(College[,1:10])
+        ```
+        iii. Private colleges have higher out of state tuition. No surprises here.
+        ```{r include=TRUE, echo=TRUE}
+        boxplot(Outstate ~ Private, data=College)
+        ```
+        iv. 
+        ```{r include=TRUE, echo=TRUE}
+        College$Elite=as.factor(ifelse(College$Top10perc>50,"Yes","No"))
+        summary(College$Elite)
+        plot(Outstate ~ Elite,data=College)
+        ```
+        v. I'm not really highlighting anything insightful here. It is interesting that book costs are so condensed. I'm guessing professors are sensitive to book prices and maybe just assign one so that cost is so well centered. I do feel for the few outliers that are out around $2,000 though. 
+        ```{r include=TRUE}
+        par(mfrow=c(2,2))
+        hist(College$Outstate,breaks=15)
+        hist(College$Expend,breaks=20)
+        hist(College$Personal,breaks=10)
+        hist(College$Books,breaks=15)
+        ```
+        vi. Students at non-private (does this necessarily mean public?) report spending more.
+        ```{r include=TRUE}
+        boxplot(Personal ~ Private, data=College)
+        ```
+9.
+    a. 
+    ```{r include=TRUE}
+    data(Auto,package="ISLR")
+    head(Auto)
+    ```
+    The quantitative descriptors are mpg, cylinders, horsepower, weight, acceleration, and year. The qualitative are origin and name. I think cylinders might can be argued to be a qualitative variable, but there is definitel a sense of order to it. For example, we would _expect_ for mpg's to go up as cylinders goes down.
+    b. 
+    ```{r include=TRUE}
+    Auto$origin<-factor(Auto$origin)
+    Auto_d<-Auto[,sapply(Auto,is.double)]
+    t(sapply(Auto_d,range))
+    ```
+    I apply range to each column of Auto that is a double with the above code. For each row, the first number is the minimum value and the second number is highest value. 
+    c. 
+    ```{r include=TRUE}
+    Auto_d<-Auto[,sapply(Auto,is.double)]
+    cbind(Mean=sapply(Auto_d,mean),StdDev=sapply(Auto_d,sd))
+    ```
+    d.
+    ```{r include=TRUE}
+    Auto_d_rmobs<-Auto_d[-c(10:85),]
+    cbind(Mean=sapply(Auto_d_rmobs,mean),StdDev=sapply(Auto_d_rmobs,sd))
+    ```
+    e. Displacement, horsepower, and weight show some very strong linear trends.We can also see that acceleration seems inversely proportions to the aforementioned three. 
+    ```{r include=TRUE}
+    pairs(Auto_d)
+    ```
