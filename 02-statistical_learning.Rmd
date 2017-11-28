@@ -1,4 +1,4 @@
-# Statistical Learning {#intro}
+# Statistical Learning {#chap2}
 
 1. 
     (a) In the case of large $n$, small $p$, it would be best to use a complex learning method. Since there are only a few $p$ relative to the number of observations, the flexible method should be able to accurately capture the true $f$ without the complexity of the flexible model becoming out of control.

@@ -1,0 +1,63 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Linear Regression {#chap}
+
+1. The first null hypothesis, related to the `intercept` term stats that we can conclude that `sales` will not be zero if we spend no money on TV, radio, or newspaper advertisting. The rest of the null hypotheses test whether TV, radio, or newspaper have any effect on sales. From the `Intercept` p-value, we can conclude that if we spend no money on advertising, we would expect to some sales. The second and third p-values state that if we spend money or TV and radio, we can expect some sort of return on investment in terms of sales. From the `newspaper` p-value, we cannot reject the null hypothesis that radio has no effect on sales.
+
+2. The KNN classifier attempts to fit the $Y$ into some set of categories. For example, if we have the MPG, weight, and horsepower of a car, we might try to determine if it is a SUV, sedan, sports car, etc. KNN regression attempts to try and guess some quantitative values from the neighbors of a given point. For example, if we had the height and gender of someone, we can guess their weight by trying to find the $k$ nearest neighbors in a height $\times$ gender and average the $k$ weight values to come up with a best guess for the weight of the someone.
+
+3.
+    a. Our equation would look like
+    $$ 50+20X_1 + 0.7X_2 + 35 X_3 + 0.01X_1 X_2 - 10 X_1 X_3.$$
+    To figure out when females earn more, we check
+    $$50+20X_1 + 0.7X_2 + 35 + 0.01X_1 X_2 - 10 X_1  > 50+20X_1 + 0.7X_2 + 0.01X_1 X_2 $$
+    $$ -10X_1 +35 > 0$$
+    $$ X_1 < 3.5 $$
+    In otherwords, in order for women to have a higher salary, they need to have a GPA of less than 3.5, so iii. is the correct answer.
+    b. We can use R to calculate this.
+    ```{r include=TRUE, echo=TRUE}
+    x1 <- 4.0; x2 <- 110; x3 <- 1; 
+    (50 + 20 * x1 + .7 * x2 + 35*x3 + 0.01*x1*x2 - 10 * x1*x3 )
+    ```
+    Or about $206,000.
+    c. False. If the standard error for $\beta_4$ is very small ($<.0001$ for example), then the t-statistics will be very large giving a large p-value. We cannot say anything about the evidence of an interaction without the p-value. 
+4.
+    a. We would expect the cubic regression to have a lower RSS. Note that if we set $\beta_2=0$ and $\beta_3=0$, then we get the linear regression model. Thus, if the linear regression model had a lower RSS, then we wouldn't have gotten the *least squares* fit of cubic model. This is a contradiction, so we have that the cubic model must have a lower RSS.
+    b. We would expect that the test RSS to be lower for the linear regression model. The cubic model would have fit to noise, and therefore would have higher variance.
+    c. We would still expect the training RSS to be lower for the cubic polynomial. 
+    d. There is not enough information to tell. For example, maybe it is linear for the most part, but curves slightly at one end of the data set. Then we would expect the linear model to perform very well except for maybe some bias towards the end. The cubic regression would still overfit on the bulk of the data, but capture this tiny curve at the end well, but overall would be worse. On the other hand, we could have a truly cubic relationship between $X$ and $Y$. 
+    
+5. \begin{align*}
+\hat{y}_i &= x_i \hat{\beta} \\
+&= x_i \left(\sum_{j=1}^n x_{j}y_j \right) / \left(\sum_{i'=1}^n x_{i'}^2 \right) \\
+&= \sum_{j=1}^n \left( \frac{x_i x_j }{\sum_{i'=1}^n x_{i'}^2} \right)   y_j \\
+&= \sum_{j=1}^n a_j y_j
+\end{align*}
+where $a_j = \frac{x_i x_j }{\sum_{i'=1}^n x_{i'}^2}$.
+
+6. Our least squares line is $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x = \bar{y} - \hat{\beta}_1 \bar{x} + \hat{\beta}_1 x$. If we plug in $\bar{x}$ for $x$, we get $\hat{y} = \bar{y} - \hat{\beta}_1 \bar{x} + \hat{\beta}_1 \bar{x} = \bar{y}$. This means $(\bar{x},\bar{y})$ satisfies our equation, so the line passes through it.
+
+7. This will take a lot of math. Maybe another time.
+
+Lab Exercises.
+
+8. 
+```{r include=TRUE, echo=TRUE}
+data(Auto,package="ISLR")
+head(Auto)
+```
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    mpg_mod <- lm(mpg ~ horsepower, data=Auto)
+    summary(mpg_mod)
+    ```
+        i. We see that the response has a p-value that is extremely small, so we reject the null hypothesis that `horsepower` does not influence `mpg`. 
+        ii. The $R^2$ is .6095 indicating that the relationship is moderate. The RSE is almost 5, so we could expect to be off by about 5 MPGs.
+        iii. Negative.
+        iv. 
+    ```{r include=TRUE, echo=TRUE}
+    sapply(c("confidence","prediction"), function(x) predict(mpg_mod,data.frame(horsepower=98),interval=x))
+    ```
