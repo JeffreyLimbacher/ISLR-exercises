@@ -58,6 +58,117 @@ head(Auto)
         ii. The $R^2$ is .6095 indicating that the relationship is moderate. The RSE is almost 5, so we could expect to be off by about 5 MPGs.
         iii. Negative.
         iv. 
+        ```{r include=TRUE, echo=TRUE}
+        ans<-sapply(c("confidence","prediction"), function(x) predict(mpg_mod,data.frame(horsepower=98),interval=x))
+        rownames(ans)<-colnames(predict(mpg_mod,data.frame(horsepower=98),interval="prediction"))
+        ans
+        ```
+    b.
     ```{r include=TRUE, echo=TRUE}
-    sapply(c("confidence","prediction"), function(x) predict(mpg_mod,data.frame(horsepower=98),interval=x))
+    plot(Auto$horsepower,Auto$mpg)
+    abline(mpg_mod)
     ```
+    c. From the plots below, we can see that there is a clear non-linearity to the residual line versus the fitted values. It has a curve remniscient of the residuals from the `sales` example. In addition, this affects the normal QQ plot where we can see we have residuals that are too large and too small. 
+    ```{r include=TRUE, echo=TRUE}
+    plot(mpg_mod)
+    ```
+    
+9.
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    pairs(Auto)
+    ```
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    cor(Auto[,!(names(Auto) %in% c("name"))])
+    ```
+    c. I turn the origin into a factor variable since that it is what it is meant to be. 
+    ```{r include=TRUE, echo=TRUE}
+    Auto2 <- Auto
+    Auto2$origin <- factor(Auto$origin)
+    mpg_all<-lm(mpg ~ .-name, data=Auto2)
+    summary(mpg_all)
+    ```
+        i. We can see the F-statistic is very large which indicates that there is a relationship between response and predictor.
+        ii. It appears that the intercept, `displacement`, `weight`, `year`, and `origin` are all statistically significant at pretty low confidence levels. It is interesting to see that `horsepower` has a low p-value. This is because `horsepower` is highly colinear with `displacement` and `weight`.
+        iii. The coefficient for the year variable is positive indicating that cars have gotten more gas efficient over the years.
+    d. Looking at the diagnostic plots, we can see that mpg has a nonlinear trend after fitting the data. In addition, we see that some of the residuals have extremely large standardized residuals which seems to violate heteroscedascity. These large values appear towards the right side of the residuals vs fitted plot creating a funnel shape. In addition, we have a one (two?) high leverage points.
+    ```{r echo=TRUE, include=TRUE}
+    plot(mpg_all)
+    ```
+    e. I (somewhat arbitrarily) chose to interact origin and year, and then horsepower with weight.
+    ```{r include=TRUE, echo=TRUE}
+    mpg_int<-lm(mpg ~ .-name + origin*year + horsepower*weight, data=Auto2)
+    summary(mpg_int)
+    plot(mpg_int)
+    ```
+    It appears I may have gotten a little lucky with my choices! It appears that there is a strong interaction between year and origin2, which means European cars and year interact pretty well. In addition, the interaction with horsepower and weight ended up pretty significant. The model also managed to get diminished the non-linear effect on the residuals, but we still got the conical effect of the residuals growing vs the fitted values.
+    f. I'm going to remove the high leverage point because it got a little ridiculous how much leverage it has. I compare the mpg against the inverse of horsepoewr and inverse of weight and its interaction. The result is that they come out statistically significant.
+    ```{r include=TRUE, echo=TRUE}
+    mpg_int<-lm(mpg ~ .-name + origin*year + I(1/horsepower)*I(1/weight), data=Auto2[-14,])
+    summary(mpg_int)
+    plot(mpg_int)
+    ```
+
+10. 
+    ```{r include=TRUE, echo=TRUE}
+    head(Carseats)
+    ```
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    sales_mod <- lm(Sales ~ Price + Urban + US, data=Carseats)
+    summary(sales_mod)
+    plot(sales_mod)
+    ```
+    b. The diagnostic plots look pretty good but the model isn't very good. The price coefficient says that we can expect less units to sell at a higher prince. No surprise there. The urban coefficient would suggest that we sell slightly less in an urban location, but the p-value on this is extremely large, so we can safely dismiss this coefficient. The location being within the US is very important to sales.
+    c. I'm not sure what the point of this question is
+    $$ \mathrm{Sales} = 13.0 - 0.0544X_1 - 0.0219X_2 + 1.20 X_3$$
+    where $X_1$ is the Price, $X_2$ is 1 if we are in an Urban setting, and $X_3$ is 1 if we are in the United States.
+    d. We can reject the null-hypothesis safely for `Price`, `USYes`.
+    e. 
+    ```{r include=TRUE, echo=TRUE}
+    sales_mod2 <- lm(Sales ~ Price  + US, data=Carseats)
+    summary(sales_mod2)
+    ```
+    f. We see that the two models have really low $R^2$, so fit the data not very well. 
+    g. 
+    ```{r include=TRUE, echo=TRUE}
+    confint(sales_mod2)
+    ```
+    h. From the book we don't want our leveraget o be too much larger than $(p+1)/n = (2+1)/400 = .0075$. There is one observation that exceeds this by a lot, but its standarized residual isn't very large. As far as I can tell, the most problematic observation is possibly 368.
+    ```{r include=TRUE, echo=TRUE}
+    plot(sales_mod2,5)
+    ```
+    
+11. 
+```{r include=TRUE, echo=TRUE}
+set.seed(1)
+x=rnorm(100)
+y=2*x+rnorm(100);
+```
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    y_mod <- lm(y ~ x + 0)
+    summary(y_mod)
+    confint(y_mod)
+    ```
+    We got the estimate $\hat{\beta} = 1.9939$. We can see that the 95% confidence interval contains our true slope of 2. 
+    b. 
+    ```{r include=TRUE, echo=TRUE}
+    x_mod <- lm(x ~ y  + 0)
+    summary(x_mod)
+    confint(x_mod)
+    ```
+    We get a coefficient estimate of .391 with a standard error of .02. This is far from our expected value of .5. 
+    c. We can see that the t-statistic for both tests is the same. 
+    d. We start with
+    $$ \frac{\frac{\sum_{i=1} x_i y_i}{\sum_{i'=1}^n x_{i'}^2}}{\sqrt{\frac{\sum_{i=1}^n(y_i - x_i \hat{\beta})^2}{(n-1)\sum_{i'=1}^n x_{i'}^2}}} = \frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{(\sum_{i'=1}x_{i'}^2) \sum_{i=1}^n(y_i - x_i \hat{\beta})^2}} $$
+    We already got what we wanted on top, so let's focus on the bottom (and drop the square root)
+    $$ (\sum_{i'=1}x_{i'}^2) \sum_{i=1}^n(y_i - x_i \hat{\beta})^2 = (\sum_{i'=1}x_{i'}^2) \sum_{i=1}^n y_i^2 - 2 y_i x_i \hat{\beta} + x_i^2\hat{\beta}^2 $$
+    Substituting $\hat{\beta} = (\sum_{i=1}^n x_i y_i) / (\sum_{i'=1}^n x_{i'}^2)$ we get
+    $$ (\sum_{i'=1}x_{i'}^2) \sum_{i=1}^n y_i^2 - 2 y_i x_i \frac{(\sum_{j=1}^n x_j y_j)}{(\sum_{i'=1}^n x_{i'}^2)} + x_i^2\frac{(\sum_{j=1}^n x_j y_j)^2}{(\sum_{i'=1}^n x_{i'}^2)^2} = (\sum_{i'=1}x_{i'}^2)(\sum_{i=1}^n y_i^2 ) - 2 (\sum_{i=1}^n y_i x_i)(\sum_{j=1}x_jy_j) + (\sum_{i=1}x_i^2)\frac{(\sum_{j=1}^n x_j y_j)^2}{\sum_{i'=1}x_{i'}^2} $$
+    Cancelling terms, we get
+    $$(\sum_{i'=1}x_{i'}^2)(\sum_{i=1}^n y_i^2 ) - 2 (\sum_{i=1}^n y_i x_i)(\sum_{j=1}x_jy_j) + (\sum_{i=1}x_i^2)\frac{(\sum_{j=1}^n x_j y_j)^2}{\sum_{i'=1}x_{i'}^2} = (\sum_{i'=1}x_{i'}^2)(\sum_{i=1}^n y_i^2 ) - 2 (\sum_{i=1}^n y_i x_i)^2 + (\sum_{j=1}^n x_j y_j)^2 = (\sum_{i'=1}x_{i'}^2)(\sum_{i=1}^n y_i^2 ) -  (\sum_{i=1}^n y_i x_i)^2 $$
+    This gives us the identity we wanted.
+12.
+    a. 
