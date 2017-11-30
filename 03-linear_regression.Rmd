@@ -282,5 +282,107 @@ y=2*x+rnorm(100);
     Our $R^2$ went up a little, but more interestingly, the coefficient for the `x^2` term became statistically significant. However, the estimate for it is pretty tiny, it would be impercetible.
 
 14.
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    x1=runif(100)
+    x2=0.5*x1+rnorm(100)/10
+    y=2+2*x1+0.3*x2+rnorm(100)
+    ```
+    The linear model is $Y=2+2X_1+0.3X_2 + \epsilon$. The regression coefficients are $\beta_0=2$, $\beta_1 =2$, $\beta_2=0.3$.
+    b. The two variables are highly correlated. we can also see that they have a linear relationship.
+    ```{r include=TRUE, echo=TRUE}
+    cor(x1,x2)
+    plot(x1,x2)
+    ```
+    c. 
+    ```{r include=TRUE, echo=TRUE}
+    y_mod <- lm(y ~ x1 + x2)
+    summary(y_mod)
+    ```
+    From the summary, $\hat{\beta}_0=2.1305$, $\hat{\beta}_1=1.4296$, $\hat{\beta}_2=0.9097$. We can see that the estimates for $\hat{\beta}_1$ and $\hat{\beta}_2$ are not terribly close to the true estimate. We can reject the null hypothesis that $H_0:\beta_1=0$ at $\alpha=0.05$, but we cannot reject $H_0 : \beta_2 =0$. 
+    d.
+    ```{r include=TRUE, echo=TRUE}
+    y_mod <- lm(y ~ x1)
+    summary(y_mod)
+    ```
+    The evidence against the null has become much stronger in this case, and we can safely reject $H_0 : \beta_1 = 0$ at any reasonable confidence level. The estimate for $\beta_1$ is much closer to the true value as well. 
+    e.
+    ```{r include=TRUE, echo=TRUE}
+    y_mod <- lm(y ~ x2)
+    summary(y_mod)
+    ```
+    The results here suggest that we can reject $H_0: \beta_2 = 0$, but it appears that the estimate for the coefficient is off by quite a bit.
+    f. Due to colinearity, the results do contradict each other. We said that `x2` was not significant. Now we say it is highly significant. 
+    g.
+    ```{r include=TRUE, echo=TRUE}
+    x1=c(x1,0.1)
+    x2=c(x2,0.8)
+    y=c(y,6)
+    y_mod_12 <- lm(y ~ x1 + x2)
+    summary(y_mod_12)
+    ```
+    For the multiple linear regression, we cam see `x2` has become significant while `x1` has become non-significant.
+    ```{r include=TRUE, echo=TRUE}
+    y_mod_1 <- lm(y ~ x1)
+    summary(y_mod_1)
+    ```
+    For the linear regression of `y` onto `x1`, we can see that the estimate is now worse than before, and the standard error of $\hat{\beta}_1$ has increased. The $R^2$ dropped from .2024 to .1562, which is a serious drop for one extra observation.
+    ```{r include=TRUE, echo=TRUE}
+    y_mod_2 <- lm(y ~ x2)
+    summary(y_mod_2)
+    ```
+    As for `x2`, now our estimate is even more off, but the $R^2$ got even higher.
+    There are some interesting trade offs going between the `x1` and `x2` models. It seems like the one observation reversed the roles of the variables. To see why, let's investigate where our observation went versus the bulk of the data using a plot of `x2` vs `x1`.
+    ```{r include=TRUE, echo=TRUE}
+    plot(x1,x2)
+    ```
+    We can see from the plot that this observation is a serious outlier. It does not seem that far off from the rest of the data, so it is likely not a high leverage point.
     
+15.
+```{r include=TRUE, echo=TRUE}
+data(Boston,package="MASS")
+head(Boston)
+```
+    a. A good opportunity to automate things.
+    ```{r include=TRUE, echo=TRUE}
+    preds<-names(Boston)[-1]
+    mods<-list()
+    stats<-list()
+    for (i in seq(along=preds)){
+      p<-preds[i]
+      mods[[i]] <- lm(as.formula(paste0("crim ~ ",p)),data=Boston)
+    }
+    stats<-t(sapply(mods, function(x) coef(summary(x))[2,]))
+    r_squared<-sapply(mods,function(x) summary(x)$r.squared)
+    stats<-cbind(stats,r_squared)
+    rownames(stats) <-preds
+    (stats2<-stats[order(abs(stats[,"t value"]),decreasing=TRUE),])
+    ```
+    As we can see, a lot of these variables come out statistically significant. The only one we might not reject the null hypothesis is `chas`. I'll plot the first four.
+    ```{r include=TRUE, echo=TRUE}
+    best_vars<-rownames(stats)[1:4]
+    par(mfcol=c(2,2))
+    for (best_var in best_vars) {
+      plot(Boston[,best_var],Boston[,"crim"],ylab="crim",xlab=best_var)
+    }
+    ```
+    Wow. These plots looks like trash. It appears that even though we have strong evidence against the null hypothesis, the relationships are not very good.
+    b. 
+    ```{r include=TRUE, echo=TRUE}
+    multi_mod<-lm(crim ~ ., data=Boston)
+    summary(multi_mod)
+    ```
+    First things first, we see that the F-statistic is very large. I choose $\alpha=.005$. Under this, we can reject the null hypothesis on `dis`, `rad`, and `medv`.
+    c. We can see that every variable would reject the null hypothesis in part a. However, in part b, we only reject the null hypothesis for 3 variables. 
+    d. The automation pays off here.
+    ```{r include=TRUE, echo=TRUE}
+    plot(stats[,1],coef(multi_mod)[-1])
+    ```
+    It's hard to see what's happening in the plot, so let's just look at the coefficients next to each other.
+    ```{r include=TRUE, echo=TRUE}
+    cbind(stats[,1],coef(multi_mod)[-1])
+    ```
+    We can see from the table that the simple linear models did indeed give much larger coefficients than the multiple linear regression did. For some of them, we can even see that the multiple linear regression gave a coefficient that was opposte in sign, such as `ptratio`.
+    d.
     
