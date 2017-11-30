@@ -112,6 +112,7 @@ head(Auto)
 
 10. 
     ```{r include=TRUE, echo=TRUE}
+    data(Carseats,package="ISLR")
     head(Carseats)
     ```
     a. 
@@ -170,5 +171,34 @@ y=2*x+rnorm(100);
     Cancelling terms, we get
     $$(\sum_{i'=1}x_{i'}^2)(\sum_{i=1}^n y_i^2 ) - 2 (\sum_{i=1}^n y_i x_i)(\sum_{j=1}x_jy_j) + (\sum_{i=1}x_i^2)\frac{(\sum_{j=1}^n x_j y_j)^2}{\sum_{i'=1}x_{i'}^2} = (\sum_{i'=1}x_{i'}^2)(\sum_{i=1}^n y_i^2 ) - 2 (\sum_{i=1}^n y_i x_i)^2 + (\sum_{j=1}^n x_j y_j)^2 = (\sum_{i'=1}x_{i'}^2)(\sum_{i=1}^n y_i^2 ) -  (\sum_{i=1}^n y_i x_i)^2 $$
     This gives us the identity we wanted.
+    To confirm it numerically, 
+    ```{r include=TRUE, echo=TRUE}
+    n=100; xy=sum(x*y); x2=sum(x^2); y2=sum(y^2)
+    beta=xy/x2
+    sebeta=sqrt(sum((y-x*beta)^2)/((n-1)*x2))
+    t1=beta/sebeta
+    t2=sqrt(n-1)*xy/sqrt(x2*y2 - xy^2)
+    print(c(t1,t2))
+    ```
+    e. We can see that the second form the t-statistic is symmetric with respect to $x$ and $y$, so there is no algebraic difference between the -statistic for `y` onto `x` and `x` onto `y`.
+    f.
+    ```{r include=TRUE, echo=TRUE}
+    y_int <- lm(y ~ x)
+    x_int <- lm(x ~ y)
+    cbind(`y t-statistic`=coef(summary(y_int))["x","t value"],`x t-statistic`=coef(summary(x_int))["y","t value"])
+    ```
 12.
-    a. 
+    a. Let $\hat{\beta}_y$ be the estimate for $\beta$ of `y` onto `x` and $\hat{\beta}_x$ be the estimate for $\beta$ for `x` onto `y`. Then
+    $$\hat{\beta}_y = \hat{\beta}_x \implies \frac{\sum_{i=1}^n (x_iy_i)}{\sum_{i'=1} x_{i'}^2} = \frac{\sum_{i=1}^n (x_iy_i)}{\sum_{i'=1} y_{i'}^2} \implies \sum_{i'=1} x_{i'}^2 = \sum_{i'=1} y_{i'}^2$$
+    b. The example from 11. has two different $\hat{\beta}$'s.
+    c. The trick I do below is to create two samples. I then rescale the random `y` so that the sum of squares is the same as the `x` variable. This makes the two regression values the same.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(2)
+    n=100
+    x=rnorm(n)
+    y=rnorm(n)
+    y=y/sqrt(sum(y^2))*sqrt(sum(x^2)) #Rescaling so sum of squares is same for x and y
+    coef(summary(lm(y~x+0)))
+    coef(summary(lm(x~y+0)))
+    ```
+    
