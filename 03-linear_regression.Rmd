@@ -173,11 +173,11 @@ y=2*x+rnorm(100);
     This gives us the identity we wanted.
     To confirm it numerically, 
     ```{r include=TRUE, echo=TRUE}
-    n=100; xy=sum(x*y); x2=sum(x^2); y2=sum(y^2)
-    beta=xy/x2
-    sebeta=sqrt(sum((y-x*beta)^2)/((n-1)*x2))
-    t1=beta/sebeta
-    t2=sqrt(n-1)*xy/sqrt(x2*y2 - xy^2)
+    n<-100; xy<-sum(x*y); x2<-sum(x^2); y2<-sum(y^2)
+    beta<-xy/x2
+    sebeta<-sqrt(sum((y-x*beta)^2)/((n-1)*x2))
+    t1<-beta/sebeta
+    t2<-sqrt(n-1)*xy/sqrt(x2*y2 - xy^2)
     print(c(t1,t2))
     ```
     e. We can see that the second form the t-statistic is symmetric with respect to $x$ and $y$, so there is no algebraic difference between the -statistic for `y` onto `x` and `x` onto `y`.
@@ -194,10 +194,10 @@ y=2*x+rnorm(100);
     c. The trick I do below is to create two samples. I then rescale the random `y` so that the sum of squares is the same as the `x` variable. This makes the two regression values the same.
     ```{r include=TRUE, echo=TRUE}
     set.seed(2)
-    n=100
-    x=rnorm(n)
-    y=rnorm(n)
-    y=y/sqrt(sum(y^2))*sqrt(sum(x^2)) #Rescaling so sum of squares is same for x and y
+    n <- 100
+    x <- rnorm(n)
+    y <- rnorm(n)
+    y <- y/sqrt(sum(y^2))*sqrt(sum(x^2)) #Rescaling so sum of squares is same for x and y
     coef(summary(lm(y~x+0)))
     coef(summary(lm(x~y+0)))
     ```
