@@ -201,4 +201,86 @@ y=2*x+rnorm(100);
     coef(summary(lm(y~x+0)))
     coef(summary(lm(x~y+0)))
     ```
+
+13. 
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    n <- 100
+    x <- rnorm(n)
+    head(x)
+    ```
+    b. 
+    ```{r include=TRUE, echo=TRUE}
+    eps <- rnorm(n, sd=0.25);
+    ```
+    c. The length of `y` is $n=100$. 
+    ```{r include=TRUE, echo=TRUE}
+    y <- -1+.5*x+eps
+    ```
+    d.
+    ```{r include=TRUE, echo=TRUE}
+    plot(x,y);abline(-1,.5)
+    ```
+    e. The coefficient estimates are $\hat{\beta}_0 = -1.00942$, $\hat{\beta}_1 =  0.49973$. These are pretty close. The true values are within 1 standard error.
+    ```{r echo=TRUE}
+    y_mod <- lm(y~x)
+    summary(y_mod)
+    ```
+    f. The linear least squares line is in red. It almost perfectly overlaps the true $f$.
+    ```{r include=TRUE, echo=TRUE}
+    plot(x,y);abline(-1,.5);abline(coef(y_mod),col="red")
+    legend(x="bottomright",
+           c("True Line","Least Squares Line"),
+           col=c("black","red"),
+           lty=c(1,1))
+    ```
+    g. We can see evidence that the fit is better due to the $R^2$ being higher. The $R^2$ increased from 0.7784 to 0.7828.
+    ```{r include=TRUE, echo=TRUE}
+    y_quad <- lm(y ~ x+I(x^2))
+    summary(y_quad)
+    ```
+    h. By reducing the standard deviation 5 times, we can see the $R^2$ went up dramatically in the model.The t-values of the coefficients also went way up, so we are much more confident in our guesses for the coefficients. 
+    ```{r include=TRUE}
+    set.seed(1)
+    x <- rnorm(n,sd=.1)
+    eps <- rnorm(n,sd=.1)
+    y <- -1+.5*x+eps
+    y_less <- lm(y ~ x)
+    summary(y_less)
+    plot(x,y);abline(-1,.5);abline(coef(y_less),col="red")
+    legend(x="bottomright",
+           c("True Line","Least Squares Line"),
+           col=c("black","red"),
+           lty=c(1,1))
+    ```
+    Now for the qudratic model.
+    ```{r include=TRUE, echo=TRUE}
+    y_less_q <- lm(y ~ x + I(x^2))
+    summary(y_less_q)
+    ```
+    We see that the $R^2$ is basically the same as the linear model, suggesting that there was no improvement. In fact, the adjusted $R^2$ is lower by .0001, so this model is worse by that standard.
+    i. I set $\sigma$ to 1.
+    ```{r include=TRUE}
+    set.seed(1)
+    x <- rnorm(n)
+    eps <- rnorm(n,sd=1)
+    y2 <- -1+.5*x+eps
+    y_more <- lm(y2 ~ x)
+    summary(y_more)
+    plot(x,y);abline(-1,.5);abline(coef(y_more),col="red")
+    legend(x="bottomright",
+           c("True Line","Least Squares Line"),
+           col=c("black","red"),
+           lty=c(1,1))
+    ```
+    The estimates for the coefficients are still good, but now the $R^2$ is pretty pitiful. Let's try the quadratic fit.
+    ```{r include=TRUE, echo=TRUE}
+    y_more_q <- lm(y2 ~ x + I(x^2))
+    summary(y_less_q)
+    ```
+    Our $R^2$ went up a little, but more interestingly, the coefficient for the `x^2` term became statistically significant. However, the estimate for it is pretty tiny, it would be impercetible.
+
+14.
+    
     
