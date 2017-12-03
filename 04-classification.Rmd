@@ -1,0 +1,45 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Classification {#chap-3}
+
+1. Note that
+\begin{align*}
+1 - p(X) &= 1 - \frac{e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}} \\
+&= \frac{1 + e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}} - \frac{e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}} \\
+&= \frac{1}{1 + e^{\beta_0+\beta_1X}}\, .
+\end{align*}
+Then
+\begin{align*}
+\frac{p(X)}{1-p(X)} &= \frac{\frac{e^{\beta_0+\beta_1X}}{1 + e^{\beta_0+\beta_1X}}}{\frac{1}{1+e^{\beta_0+\beta_1X}}} \\
+&= e^{\beta_0+\beta_1X}\, .
+\end{align*}
+
+2. Since $p_k(x)$ has the same denominator for all $k$, so we can ignore it, so we are left with
+$$p_k^*(x) = \pi_k \frac{1}{\sqrt{2 \pi }\sigma} \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right)\, .$$
+In addition, the $\frac{1}{\sqrt{2 \pi}\sigma}$ term is the same, so we just need to maximize
+$$p_k^{**}(x) = \pi_k \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right)\, . $$
+Logarithms preserve order, i.e. if $p^{**}_i(x) < p^{**}_j(x)$, then $\log(p^{**}_i(x)) < \log(p^{**}_j(x))$. Taking a log of $p^{**}_k(x)$ gives
+\begin{align*}
+\log(p^{**}_k(x)) &= \log \left( \pi_k \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right) \right) \\
+&= \log(\pi_k) -\frac{1}{2 \sigma^2}(x - \mu_k)^2 \\
+&= \log(\pi_k) -\frac{1}{2 \sigma^2}(x^2 - 2x \mu_k + \mu_k^2) \\
+&= \log(\pi_k) - \frac{x^2}{2 \sigma^2} + \frac{x \mu_k}{\sigma^2} - \frac{\mu_k^2}{2 \sigma^2} \, .
+\end{align*}
+Since $\sigma^2$ is constant, we have that the $\frac{x^2}{2 \sigma^2}$ term is the same for all $\log(\pi^{**}(x))$ terms, so we can ignore it when maximizing. Removing this term from the last equation gives
+$$ \delta_k(x) = \log(\pi_k) + \frac{x \mu_k}{\sigma^2} -\frac{\mu_k^2}{2 \sigma^2} \, .$$
+From this we can conclude that maximizing our original equation is equivalent to maximizing the last equation.
+
+3. We can follow the arguments as the last problem, but we will end up with
+\begin{equation}
+p_k^*(x) = \pi_k \frac{1}{\sqrt{2 \pi }\sigma_k} \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right)\, .
+(\#eq:sigmak)
+\end{equation}
+Note that we can't drop the $\sigma_k$ as in problem 2 since it is unique for each population. Taking the log of the \@ref(eq:sigmak) we get
+\begin{align}
+\log(p_k^*(x)) &= \log(\pi_k) - \log(\sqrt(2 \pi) \sigma_k) + \frac{1}{2 \sigma_k^2} (x - \mu_k)^2 \nonumber \\
+&= \log(\pi_k) - \log(\sqrt(2 \pi) \sigma_k) + \frac{1}{2 \sigma_k^2} (x^2 - 2x\mu_k + \mu_k^2) \nonumber \\
+\end{align}
+Note that we cannot drop the $1/(2 \sigma_k^2)$ term since it varies between each group. Therefore, the above equation is quadratic.
