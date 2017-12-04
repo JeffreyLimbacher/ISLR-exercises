@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-# Classification {#chap-3}
+# Classification {#chap4}
 
 1. Note that
 \begin{align*}

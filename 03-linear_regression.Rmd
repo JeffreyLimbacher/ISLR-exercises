@@ -3,7 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-# Linear Regression {#chap}
+# Linear Regression {#chap3}
 
 1. The first null hypothesis, related to the `intercept` term stats that we can conclude that `sales` will not be zero if we spend no money on TV, radio, or newspaper advertisting. The rest of the null hypotheses test whether TV, radio, or newspaper have any effect on sales. From the `Intercept` p-value, we can conclude that if we spend no money on advertising, we would expect to some sales. The second and third p-values state that if we spend money or TV and radio, we can expect some sort of return on investment in terms of sales. From the `newspaper` p-value, we cannot reject the null hypothesis that radio has no effect on sales.
 
