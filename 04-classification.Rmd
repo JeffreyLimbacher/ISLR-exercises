@@ -43,3 +43,85 @@ Note that we can't drop the $\sigma_k$ as in problem 2 since it is unique for ea
 &= \log(\pi_k) - \log(\sqrt(2 \pi) \sigma_k) + \frac{1}{2 \sigma_k^2} (x^2 - 2x\mu_k + \mu_k^2) \nonumber \\
 \end{align}
 Note that we cannot drop the $1/(2 \sigma_k^2)$ term since it varies between each group. Therefore, the above equation is quadratic.
+
+4. 
+    a. The question is essentially asking us to compute $P(|X_2-X_1|<.05)$ where $X_2$ is our current observation and $X_1$ is our data. However, there is some issues along the edges of the interval that make it annoying to compute. I am going to ignore these since it won't really add much more value even though the answer is more accurate.
+    Given some $x$, the probability that our observation falls within $\pm 0.05$ of $x$ is $P(x-0.05 \leq X \leq x+0.05) = .1$. 
+    b. Same as before, given $(x_1,x_2) \in \mathbb{R}^2$, $P(x_1 - 0.05 \leq X_1 \leq x_1 + 0.05, x_2 - 0.05 \leq X_2 \leq x_2 + 0.05)$ $=P(x_1 - 0.05 \leq X_1 \leq x_1)P(x_2 - 0.05 \leq X_2 \leq x_2 + 0.05) $ $=P(x_1 - 0.05 \leq X_1 \leq x_1)^2 = 0.1^2 = 0.01$. I used independence to separate the probability into two probabilities, and then use i.i.d. assumption to conclude that the probabilities were equal.
+    c. It's clear what the pattern is at this point, $P(x_1 - 0.05 \leq X_1 \leq x_1 + 0.05, \dots, x_{100} - 0.05 \leq X_{100} \leq x_{100} + 0.05) = P(x_1 - 0.05 \leq X_1 \leq x_1 + 0.05) ^ 100 = 0.1^{100}$. That number is miniscule.
+    d. We can expect to find a very small amount of training data "near" our data set when $p$ is large. This means that we are using observations that are completely unlike our prediction value to try and guess the characteristics of $Y$.
+    e. If $l$ is the length of hypercube ($l \leq 1$), then $P(x_1 - \frac{l}{2} \leq X_1 \leq x_1 + \frac{l}{2}, \dots, x_p - \frac{l}{2} \leq X_p \leq x_p + \frac{l}{2}) = l^p$. Thus, if we want 10%, we need to find $l$ such that $\sqrt[p]{.1} = l$. I use `R` to calculate the lengths for some values of $p$.
+    ```{r include=TRUE, echo=TRUE}
+    p=c(1,2,3,10,25,50,100)
+    (cbind(p,.1^(1/p)))
+    ```
+    
+5.
+    a. Initially, I expected the QDA to outperform the LDA on every training set (similar to least squares), but below is an example where the QDA performs worse on the training set.
+    ```{r include=TRUE, echo=TRUE}
+    require(MASS)
+    set.seed(1)
+    n <- 1000
+    n1 <- 500
+    n2 <- n-n1
+    x <- c(rnorm(n1,-.25,1),rnorm(n2,.25,1))
+    y <- factor(rep(c(0,1),times=c(n1,n2)))
+    lda_wrong <- sum(predict(lda(y~x))$class!=y)
+    qda_wrong <- sum(predict(qda(y~x))$class!=y)
+    cbind(LDA=lda_wrong,QDA=qda_wrong)
+    ```
+    It's a little hard to say which is expected to do better, but I think the the LDA is better than QDA in general. The reason I suspect this has to do with the way the variance is calculated. If the Bayes decision boundary is linear, then know that for all $k$, $\sigma_k=\sigma$. So when we estimate $\sigma$, we can use the observations from all the different populations. But when we do QDA, we have to estimate $\sigma_k$ differently for each $k$. This means that we have to divide up our observations to estimate each $\sigma_k$. Thus, when using QDA, we might have a bunch of $\sigma_k$ that are slightly off from $\sigma$, creating a source of error. 
+    I think it is safe to concldue that LDA would do better on the test set. Otherwise, why even bother doing LDA?
+    b. This question depends on the non-linearity of the boundary. In general, we would expect QDA to outperform LDA on both training and test sets. However, one can image a tiny pertubration to linearity might still be better suited for LDA. For example, if $\sigma_1=\sigma+\epsilon$ and $\sigma_2=\sigma$ where $\epsilon$ is some number small relative to $\sigma$.
+    c. We would expect the test accuracy of QDA to improve versus LDA. This is because as we get more $n$, we get much better estimates to $\sigma_k$. If it turns out that $\sigma_k=\sigma$ for all $k$, then QDA will still capture this really well. Especially since variance estimates have diminishing returns relative to $n$.
+    d. False, for the reasons stated in a.
+    
+6.
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    b_0 <- -5; b_1 <- 0.05; b_2 <- 1
+    p <- exp(b_0 + b_1*40 + b_2*3.5)
+    p/(1+p)
+    ```
+    b. Note if $p = .5$, that means that
+    $$ \frac{1}{2} = \frac{\exp(\beta \cdot x)}{1+\exp(\beta \cdot x)} $$
+    or that $\exp(\beta \cdot x) = 1$. Note that I switched to vector notation. Taking logs of both sides, we have $\beta \cdot x = 0$. Going back to our problem-specific model, we have $\beta_0 + \beta_1 x_1 + \beta_2 x_2 = 0$. Solving for $x_2$ gives
+    $$x_2 = \frac{-\beta_0 - \beta_2 x_2}{\beta_1}$$
+    ```{r include=TRUE, echo=TRUE}
+    (-b_0 - b_2*3.5)/b_1
+    ```
+    
+7. 
+```{r include=TRUE, echo=TRUE}
+sigma <- 6
+mu1 <- 10
+mu2 <- 0
+pi1 <- .8
+pi2 <- 1 - pi1
+f1 <- dnorm(4,mu1,sigma)
+f2 <- dnorm(4,mu2,sigma)
+pi1*f1/(pi1*f1+pi2*f2)
+```
+
+8. Since we can expect a 1-nearest neighbor to have perfect test error, we know and the data set is divided evenly, that the test error was 36%, so we would go with the logsitic regression.
+
+9.
+    a. Let $O$ be the odds. $1/(1-p) = O$ gives $p=O/(1+O)$.
+    ```{r include=TRUE, echo=TRUE}
+    .37/(1+.37)
+    ```
+    b. 
+    ```{r include=TRUE, echo=TRUE}
+    .16/(1-.16)
+    ```
+    
+10.
+```{r include=TRUE, echo=TRUE}
+data(Weekly,package="ISLR")
+head(Weekly)
+```
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    summary(Weekly)
+    cor(Weekly[,-c(1,9)])
+    ```
