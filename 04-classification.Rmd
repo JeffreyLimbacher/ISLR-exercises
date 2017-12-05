@@ -125,3 +125,113 @@ head(Weekly)
     summary(Weekly)
     cor(Weekly[,-c(1,9)])
     ```
+    This graph is all pairwise comparisons of the predictors with the color denoting the direction. It's hard to see a trend here.
+    ```{r include=TRUE, echo=TRUE}
+    pairs(Weekly[-(8:9)],col=Weekly$Direction)
+    ```
+    Plotting the predictors against the `Today` variable also makes it hard to see any trends. 
+    ```{r include=TRUE echo=TRUE}
+    par(mfcol=c(3,2))
+    predictors <- c(paste0("Lag",1:5),"Volume")
+    for (p in predictors){
+      plot(Weekly[,p],Weekly[,"Today"],
+           ylab="Today",
+           xlab=p,
+           col=Weekly[,"Direction"])
+    }
+    ```
+    Boxplots prove unhelpful too.
+    ```{r include=TRUE, echo=TRUE}
+    par(mfcol=c(3,2))
+    for(p in predictors){
+      boxplot(as.formula(paste0(p,"~Direction")),data=Weekly)
+    }
+    ```
+    I'm out of ideas for plots. This is not an easy data set to work with.
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    glm.fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume,data=Weekly, family=binomial)
+    summary(glm.fit)
+    ```
+    The Lag2 is statistically significant at a p-value of .03, but this is a pretty low bar considering we have 6 predictors.
+    c. 
+    ```{r include=TRUE, echo=TRUE}
+    glm.probs <- predict(glm.fit,type="response")
+    glm.pred <- rep("Down",nrow(Weekly))
+    glm.pred[glm.probs > .5] <- "Up"
+    table(glm.pred,Weekly$Direction) #confusion table
+    sum(glm.pred==Weekly$Direction)/nrow(Weekly) #overall fraction of correct answers
+    ```
+    From the confusion table, we can see that our model is simply predicting `Up` a lot of times. Our overall accuracy of 56% isn't bad. Since the data is roughly divided between down and up, the overall accuracy is a good measure of how good our model is. Our model seems to say that just saying the market is going up is a pretty good bet most of the time.
+    d.
+    ```{r include=TRUE, echo=TRUE}
+    train.inds <- Weekly$Year <= 2008
+    train.data <- Weekly[train.inds,]
+    test.data <- Weekly[!train.inds,]
+    test.n <- nrow(test.data)
+    lag2.mod <- glm(Direction ~ Lag2, data=Weekly, family=binomial, subset=train.inds)
+    summary(lag2.mod)
+    ```
+    ```{r include=TRUE, echo=TRUE}
+    lag2.pred <- rep("Down",test.n)
+    lag2.probs <- predict(glm.fit,test.data,type="response")
+    lag2.pred[lag2.probs>.5] <- "Up"
+    table(lag2.pred,test.data$Direction)
+    sum(lag2.pred==test.data$Direction)/test.n
+    ```
+    e. 
+    ```{r include=TRUE, echo=TRUE}
+    library(MASS) #For lda function
+    lag2.lda<-lda(Direction ~ Lag2, data=train.data)
+    lag2.lda.pred <- predict(lag2.lda, test.data)$class
+    table(lag2.lda.pred,test.data$Direction)
+    sum(lag2.lda.pred==test.data$Direction)/test.n
+    ```
+    f.
+    ```{r include=TRUE, echo=TRUE}
+    library(MASS) #For lda function
+    lag2.qda<-qda(Direction ~ Lag2, data=train.data)
+    lag2.qda.pred <- predict(lag2.qda, test.data)$class
+    table(lag2.qda.pred,test.data$Direction)
+    sum(lag2.qda.pred==test.data$Direction)/test.n
+    ```
+    g. 
+    ```{r include=TRUE, echo=TRUE}
+    library(class)
+    set.seed(1)
+    train.X <- as.matrix(train.data[,"Lag2"])
+    train.Y <- as.matrix(train.data[,"Direction"])
+    test.X <- as.matrix(test.data[,"Lag2"])
+    test.Y <- as.matrix(test.data[,"Direction"])
+    lag2.knn.pred <- knn(train.X,test.X,train.Y,k=1)
+    table(lag2.knn.pred,test.Y)
+    sum(lag2.knn.pred == test.Y)/test.n
+    ```
+    h. It appears that both the LDA and the logistic regression performed similarly on the test set. Let's see which one has lower training error.
+    ```{r include=TRUE, echo=TRUE}
+    glm.probs <- predict(lag2.mod) #logistic regression
+    glm.preds <- rep("Down",length(glm.probs))
+    glm.preds[glm.probs>.5] <- "Up"
+    glm.train.acc <- sum(glm.preds == train.data$Direction)/nrow(train.data)
+    lda.preds <- predict(lag2.lda,type="response")$class
+    lda.train.acc <- sum(lda.preds == train.data$Direction)/nrow(train.data)
+    cbind(lda.train.acc,glm.train.acc)
+    ```
+    Since the LDA has higher training accuraccy, I will say that the LDA provides the best results.
+    i. I will simply experiment with different values of $K$.
+    ```{r include=TRUE, echo=TRUE}
+    k.vals <- 1:50
+    err <- double(50)
+    for (k in k.vals){
+      train.X <- as.matrix(train.data[,"Lag2"])
+      train.Y <- as.matrix(train.data[,"Direction"])
+      test.X <- as.matrix(test.data[,"Lag2"])
+      test.Y <- as.matrix(test.data[,"Direction"])
+      lag2.knn.pred <- knn(train.X,test.X,train.Y,k=k)
+      table(lag2.knn.pred,test.Y)
+      err[k]<-sum(lag2.knn.pred == test.Y)/test.n
+    }
+    plot(k.vals,err,type="b")
+    ```
+    The results are everywhere, but surprisingly, it seems like $k=1$ gives the best result on the test data.
+    
