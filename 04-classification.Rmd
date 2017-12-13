@@ -235,3 +235,98 @@ head(Weekly)
     ```
     The results are everywhere, but surprisingly, it seems like $k=1$ gives the best result on the test data.
     
+11.
+```{r include=TRUE, echo=TRUE}
+data(Auto,package="ISLR")
+head(Auto)
+```
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    Auto01 <- data.frame(Auto,mpg01=(as.integer(Auto$mpg >= median(Auto$mpg))))
+    ```
+    b. After fiddling around, I felt like boxplots were the best plot for almost all the views. The only view I don't use a boxplot for is `mpg01 ~ origin`. It seems like a lot of the variables are pretty good predictors. 
+    ```{r include=TRUE, echo=TRUE}
+    par(mfcol=c(2,3))
+    for (p in 2:7){
+      var<-names(Auto01)[p]
+      f <- as.formula(paste0(var,"~mpg01"))
+      boxplot(f ,xlab=names(Auto01)[p], data = Auto01)
+    }
+    plot(factor(Auto01$mpg01),factor(Auto01$origin),xlab="mpg01",ylab="origin")
+    ```
+    c. I will split the data into a 60% training set and a 40% test set.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(927)
+    n <- nrow(Auto01)
+    sample.inds<-sample.int(n, round(n*.6))
+    train<-Auto01[sample.inds,]
+    test<-Auto01[-sample.inds,]
+    ```
+    d. I exclude acceleration because the association appears weak. In addition, I leave out origin since I am not sure how it handles factor variables. The test error comes out to 11.5%.
+    ```{r include=TRUE, echo=TRUE}
+    require(MASS)
+    form <- mpg01 ~ cylinders + horsepower + displacement + weight + year
+    lda.mod <- lda(form, data=train)
+    lda.pred <- predict(lda.mod,test)$class
+    sum(lda.pred != test$mpg01)/nrow(test) # test error
+    ```
+    e. The test error for the QDA s 12.7%.
+    ```{r include=TRUE, echo=TRUE}
+    qda.mod <- qda(form, data=train)
+    qda.pred <- predict(qda.mod,test)$class
+    sum(qda.pred != test$mpg01)/nrow(test)
+    ```
+    f. Logistic regression gives 9.5% test error.
+    ```{r include=TRUE, echo=TRUE}
+    log.mod <- glm(form, data=train, family=binomial)
+    log.pred <- predict(log.mod, test, type="response")
+    log.pred <- ifelse(log.pred > .5, 1, 0)
+    sum(log.pred != test$mpg01)/nrow(test)
+    ```
+    g. It appears that $k=10$ is probably the best choice.
+```{r echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+    require(class)
+    set.seed(927)
+    res<-data.frame(ks=1:20,errs=1:20)
+    preds<-c(2:4,6)
+    for(i in seq(along=res$ks)){
+      k <- res$ks[i]
+      knn.pred <- knn(train[,preds],test[,preds],train[,"mpg01"],k=k)
+      res$errs[i] <- sum(knn.pred!=test$mpg01)/nrow(test)
+    }
+    plot(res$ks,res$err,type="b")
+    head(res[order(res$errs),])
+    ```
+    
+12. 
+    a.
+    ```{r include=TRUe, echo=TRUE}
+    Power <- function() print(2^3) 
+    Power()
+    ```
+    b.
+    ```{r include=TRUE echo=TRUE}
+    Power2 <- function(x,a) print(x^a)
+    Power2(3,8)
+    ```
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    Power2(10,3)
+    Power2(8,17)
+    Power2(131,3)
+    ```
+    d.
+    ```{r include=TRUE, echo=TRUE}
+    Power3 <- function(x,a) x^a
+    ```
+    e.
+    ```{r include=TRUE, echo=TRUE}
+    plot(1:10,Power3(1:10,2),main="f(x)=x^2",xlab="x",ylab="x^2",log="y")
+    ```
+    f.
+    ```{r include=TRUE, echo=TRUE}
+    PlotPower <- function(x, a) plot(x,Power3(x,a),main=paste0("f(x)=x^",a),ylab=paste0("x^",a))
+    PlotPower(1:10,3)
+    ```
+    
+13. 
