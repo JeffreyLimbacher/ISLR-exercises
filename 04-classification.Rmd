@@ -130,7 +130,7 @@ head(Weekly)
     pairs(Weekly[-(8:9)],col=Weekly$Direction)
     ```
     Plotting the predictors against the `Today` variable also makes it hard to see any trends. 
-    ```{r include=TRUE echo=TRUE}
+    ```{r include=TRUE, echo=TRUE}
     par(mfcol=c(3,2))
     predictors <- c(paste0("Lag",1:5),"Volume")
     for (p in predictors){
@@ -300,12 +300,12 @@ head(Auto)
     
 12. 
     a.
-    ```{r include=TRUe, echo=TRUE}
+    ```{r include=TRUE, echo=TRUE}
     Power <- function() print(2^3) 
     Power()
     ```
     b.
-    ```{r include=TRUE echo=TRUE}
+    ```{r include=TRUE, echo=TRUE}
     Power2 <- function(x,a) print(x^a)
     Power2(3,8)
     ```
