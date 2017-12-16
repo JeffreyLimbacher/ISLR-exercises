@@ -330,3 +330,20 @@ head(Auto)
     ```
     
 13. 
+```{r include=TRUE, echo=TRUE}
+data(Boston,package="MASS")
+head(Boston)
+```
+create our indicator variable to see if crime is above or below the median
+```{r include=TRUE, echo=TRUE}
+Boston$crim01 <- Boston$crim > median(Boston$crim)
+summary(Boston$crim01)
+```
+Let's look for relationships
+```{r include=TRUE, echo=TRUE}
+bp_vars <- c("zn", "indus", "nox", "rm","age","dis","tax","ptratio","black","lstat","medv") # variables I want to make boxplots of
+par(mfcol=c(3,4))
+for (v in bp_vars) {
+  boxplot(as.formula(paste0(v,"~ crim01")),data=Boston,main=v)
+}
+```
