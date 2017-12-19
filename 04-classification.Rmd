@@ -339,11 +339,23 @@ create our indicator variable to see if crime is above or below the median
 Boston$crim01 <- Boston$crim > median(Boston$crim)
 summary(Boston$crim01)
 ```
-Let's look for relationships
+Looking for relationships:
 ```{r include=TRUE, echo=TRUE}
 bp_vars <- c("zn", "indus", "nox", "rm","age","dis","tax","ptratio","black","lstat","medv") # variables I want to make boxplots of
 par(mfcol=c(3,4))
 for (v in bp_vars) {
   boxplot(as.formula(paste0(v,"~ crim01")),data=Boston,main=v)
 }
+plot(table(Boston$crim01,Boston$chas),main="Crim01 vs chas")
+```
+I will compare hand picked variables versus using all of them on train and test sets for all the different methods. I will use accuracy as our error metric since our data is very evenly split.
+```{r include=TRUE, echo=TRUE}
+train.inds <-sample.int(nrow(Boston)*.6)
+train <- Boston[train.inds,]
+test <- Boston[-train.inds,]
+vars.hand <- c("zn", "tax", "lstat", "Indus", "age", "ptratio", "nox", "dis")
+hand.form <- as.formula(paste0("crim01 ~",vars.hand))
+hand.mod <- glm(hand.form, data=train, family=Binomial)
+all.mod <- glm(crim01 ~ ., data=train, family=Binomial)
+
 ```
