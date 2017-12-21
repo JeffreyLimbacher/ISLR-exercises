@@ -346,16 +346,62 @@ par(mfcol=c(3,4))
 for (v in bp_vars) {
   boxplot(as.formula(paste0(v,"~ crim01")),data=Boston,main=v)
 }
-plot(table(Boston$crim01,Boston$chas),main="Crim01 vs chas")
+plot(table(Boston$crim01,Boston$chas),main="chas")
 ```
-I will compare hand picked variables versus using all of them on train and test sets for all the different methods. I will use accuracy as our error metric since our data is very evenly split.
+I will compare hand picked variables versus using all of them on train and test sets for all the different methods. I will use accuracy as our error metric since our data is very evenly split between above and below median. 
 ```{r include=TRUE, echo=TRUE}
-train.inds <-sample.int(nrow(Boston)*.6)
+require(caret)
+set.seed(1)
+train.inds <- createDataPartition(Boston$crim01,p=.6,list=FALSE,times=1)
 train <- Boston[train.inds,]
 test <- Boston[-train.inds,]
 vars.hand <- c("zn", "tax", "lstat", "Indus", "age", "ptratio", "nox", "dis")
 hand.form <- as.formula(paste0("crim01 ~",vars.hand))
-hand.mod <- glm(hand.form, data=train, family=Binomial)
-all.mod <- glm(crim01 ~ ., data=train, family=Binomial)
+hand.mod <- glm(hand.form, data=train, family=binomial)
+all.mod <- glm(crim01 ~ . - crim, data=train, family=binomial) #generates warning
+
+hand.pred <- predict(hand.mod, test, type="response") > .5
+all.pred <- predict(all.mod, test, type="response") > .5
+
+table(hand.pred, test$crim01)
+table(all.pred, test$crim01)
+
+mean(hand.pred == test$crim01)
+mean(all.pred==test$crim01)
 
 ```
+It seems like using all the variables is better. I'm curious if reducing via the `step` function will increase the accuracy.
+```{r echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+step.mod <- step(all.mod)
+step.pred <- predict(step.mod, test, type="response") > .5
+mean(step.pred == test$crim01)
+```
+
+I guess using all the predictors is the best choice here. Let's compare with all the other models.
+```{r echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+require(MASS)
+lda.mod <- lda(crim01 ~ . - crim, data=train)
+qda.mod <- qda(crim01 ~ . - crim, data=train)
+
+lda.pred <- predict(lda.mod, test)$class
+qda.pred <- predict(qda.mod, test)$class
+
+mean(lda.pred == test$crim01)
+mean(qda.pred == test$crim01)
+
+```
+
+
+```{r include=TRUE, echo=TRUE}
+require(class)
+train[,-15]<-scale(train[,-15])
+accs <- double()
+for(k in 1:30){
+  knn.pred <- knn(train[,-c(1,15)],test[,-c(1,15)],train$crim01,k=k)
+  accs[k]<-mean(knn.pred == test$crim01)
+}
+best.k <- which(accs==max(accs),arr.ind=TRUE)[1]
+accs[best.k]
+```
+
+It looks like logistic regression wins on just using all the predictors.
