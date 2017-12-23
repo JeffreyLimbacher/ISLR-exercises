@@ -1,0 +1,245 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Resampling Methods {#chap5}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Using the property that $Var(aX+bY) = a^2Var(X) + b^2Var(Y) + 2abCov(X,Y)$, 
+\begin{equation}
+Var(\alpha X + (1-\alpha)Y) = \alpha^2 \sigma_X^2 + (1-\alpha)^2 \sigma_Y^2 + 2\alpha (1-\alpha) \sigma_{XY} 
+(\#eq:prederivative)
+\end{equation}
+Taking the derivative with respect to $\alpha$ gives
+\begin{align*}
+\frac{d}{d\alpha} (\alpha^2 \sigma_X^2 + (1-\alpha)^2 \sigma_Y^2 + 2\alpha (1-\alpha) \sigma_{XY}) &= 2\alpha \sigma_X^2 - 2(1-\alpha)\sigma_Y^2 - 2(1-2\alpha) \sigma_{XY}\\
+&= 2\alpha(\sigma_X^2 + \sigma_Y^2 + 2 \sigma_{XY}) - 2( \sigma_Y^2 - \sigma_{XY})
+\end{align*}
+Setting equal to zero and solving we get
+\begin{align*}
+\alpha(\sigma_X^2 + \sigma_Y^2 + 2 \sigma_{XY}) &=  \sigma_Y^2 - \sigma_{XY}\\
+\alpha &= \frac{\sigma_Y^2 - \sigma_{XY}}{\sigma_X^2 + \sigma_Y^2 + 2 \sigma_{XY}}
+\end{align*}
+
+2. 
+    a. If we choose one at random, then the chance it is the $j$th observation is $\frac{1}{n}$, but we want the complement of that, so the probability is $1-\frac{1}{n}$
+    b. We are choosing with replacement, so that means we can draw the first observation again, so the probability stays the same, $1-\frac{1}{n}$. 
+    c. The chance of not choosing $j$ two times in a row is $(1-\frac{1}{n})(1-\frac{1}{n})=(1-\frac{1}{n})^2$ since these are independent since we draw with replacement. We are going to draw $n$ times, so it will be $(1-\frac{1}{n})^n$. 
+    d. `(1-1/5)^5=` `r (1-1/5)^5`
+    e. `(1-1/100)^100=` `r (1-1/100)^100`
+    f. `(1-1/10000)^10000=` `r (1-1/10000)^10000`
+    g. It's converging. Note it's horizontal for a lot of the values.
+    ```{r include=TRUE, echo=TRUE}
+    plot(1:100000,sapply(1:100000,FUN=function(x) (1-1/x)^x), type="l")
+    ```
+    h. 
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(927)
+    store <- rep(NA,10000)
+    for (i in 1:10000){
+      store[i]=sum(sample(1:100,rep=TRUE)==4)>0
+    }
+    mean(store)
+    ```
+    Note that `1-mean(store)=` `r 1-mean(store)`, which is close to our estimate of 100.
+3.
+    a. We divide up our data into $k$ sets. for each $i$, we train the data on the sets $1, \dots, i-1, i+1, \dots, k$. We then use the $i$th to get the mean test error. After we are done, we have $k$ mean test errors.
+    b. 
+        i. The validation set approach will only give us a single value estimate for the error. In addition, the error on the validation set is a poor reflection of the performance of the full model where we use all the data. $k$-fold CV also uses every single piece of data as both a train and test data point. The disadvantage if that each of our $k$ has more variability individually since our test errors are run on smaller sets. 
+        ii. $k$-fold CV is much less computationally intensive than LOOCV in general. $k$-fold also tends to give better estimates of the error over LOOCV. LOOCV however is computationally faster for linear approximators (i.e. they can be represented by a linear system such as $\hat{y} = Ay$).
+  
+4. We would use bootstrapping. In order to use it, we take a bootstrap sample of our $X$ data. We then run the model and estimate $Y$ at $X$. We do that 10,000 (or however many) times to get $Y_{(b)}$.. Once we do that, we can calculate the standard deviation of $Y_{(1)}, \dots, Y_{(10,000)}$. 
+
+5. 
+```{r include=TRUE, echo=TRUE}
+set.seed(927)
+data(Default,package="ISLR")
+head(Default)
+```
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    log.mod <- glm(default ~ income + balance, data=Default, family=binomial)
+    ```
+    b. 
+    ```{r include=TRUE, echo=TRUE}
+    run.validation <- function() {
+      n<-nrow(Default)
+      train.inds <- sample(n,n*.5,replace=FALSE) #i
+      valid.mod <- glm(default ~ income + balance, data=Default, subset=train.inds, family=binomial) #ii
+      valid.pred <- ifelse(predict(valid.mod, Default[-train.inds,], type="response")>.5,"Yes","No") #iii
+      mean(valid.pred == Default$default[-train.inds]) #iv
+    }
+    run.validation()
+    ```
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    for(i in 1:3){
+      print(run.validation())
+    }
+    ```
+    d.
+    ```{r include=TRUE, echo=TRUE}
+    for(i in 1:4){
+      n<-nrow(Default)
+      train.inds <- sample(n,n*.5,replace=FALSE) #i
+      valid.mod <- glm(default ~ income + balance + student, data=Default, subset=train.inds, family=binomial) #ii
+      valid.pred <- ifelse(predict(valid.mod, Default[-train.inds,], type="response")>.5,"Yes","No") #iii
+      print(mean(valid.pred == Default$default[-train.inds])) #iv
+    }
+    ```
+    The two error rates look pretty similar overall, so adding in student didn't help much. We can see this in the `summary` out of the model.
+    ```{r include=TRUE, echo=TRUE}
+    summary(valid.mod)
+    ```
+
+6.
+```{r include=TRUE, echo=TRUE}
+set.seed(927)
+data(Default,package="ISLR")
+head(Default)
+```
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    glm.mod <- glm(default ~ income + balance, data=Default, family=binomial)
+    summary(glm.mod)
+    ```
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    require(boot)
+    boot.fn <- function(data.set, inds) {
+      glm.mod <- glm(default ~ income + balance, data=data.set, subset=inds, family=binomial)
+      coef(glm.mod)
+    }
+    ```
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    boot(Default, boot.fn,R=1000)
+    ```
+    d. They are extremely close. They are the same magnitude, and agree on the first digit.
+    
+7.
+```{r include=TRUE, echo=TRUE}
+data(Weekly,package="ISLR")
+```
+    a. (What is the point of this partof the exercise?)
+    ```{r include=TRUE, echo=TRUE}
+    all.data <- glm(Direction ~ Lag1 + Lag2, data=Weekly, family=binomial)
+    ```
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    sans.first <- glm(Direction ~ Lag1 + Lag2, data=Weekly[-1,], family=binomial)
+    ```
+    c. 
+    ```{r include=TRUE, echo=TRUE}
+    (pred<-ifelse(predict(sans.first, Weekly[1,],type="response") > .5,"Up","Down"))
+    pred == Weekly$Direction[1]
+    ```
+    The model incorrectly classified the first result.
+    d.
+    ```{r include=TRUE, echo=TRUE}
+    errs <- double(nrow(Weekly))
+    for(i in 1:nrow(Weekly)){
+      i.mod<-glm(Direction ~ Lag1 + Lag2, data=Weekly[-i,], family=binomial)
+      pred<-ifelse(predict(i.mod,Weekly[i,],type="response")>.5,"Up","Down")
+      errs[i] <- pred != Weekly[i,]$Direction
+    }
+    ```
+    e. 
+    ```{r include=TRUE, echo=TRUE}
+    mean(errs)
+    ```
+    
+8. 
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    x<-rnorm(100)
+    y <- x-2*x^2 + rnorm(100)
+    ```
+    $n=100$, $p=1$. The model is $Y = X- 2*X^2+\epsilon$.
+    b. 
+    ```{r include=TRUE, echo=TRUE}
+    plot(x,y)
+    ```
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    simulated <- data.frame(x,y)
+    cv.est <- double(4)
+    set.seed(927)
+    for (i in 1:4){
+      cv.mod <- glm(y ~ poly(x,degree=i), data=simulated)
+      cv.err <- cv.glm(simulated, cv.mod)
+      cv.est[i] <- cv.err$delta[1]
+    }
+    cv.est
+    ```
+    d. These shouldn't differ since there is no randomization with LOOCV.
+    ```{r include=TRUE, echo=TRUE}
+    simulated <- data.frame(x,y)
+    cv.est <- double(4)
+    set.seed(1)
+    for (i in 1:4){
+      cv.mod <- glm(y ~ poly(x,degree=i), data=simulated)
+      cv.err <- cv.glm(simulated, cv.mod)
+      cv.est[i] <- cv.err$delta[1]
+    }
+    cv.est
+    ```
+    e. The smallest LOOCV estimate is the second model which is the quadratic model. This is what we expect since the original data set was simulated using a quadratic relationship.
+    f.
+    ```{r include=TRUE, echo=TRUE}
+    sums <- list(4)
+    for (i in 1:4){
+      cv.mod <- glm(y ~ poly(x,degree=i), data=simulated)
+      sums[[i]] <- summary(cv.mod)$coefficients
+    }
+    sums
+    ```
+    We get pretty high p-values for $\beta_3$ and $\beta_4$ coefficients, so our results agree with the conclusions based on the cross-validation results.
+    
+9.
+```{r include=TRUE, echo=TRUE}
+data(Boston, package="MASS")
+head(Boston)
+```
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    (mu.hat <- mean(Boston$medv))
+    ```
+    b. 
+    ```{r include=TRUE, echo=TRUE}
+    (mu.hat.se <- sd(Boston$medv)/sqrt(nrow(Boston)))
+    ```
+    c. 
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(927)
+    (mu.hat.boot<-boot(Boston$medv, function(x,i) mean(x[i]) , R=10000))
+    ```
+    The two estimates differ by less than 0.01.
+    d. 
+    ```{r include=TRUE, echo=TRUE}
+    boot.ci(mu.hat.boot,type="norm")
+    ```
+    e
+    ```{r include=TRUE, echo=TRUE}
+    (mu.med <- median(Boston$medv))
+    ```
+    f.
+    ```{r include=TRUE, echo=TRUE}
+    (mu.med.boot <- boot(Boston$medv, function(x,i) median(x[i]), R=10000))
+    boot.ci(mu.med.boot,type="norm")
+    ```
+    We can expect our median error to be within the CI given above.
+    g.
+    ```{r include=TRUE, echo=TRUE}
+    quantile(Boston$medv,probs=.1)
+    ```
+    f.
+    ```{r include=TRUE, echo=TRUE}
+    boot(Boston$medv, function(x,i) quantile(x[i],probs=.1), R=10000)
+    ```
+  
