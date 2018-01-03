@@ -1,0 +1,38 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Linear Model Selection and Regularization {#chap6}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.
+    a. Best subset will have the best training RSS. This is because it exhaustively searches every possible choice, whereas forward and backward-selection do not, so they might miss the optimal choice.
+    b. There is not enough information to conclude which one will have the smallest test RSS.
+    c.
+        i. True. Forward selection works by retaining the selectors chosen in the previous step.
+        ii. True. Backward selection removes the worst predictor at each step, retaining the predictors at the previous step.
+        iii. False. Backwards might select a different set than the forward selection at a given $k$.
+        iv. False.
+        v. False. Best subset might replace a predictor going from $k$ to $k+1$. See Table 6.1 on page 209.
+
+2.
+    a. iii is Correct. The tuning parameter allows us to select a simpler model. Since simpler models have less bias, we expect the error to go down as long as the increase in variance is less than the increase in bias.
+    b. iii, for the same reason.
+    c. ii is correct for non-linear models. They can fit a wider class of functions than just linear models (often linear is a subset). This means the model does not bias towards a specific class of functions. However, this comes at the cost of increased variance.
+
+3.
+    a. iv. is correct. As we increase $s$, we allow the $\beta_j$ more freedom is minimizing the square residuals. The more freedom we allow, the better we will fit the training data.
+    b. ii. is correct. At this point, we are facing the bias-variance trade-off which comes in the usual U-shaped curve. 
+    c. iii. We allow more flexibility in the model which means we will have more variance.
+    d. iv. As we increase $\lambda$, we bias away from only allowing a few large (relative to their least squares values) coefficients.
+    e. v. The irreducible error is not affected by the choice of model.
+    
+4. These answers are the same as 3.
+
+5.
+    a. We wish to minimize $(y_1 - \beta_1x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2$ subject to $\beta_1^2 + \beta_2^2 \leq s$.
+    b. If $x_{11} = x_{12}$ and $x_{21}=x_{22}$, then we can write $(y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2$.
