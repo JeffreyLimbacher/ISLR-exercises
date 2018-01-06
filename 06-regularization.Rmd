@@ -32,7 +32,166 @@ knitr::opts_chunk$set(echo = TRUE)
     e. v. The irreducible error is not affected by the choice of model.
     
 4. These answers are the same as 3.
+5. My solution to this is a little hand-wavey and not nearly rigorous enough. I will have to come back to it if it really irks me.
+    a. We wish to minimize 
+    \begin{equation}
+    (y_1 - \beta_1 x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 - \lambda( \beta_1^2 + \beta_2^2).
+    \end{equation}
+    b. If $x_{11} = x_{12}$ and $x_{21}=x_{22}$, then we can write 
+    \begin{equation}
+    \begin{split}
+    (y_1 - \beta_1 x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 = \\
+    (y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2
+    \end{split}
+    (\#eq:rewritten)
+    \end{equation}
+    Then we want to minimize
+    \begin{equation}
+    (y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2 + \lambda(\beta_1^2+\beta_2^2)
+    \end{equation}
+    there is some $\beta_1 + \beta_2 = c$ that minimizes the above solution. However, there are ininfitely many $\beta_1,\beta_2$ combinations such that $\beta_1 + \beta_2 = c$. Then note that $\beta_1 = c - \beta_2$. Plugging into $\lambda(\beta_1^2 - (c-\beta_1)^2)$ which has a known minimum at $\beta_1 = \beta_2$, thus there is only one solution, that is $\beta_1 = \beta_2$.
+    c. 
+    \begin{equation}
+    (y_1 - \beta_1x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 - \lambda( |\beta_1| + |\beta_2|).
+    \end{equation}
+    d. Same argument as before, but now we have that 
+    \begin{equation}
+    \begin{split}
+    (y_1 - \beta_1x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 = \\
+    (y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))
+    \end{split}
+    \end{equation}
+    and
+    \begin{equation}
+    (y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2 + \lambda(|\beta_1|+|\beta_2|).
+    \end{equation}
+    Now note that there is some $\beta_1+\beta_2 = c$ that minimizes the above equation. However, now $|\beta_1| + |\beta_2|$ has an infiniten umber of minimizers. Any such $\beta_1$ and $\beta_2$ such that $\beta_1+\beta_2=c$ works. Note that if $\beta_2 = c$, then $\beta_1=0$. Likewise, we can have $\beta_1 = c$ and $\beta_2 = 0$. The valid solutions are on the line $\beta_1 + \beta_2 = c$ such that $0 \leq \beta_1,\beta_2 \leq c$.
 
-5.
-    a. We wish to minimize $(y_1 - \beta_1x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2$ subject to $\beta_1^2 + \beta_2^2 \leq s$.
-    b. If $x_{11} = x_{12}$ and $x_{21}=x_{22}$, then we can write $(y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2$.
+6. 
+    a. The plot below shows $\beta$ versus $(y_1 - \beta)^2 + \lambda \beta^2$ on the solid black line. The red dotted line corresponds to where $y_1/(1+\lambda)$ is. We can see that the ridge regression value is minimized at the red dotted line.
+    ```{r include=TRUE, echo=TRUE}
+    y1 <- 1 #y
+    l <- 10 #lambda
+    betas <- seq(0,1,.01)
+    estimates <- (y1-betas)^2+l*betas^2
+    plot(betas,estimates,type="l")
+    abline(v=y1/(1+l),col="red",lty=2)
+    ```
+    b.The same plot is shown below. Since there is three cases, I made a plot for each
+    ```{r include=TRUE, echo=TRUE}
+    par(mfcol=c(2,2))
+    ys=c(-1,0,1)
+    for(y1 in ys){
+      l <- 1 #lambda
+      betas <- seq(-1,1,.01)
+      estimates <- (y1-betas)^2+l*abs(betas)
+      plot(betas,estimates,type="l")
+      best_est <- y1 - l/2
+      if(y1 < -l/2) best_est <- y1 + l/2
+      else if(abs(y1) <= l/2) best_est<-0;
+      abline(v=best_est,col="red",lty=2)
+    }
+    ```
+    
+7.
+    a. The likelihood for this function will be 
+    \begin{equation}
+    \begin{split}
+    L &= \prod_{i=1}^n \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left(-\frac{(y_i - (\beta_0 + \sum_{j=1}^px_{ij}\beta_j))^2}{2\sigma^2} \right)\\
+    &= \left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2}{2 \sigma^2} \right)
+    \end{split}
+    \end{equation}
+    b. The posterior is
+    \begin{equation}
+    \begin{split}
+    &\left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2}{2 \sigma^2} \right) \prod_{j=1}^n \frac{1}{2b} \exp \left(\frac{-|\beta_j|}{b} \right)\\
+    =& \left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2 - \frac{2\sigma^2}{b} \sum_{j=1}^n |\beta_j|}{2 \sigma^2} \right)
+    \end{split}
+    (\#eq:likelihood)
+    \end{equation}
+    c. Looking at this last equation, we can see that if we let $\lambda = \frac{2 \sigma^2}{b}$, then the when we minimize
+    \begin{equation}
+    \sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2 - \lambda \sum_{j=1}^n |\beta_j|
+    \end{equation}
+    then we maximize \@ref(eq:likelihood). Maximizing \@ref(eq:likelihood) is equivalent to the mode.
+    d.
+    \begin{equation}
+    \begin{split}
+    &\left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2}{2 \sigma^2} \right) \prod_{j=1}^n \frac{1}{\sqrt{2 \pi c}} \exp \left(-\frac{\beta_j^2}{2c} \right) \\
+    =& \left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij} \beta_j))^2 + \frac{\sigma^2}{c} \sum_{j=1}^p \beta_j^2}{2 \sigma^2} \right)
+    \end{split}
+    (\#eq:likelihoodridge)
+    \end{equation}
+    e. Now let $\lambda = \frac{\sigma^2}{c}$. 
+    \begin{equation}
+    \left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij} \beta_j))^2 + \lambda \sum_{j=1}^p \beta_j^2}{2 \sigma^2} \right)
+    \end{equation}
+    Ridge regression minimizes
+    \begin{equation}
+    \sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij} \beta_j))^2 + \lambda \sum_{j=1}^p \beta_j^2
+    (\#eq:quad)
+    \end{equation}
+    and therefore minimizes \@ref(eq:likelihoodridge), so is the mode. It is also the mean since the exponent \@ref(eq:quad) is a quadratic function which is symmetric around its minimum.
+    
+8.
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(927)
+    x <- rnorm(100)
+    eps <- rnorm(100)
+    ```
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    b_0 <- 2; b_1 <- 2; b_2 <- .5; b_3 <- .5
+    y <- b_0 + b_1 * x + b_2 * x^2 + b_3 * x^3
+    ```
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    library(leaps)
+    regfit.full <- regsubsets(y ~ poly(x, degree=10, raw=TRUE), data=data.frame(x,y),nvmax=11)
+    reg.summary <- summary(regfit.full)
+    print("Best adjr2 model")
+    coef(regfit.full, id=which.max(reg.summary$adjr2))
+    print("Best BIC model")
+    coef(regfit.full, id=which.min(reg.summary$bic))
+    print("Best Cp model")
+    coef(regfit.full, id=which.min(reg.summary$cp))
+    ```
+    We can see that they all return the 3 variable model, which is good. Below is a plot of the three different measures. 
+    ```{r include=TRUE, echo=TRUE}
+    par(mfcol=c(2,2))
+    plot(reg.summary$adjr2,xlab="Number of Variables", ylab="Adjusted R^2", type="l")
+    plot(reg.summary$bic,xlab="Number of Variables", ylab="BIC", type="l")
+    plot(reg.summary$cp,xlab="Number of Variables", ylab="AIC", type="l")
+    ```
+    We can see that the plots all cap out or minimize basically at three. 
+    d. 
+    ```{r include=TRUE, echo=TRUE}
+    regfit.fwd <- regsubsets(y~poly(x,degree=10,raw=TRUE), data=data.frame(x,y),nvmax=11, method="forward")
+    reg.summary.f <- summary(regfit.fwd)
+    print("Best foward adjr2 model")
+    coef(regfit.full, id=which.max(reg.summary.f$adjr2))
+    print("Best forward BIC model")
+    coef(regfit.full, id=which.min(reg.summary.f$bic))
+    print("Best forward Cp model")
+    coef(regfit.full, id=which.min(reg.summary.f$cp))
+    ```
+    The forward still returns the three variable models.
+    ```{r include=TRUE, echo=TRUE}
+    regfit.bwd <- regsubsets(y~poly(x,degree=10,raw=TRUE), data=data.frame(x,y),nvmax=11, method="backward")
+    reg.summary.b <- summary(regfit.bwd)
+    print("Best backward adjr2 model")
+    coef(regfit.full, id=which.max(reg.summary.b$adjr2))
+    print("Best backward BIC model")
+    coef(regfit.full, id=which.min(reg.summary.b$bic))
+    print("Best backward Cp model")
+    coef(regfit.full, id=which.min(reg.summary.b$cp))
+    ```
+    The backwards also chooses the 3 variable models. Let's compare the results for the BIC to see if they were the same for all the models.
+    ```{r include=TRUE, echo=TRUE}
+    rbind(full=reg.summary$bic,
+          forward=reg.summary.f$bic,
+          backward=reg.summary.b$bic)
+    ```
+    All the same!
+    
