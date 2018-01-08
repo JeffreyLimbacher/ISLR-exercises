@@ -180,6 +180,8 @@ knitr::opts_chunk$set(echo = TRUE)
     ```{r include=TRUE, echo=TRUE}
     regfit.bwd <- regsubsets(y~poly(x,degree=10,raw=TRUE), data=data.frame(x,y),nvmax=11, method="backward")
     reg.summary.b <- summary(regfit.bwd)
+    print("True coefficients")
+    c(b_0,b_1,b_2,b_3)
     print("Best backward adjr2 model")
     coef(regfit.full, id=which.max(reg.summary.b$adjr2))
     print("Best backward BIC model")
@@ -193,5 +195,227 @@ knitr::opts_chunk$set(echo = TRUE)
           forward=reg.summary.f$bic,
           backward=reg.summary.b$bic)
     ```
-    All the same!
+    e. 
+    ```{r include=TRUE, echo=TRUE}
+    library(glmnet)
+    set.seed(1)
+    x.mod <- model.matrix(y ~ poly(x,degree=10,raw=TRUE), data=data.frame(x=y,y=y))[,-1]
+    cv.out <- cv.glmnet(x.mod,y,alpha=1)
+    plot(cv.out)
+    bestlam<-cv.out$lambda.min
+    lambda.mod <- glmnet(x.mod,y,alpha=1)
+    predict(lambda.mod,type="coefficients",s=bestlam)
+    ```
+    The results of the Lasso aren't great. I imagine this is because the linear model is perfect, so I don't see how the Lasso would improve on anything.
+    f. 
+    ```{r include=TRUE, echo=TRUE}
+    b_7 <- 2.5
+    y7 <- b_0 + b_0 * x^7 + eps
+    deg7.full <- regsubsets(y7 ~ poly(x,degree=10,raw=TRUE),data.frame(x,y7))
+    print("Best Cp model")
+    coef(deg7.full, id=which.min(reg.summary$cp))
+    x7.mod <- model.matrix(y7 ~ poly(x,degree=10), data=data.frame(x,y7))[,-1]
+    cv.out <- cv.glmnet(x7.mod,y7,alpha=1)
+    bestlam <- cv.out$lambda.min
+    lambda.mod <- glmnet(x.mod,y7,alpha=1)
+    predict(lambda.mod,type="coefficients",s=bestlam)
+    ```
+    Once again, the regular linear regression out performs the lasso. Lasso is performing pretty terribly. Am I doing something wrong?
     
+9.
+```{r include=TRUE, echo=TRUE}
+data(College,package="ISLR")
+n<-nrow(College)
+```
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    train <- sample(1:n, n/2)
+    test <- (-train)
+    #reference MSE if using just the mean
+    y.test <- College$Apps[test]
+    y.train <- College$Apps[train]
+    (ref.err<-mean((mean(y.test)-y.test)^2))
+    ```
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    lm.mod <- lm(Apps ~ ., data=College[train,])
+    lm.pred <- predict(lm.mod, College[test,])
+    (lm.err<-mean((lm.pred-y.test)^2))
+    ```
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    x.mod <- model.matrix(Apps ~ ., data=College)[,-1]
+    ridge.mod.cv<-cv.glmnet(x.mod[train,],y.train,alpha=0)
+    ridge.best.lam <- ridge.mod.cv$lambda.min
+    ridge.mod <- glmnet(x.mod[train,],y.train,alpha=0)
+    ridge.pred <- predict(ridge.mod,newx=x.mod[test,],s=ridge.best.lam)
+    (ridge.err<-mean((ridge.pred-y.test)^2))
+    ```
+    d.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    x.mod <- model.matrix(Apps ~ ., data=College)[,-1]
+    lasso.mod.cv <- cv.glmnet(x.mod[train,],y.train,alpha=1)
+    lasso.best.lam <- lasso.mod.cv$lambda.min
+    lasso.mod <- glmnet(x.mod[train,],y.train,alpha=1)
+    lasso.pred <- predict(lasso.mod,newx=x.mod[test,],s=lasso.best.lam)
+    (lasso.err<-mean((lasso.pred-y.test)^2))
+    ```
+    e.
+    ```{r include=TRUE, echo=TRUE}
+    library(pls)
+    set.seed(1)
+    pcr.mod <- pcr(Apps ~ ., data=College, subset=train, scale=TRUE, validation="CV")
+    validationplot(pcr.mod,val.type="MSEP")
+    summary(pcr.mod)
+    pcr.pred <- predict(pcr.mod,College[test,],ncomp=16)
+    (pcr.err<-mean((pcr.pred-y.test)^2))
+    ```
+    f. For Partial Least Squares, a lot of the componenets have roughly the same CV after 4 components.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    pls.mod <- plsr(Apps ~ ., data=College, subset=train, validation="CV")
+    validationplot(pls.mod, val.type="MSEP")
+    summary(pls.mod)
+    pls.pred <- predict(pls.mod,College[test,],ncomp=4)
+    (pls.err<-mean((pls.pred-y.test)^2))
+    ```
+    g. The lasso and ridge performed better than the rest of the methods. We can see that the lasso did the best, whereas PLS did the worst. In addition, just a linear model outperformed both PCR and PLS.
+    ```{r include=TRUE, echo=TRUE}
+    rbind(ref.err,lm.err,ridge.err,lasso.err,pcr.err,pls.err)
+    ```
+  
+10.
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    X <- rnorm(20*1000)
+    dim(X) <- c(1000,20)
+    (B <- sample(c(-2,-1,-.5,0,.5,1,2),size=20,replace=TRUE,prob=c(1,1,1,10,1,1,1)))
+    Y<-X%*%B+rnorm(20)
+    ```
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    train <- sample.int(1000,size=100)
+    test <- - train
+    ```
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    library(leaps)
+    full.fit <- regsubsets(Y~.,data=data.frame(Y,X)[train,],nvmax=20)
+    X.mod <- model.matrix(Y ~ X)
+    val.errors <- double(20)
+    for(i in 1:20){
+      coefi<-coef(full.fit,id=i)
+      pred <- X.mod[train,names(coefi)]%*%coefi
+      val.errors[i]=mean((Y[train]-pred)^2)
+    }
+    plot(val.errors,type='l')
+    points(val.errors,pch=4)
+    abline(v=which.min(val.errors),col="red",lty=2)
+    ```
+    d. The minimum occurs at 8 variables, which is true to the original $\beta$.
+    ```{r include=TRUE, echo=TRUE}
+    test.errs <- double(20)
+    for(i in 1:20){
+      coefi<-coef(full.fit,id=i)
+      pred <- X.mod[test,names(coefi)]%*%coefi
+      test.errs[i]=mean((Y[test]-pred)^2)
+    }
+    plot(test.errs,type='l')
+    points(test.errs,pch=4)
+    abline(v=which.min(test.errs),lty=2,col="red")
+    ```
+    f. The minimum value occurs at 8 variables, which is true to our model, `sum(B==0)=` `r sum(B==0)`. Comparing the coefficients:
+    ```{r include=TRUE, echo=TRUE}
+    names(B) <- colnames(X.mod)[2:21]
+    True.B <- B[B!=0]
+    True.B <- c(`(Intercept)`=0,True.B)
+    Fitted <- coef(full.fit,id=8)
+    rbind(True.B, Fitted, Err=(True.B-Fitted))
+    ```
+    g. 
+    ```{r include=TRUE, echo=TRUE}
+    norms <- double(20)
+    B2 <- c(0,B)
+    names(B2) <- colnames(X.mod)
+    for(i in 1:20){
+      coefi <- coef(full.fit,id=i)
+      temp<-rep(0,21)
+      names(temp)<-colnames(X.mod)
+      temp[names(coefi)] <- coefi
+      norms[i]=sqrt(sum((B2-temp)^2))
+    }
+    plot(norms,xlab="r",ylab="norm",type="l")
+    ```
+    We can see that it looks pretty similar to the test MSE plot. The minimum of the plot occurs at `r which.min(norms)`, which is the same as the index of the test errors, `r which.min(test.errs)`.
+    
+11.
+```{r include=TRUE, echo=TRUE}
+data(Boston,package="MASS")
+head(Boston)
+Boston.mat <- model.matrix(crim ~ ., Boston)
+```
+    a. First, split up the set into a test set and a training set.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    train<-sample.int(nrow(Boston),size=nrow(Boston)*.5)
+    test<--train
+    y.train <- Boston$crim[train]
+    y.test <- Boston$crim[test]
+    ```
+    First linear models. I use best subsets to select the best train set using BIC, then get the MSE on the test set.
+    ```{r include=TRUE, echo=TRUE}
+    full.fit <- regsubsets(crim ~ ., data=Boston[train,],nvmax=ncol(Boston))
+    lm.best.coef <- coef(full.fit,id=which.min(summary(full.fit)$bic))
+    lm.pred <- Boston.mat[test,names(lm.best.coef)]%*%lm.best.coef
+    (lm.err <- mean((lm.pred-y.test)^2))
+    ```
+    ```{r include=TRUE, echo=TRUE}
+    full.lm.mod <- lm(crim ~ ., Boston, subset=train)
+    lm.full.pred <- predict(full.lm.mod, Boston[test,])
+    (lm.full.err <- mean((lm.full.pred - y.test)^2))
+    ```
+    Next, Ridge and Lasso using cross validation.
+    ```{r include=TRUE, echo=TRUE}
+    library(glmnet)
+    runGlmNet <- function(alpha) {
+      set.seed(927)
+      cv <- cv.glmnet(Boston.mat[train,],y.train,alpha=alpha)
+      best.lam <- cv$lambda.min
+      mod <- glmnet(Boston.mat[train,],y.train,alpha=alpha)
+      pred <- predict(mod,newx=Boston.mat[test,],s=best.lam)
+      err<-mean((pred-y.test)^2)
+      list(mod=mod,cv=cv,best.lam=best.lam,err=err)
+    }
+    #Ridge first
+    ridge.mod<-runGlmNet(0)
+    ridge.mod$err
+    #Lasso
+    lasso.mod<-runGlmNet(1)
+    lasso.mod$err
+    ```
+    Last, PCR. 9 components looks pretty good.
+    ```{r include=TRUE, echo=TRUE}
+    library(pls)
+    set.seed(927)
+    pcr.mod <- pcr(crim~.,data=Boston,subset=train,scale=TRUE,validation="CV")
+    summary(pcr.mod)
+    validationplot(pcr.mod,val.type = "MSEP")
+    pcr.pred <- predict(pcr.mod,Boston[test,],ncomp=9)
+    (pcr.err <- mean((pcr.pred-y.test)^2))
+    ```
+    Now let's summarize the errors:
+    ```{r include=TRUE, echo=TRUE}
+    lasso.err <- lasso.mod$err
+    ridge.err <- ridge.mod$err
+    rbind(lm.err, lm.full.err, ridge.err, lasso.err, pcr.err)
+    ```
+    It appears Lasso outperforms the rest of the models, but ridge is close behind. PCR doesn't do too well. Our best subsets didn't improve on the full lm either using the validation set approach, but they are close that it might not be significant.
+    b. I'll just propose the Lasso model
+    ```{r include=TRUE, echo=TRUE}
+    coef(lasso.mod$mod, s=lasso.mod$best.lam)
+    ```
+    c. We can see that Lasso only removed two coefficients. 
