@@ -5,9 +5,6 @@ output:
 ---
 
 # Resampling Methods {#chap5}
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 1. Using the property that $Var(aX+bY) = a^2Var(X) + b^2Var(Y) + 2abCov(X,Y)$, 
 \begin{equation}

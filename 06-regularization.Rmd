@@ -5,9 +5,7 @@ output:
 ---
 
 # Linear Model Selection and Regularization {#chap6}
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 1.
     a. Best subset will have the best training RSS. This is because it exhaustively searches every possible choice, whereas forward and backward-selection do not, so they might miss the optimal choice.
