@@ -1,0 +1,95 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Moving Beyond Linearity {#chap7}
+
+1.
+    a. Note that if we have $x \leq \xi$, then $(x- \xi)^3_+= 0$, so $f(x)$ reduces to
+    \begin{align}
+    f(x) &= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4(x-\xi)^3_+ \\
+    &= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3\, .
+    \end{align}
+    This gives coefficients $a_1 = \beta_0$, $b_1 = \beta_1$, $c_1 = \beta_2$, $d_1 = \beta_3$.
+    b. Remember that $(x-\xi)^3 = x^3 - 3x^2 \xi + 3x \xi^2 - \xi^3$. Then expanding $(x-\xi)^3_+$ within $f(x)$ gives
+    \begin{align}
+    f(x) &= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4(x-\xi)^3_+ \nonumber \\
+    &= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4(x^3 - 3x^2 \xi + 3x \xi^2 - \xi^3) \nonumber \\
+    &= \beta_0 - \beta_4\xi^3 + (\beta_1+ 3 \beta_4 \xi^2)x + (\beta_2 - 3 \beta_4 \xi)x^2 + (\beta_3 + \beta_4) x^3 \, .
+    (\#eq:expandedf)
+    \end{align}
+    Equating $f_2(x)$ with \@ref(eq:expandedf), we get that $a_2 = \beta_0 - \beta_4 \xi^3$, $b_2 = \beta_1 + 3 \beta_4 \xi^3$, $c_2 = \beta_2 - 3 \beta_4 \xi$, and $d_4 = \beta_3 + \beta_4$.
+    c. Directly plugging into $f_1(x)$,
+    \begin{equation}
+    f_1(\xi) = \beta_0 + \beta_1 \xi + \beta_2 \xi^2 + \beta_3 \xi^3\, .
+    \end{equation}
+    Plugging into $f_2(x)$,
+    \begin{align}
+    f_2(\xi) &= \beta_0 - \beta_4 \xi^3 + (\beta_1 + 3\beta_4 \xi^2)\xi +(\beta_2 - 3 \beta_4 \xi)\xi^2 + (\beta_3 + \beta_4) \xi^3 \\
+    &= \beta_0 - \beta_4 \xi^3 + \beta_1\xi + 3\beta_4\xi^3 + \beta_2\xi^2 - 3\beta_4\xi^3 + \beta_3 + \beta_4 \xi^3 \\
+    &= \beta_0 - \beta_1 \xi + \beta_2 \xi^2 + \beta_3\xi^3\, .
+    \end{align}
+    This gives us that $f_1(\xi) = f_2(\xi)$.
+    d. First note that
+    \begin{align}
+    f_1'(x) &= \beta_1+2\beta_2x + 3\beta_3x^2  \, ,\\
+    f_2'(x) &= \beta_1 + 3\beta_4\xi^2 + 2(\beta_2- 3\beta_4\xi)x + 3(\beta_3+\beta_4)x^2 \, .
+    \end{align}
+    Plugging in $\xi$ into $f_1'(x)$,
+    \begin{equation}
+    f_1'(\xi) = \beta_1+2\beta_2 \xi + 3\beta_3 \xi^2
+    \end{equation}
+    Plugging $\xi$ into $f_2'(x)$,
+    \begin{align}
+    f_2'(\xi) &= \beta_1 + 3\beta_4\xi^2 + 2(\beta_2- 3\beta_4\xi)\xi + 3(\beta_3+\beta_4)\xi^2\\
+    &= \beta_1 + 3 \beta_4 \xi^2 + 2\beta_2 \xi - 6\beta_4 \xi^2 + 3\beta_3\xi^2 + 3\beta_4\xi^2\\
+    &= \beta_1 + 2\beta_2 \xi + 3\beta_3 \xi^2
+    \end{align}
+    which is $f_1'(\xi)$.
+    e. 
+    We have
+    \begin{align}
+    f_1''(x) &= 2\beta_2 + 6\beta_3 x \, , \\
+    f_2''(x) &= 2\beta_2 - 6\beta_4 \xi + (6\beta_3 + 6\beta_4) x \, .
+    \end{align}
+    So,
+    \begin{equation}
+    f_1''(\xi) = 2\beta_2 + 6\beta_3 \xi \, .
+    \end{equation}
+    And plugging $\xi$ into $f_2''(x)$, we have
+    \begin{align}
+    f_2''(\xi) &= 2\beta_2 - 6\beta_4 \xi + (6\beta_3 + 6\beta_4) \xi \\
+    &= 2 \beta_2 - 6\beta_4 \xi + 6 \beta_3 \xi + 6 \beta_4 \xi \\
+    &= 2\beta_2 + 6\beta_3 \xi \, .
+    \end{align}
+    This shows that $f_1''(\xi) = f_2''(\xi)$.
+    
+2. I'm not interested in sketching as much as describing the class of solutions and which solution is best within each one.
+    a. If $m=0$, then we are saying then if $g(x)>0$ at any point (ignoring issues of measure), then $\lambda \int g(x)^2 dx \rightarrow \infty$ as $\lambda \rightarrow \infty$, so the only solution of $\hat{g}$ is $\hat{g}(x) = 0$.
+    b. This must be a constant function since $f'(x) = 0$ for any constant function $f$. In this case, the solution that minimizes the error would be $\hat{g}(x) = \bar{y}$. 
+    c. In this case, it is a linear function since $f''(x) = 0$ for any linear function. This reduces to the linear least squares solution.
+    d. This would be a quadratic solution linear least squares fit.
+    e. Since $\lambda=0$, we would probably be the same in the case of $\lambda=0$ and $m=2$, so we would get an interpolating spline.
+    
+3.
+```{r include=TRUE, echo=TRUE}
+x <- seq(-2,2,.01)
+y <- 1 + 1*x + (x-1)^2*(x>=1)
+plot(x,y,type="l")
+```
+
+4. Before we even plot, we can note that $b_2$ actually has no effect for $x \in [-2,2]$. 
+```{r include=TRUE, echo=TRUE}
+x <- seq(-2, 2, .01)
+b1 <- function(x) (x >= 0 & x<=2)-(x-1)*(x>=1 & x<=2)
+b2 <- function(x) (x-3)*(x>=3 & x<=4)+(x>4 & x<=5)
+y <- 1 + b1(x) + 3*b2(x)
+plot(x,y,type="l")
+```
+
+5.
+    a. As $\lambda \rightarrow \infty$, $\hat{g}_4$ will have the smaller training RSS. That is because it is allowed to have more variability.
+    b. As $\lambda \rightarrow \infty$, we cannot know if $\hat{g}_1$ or $\hat{g}_2$ will have lower test RSS. We do not know what the true response is, so it is possible it is a very high degree polynomial, in which case $\hat{g}_2$ will fit it better. However, if the true response is a line, then $\hat{g}_4#$
+    c. 
