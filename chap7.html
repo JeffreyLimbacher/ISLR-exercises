@@ -25,7 +25,7 @@
 <meta name="author" content="Jeffrey Limbacher">
 
 
-<meta name="date" content="2018-01-13">
+<meta name="date" content="2018-01-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -218,10 +218,49 @@ y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</sp
 <ol start="5" style="list-style-type: decimal">
 <li><ol style="list-style-type: lower-alpha">
 <li>As <span class="math inline">\(\lambda \rightarrow \infty\)</span>, <span class="math inline">\(\hat{g}_4\)</span> will have the smaller training RSS. That is because it is allowed to have more variability.</li>
-<li>As <span class="math inline">\(\lambda \rightarrow \infty\)</span>, we cannot know if <span class="math inline">\(\hat{g}_1\)</span> or <span class="math inline">\(\hat{g}_2\)</span> will have lower test RSS. We do not know what the true response is, so it is possible it is a very high degree polynomial, in which case <span class="math inline">\(\hat{g}_2\)</span> will fit it better. However, if the true response is a line, then <span class="math inline">\(\hat{g}_4#\)</span></li>
-<li></li>
+<li>As <span class="math inline">\(\lambda \rightarrow \infty\)</span>, we cannot know if <span class="math inline">\(\hat{g}_1\)</span> or <span class="math inline">\(\hat{g}_2\)</span> will have lower test RSS. We do not know what the true response is, so it is possible it is a very high degree polynomial, in which case <span class="math inline">\(\hat{g}_2\)</span> will fit it better. However, if the true response is a line, then <span class="math inline">\(\hat{g}_1\)</span> will have a better test RSS.</li>
+<li>For <span class="math inline">\(\lambda=0\)</span>, the two models degenerate into the same model, so they will have the same training and test RSS.</li>
 </ol></li>
+<li></li>
 </ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Wage,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Wage)</code></pre></div>
+<pre><code>##        year age           maritl     race       education
+## 231655 2006  18 1. Never Married 1. White    1. &lt; HS Grad
+## 86582  2004  24 1. Never Married 1. White 4. College Grad
+## 161300 2003  45       2. Married 1. White 3. Some College
+## 155159 2003  43       2. Married 3. Asian 4. College Grad
+## 11443  2005  50      4. Divorced 1. White      2. HS Grad
+## 376662 2008  54       2. Married 1. White 4. College Grad
+##                    region       jobclass         health health_ins
+## 231655 2. Middle Atlantic  1. Industrial      1. &lt;=Good      2. No
+## 86582  2. Middle Atlantic 2. Information 2. &gt;=Very Good      2. No
+## 161300 2. Middle Atlantic  1. Industrial      1. &lt;=Good     1. Yes
+## 155159 2. Middle Atlantic 2. Information 2. &gt;=Very Good     1. Yes
+## 11443  2. Middle Atlantic 2. Information      1. &lt;=Good     1. Yes
+## 376662 2. Middle Atlantic 2. Information 2. &gt;=Very Good     1. Yes
+##         logwage      wage
+## 231655 4.318063  75.04315
+## 86582  4.255273  70.47602
+## 161300 4.875061 130.98218
+## 155159 5.041393 154.68529
+## 11443  4.318063  75.04315
+## 376662 4.845098 127.11574</code></pre>
+<pre><code>a.
+
+```r
+library(boot)
+set.seed(1)
+cv.errors &lt;- double(10)
+for(i in 1:10) {
+  glm.fit &lt;- glm(wage ~ poly(age,i), data=Wage)
+  cv.errors[i] &lt;- cv.glm(Wage, glm.fit, K=10)$delta[1]
+}
+plot(cv.errors,type=&quot;l&quot;,xlab=&quot;degree&quot;,ylab=&quot;error&quot;)
+abline(v=which.min(cv.errors),col=&quot;red&quot;,lty=2)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-175-1.png&quot; width=&quot;672&quot; /&gt;</code></pre>
 
 </div>
             </section>
