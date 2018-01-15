@@ -111,3 +111,37 @@ head(Wage)
     plot(cv.errors,type="l",xlab="degree",ylab="error")
     abline(v=which.min(cv.errors),col="red",lty=2)
     ```
+    A polynomial of degree 4 is the best fit to the data.
+    ```{r include=TRUE, echo=TRUE}
+    lm.mods<-list()
+    for(i in 1:10) {
+      lm.fit <- lm(wage ~ poly(age,i),data=Wage)
+      lm.mods[[i]] <- lm.fit
+    }
+    do.call("anova",lm.mods)
+    ```
+    From the analysis of variance, we can see that the stops being significant at the 4th degree polynomial. This agrees with the cross-validaiton results.
+    A plot of the polynomial fit is below.
+    ```{r include=TRUE, echo=TRUE}
+    plot(Wage$age,Wage$wage,xlab="age",ylab="wage")
+    lines(predict(lm.mods[[i]],list(age=seq(from=min(Wage$age),to=max(Wage$age),length.out=100))),col="red")
+    legend("topright",c("data","fit"),pch=c(1,NA),lty=c(NA,1),col=c("black","red"))
+    ```
+    b.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    cv.errors <- double(10)
+    for(i in 1:10) {
+      breaks <- i+2
+      k_folds <- 10 
+      folds <- cut(seq(1,nrow(Wage)),breaks=k_folds,labels=FALSE)
+      for(k in 1:k_folds){
+        train <- which(folds != k)
+        breaks <- quantile(Wage$age[train],p=1/breaks)
+        glm.fit <- glm(wage ~ cut(age,breaks), data=Wage, subset=train)
+        
+      }
+      
+      cv.errors[i] <- cv.glm(Wage, glm.fit, K=10)$delta[1]
+    }
+    ```
