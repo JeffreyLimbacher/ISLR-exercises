@@ -132,16 +132,29 @@ head(Wage)
     set.seed(1)
     cv.errors <- double(10)
     for(i in 1:10) {
-      breaks <- i+2
+      n_ints <- i+2
       k_folds <- 10 
       folds <- cut(seq(1,nrow(Wage)),breaks=k_folds,labels=FALSE)
+      errors <- double(k_folds)
+      breaks <- quantile(Wage$age,p=seq(0,1,by=1/n_ints))
+      Wage$age.cut <- cut(Wage$age,breaks=n_ints)
       for(k in 1:k_folds){
-        train <- which(folds != k)
-        breaks <- quantile(Wage$age[train],p=1/breaks)
-        glm.fit <- glm(wage ~ cut(age,breaks), data=Wage, subset=train)
-        
+        train <- folds != k
+        glm.fit <- lm(wage ~ age.cut, data=Wage, subset=train)
+        y.pred <- predict(glm.fit,Wage[!train,])
+        errors[k] <- mean((y.pred-Wage$wage[!train])^2)
       }
-      
-      cv.errors[i] <- cv.glm(Wage, glm.fit, K=10)$delta[1]
+      cv.errors[i] <-mean(errors)
     }
+    plot(3:12,cv.errors,type="l",xlab="number of intervals")
+    abline(v=which.min(cv.errors)+2,col="red",lty=2)
+    ```
+    A plot of the model is below.
+    ```{r include= TRUE, echo=TRUE}
+    plot(Wage$age,Wage$wage,xlab="age",ylab="wage")
+    lm.fit <- lm(wage ~ cut(age,breaks=8), data=Wage)
+    age.grid <- seq(min(Wage$age),max(Wage$age))
+    y.pred<-predict(lm.fit,list(age=age.grid))
+    lines(age.grid,y.pred,col="red")
+    legend("topright",c("data","fit"),pch=c(1,NA),lty=c(NA,1),col=c("black","red"))
     ```
