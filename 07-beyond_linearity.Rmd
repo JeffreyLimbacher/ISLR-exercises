@@ -91,5 +91,23 @@ plot(x,y,type="l")
 
 5.
     a. As $\lambda \rightarrow \infty$, $\hat{g}_4$ will have the smaller training RSS. That is because it is allowed to have more variability.
-    b. As $\lambda \rightarrow \infty$, we cannot know if $\hat{g}_1$ or $\hat{g}_2$ will have lower test RSS. We do not know what the true response is, so it is possible it is a very high degree polynomial, in which case $\hat{g}_2$ will fit it better. However, if the true response is a line, then $\hat{g}_4#$
-    c. 
+    b. As $\lambda \rightarrow \infty$, we cannot know if $\hat{g}_1$ or $\hat{g}_2$ will have lower test RSS. We do not know what the true response is, so it is possible it is a very high degree polynomial, in which case $\hat{g}_2$ will fit it better. However, if the true response is a line, then $\hat{g}_1$ will have a better test RSS.
+    c. For $\lambda=0$, the two models degenerate into the same model, so they will have the same training and test RSS.
+    
+6.
+```{r include=TRUE, echo=TRUE}
+data(Wage,package="ISLR")
+head(Wage)
+```
+    a.
+    ```{r include=TRUE, echo=TRUE}
+    library(boot)
+    set.seed(1)
+    cv.errors <- double(10)
+    for(i in 1:10) {
+      glm.fit <- glm(wage ~ poly(age,i), data=Wage)
+      cv.errors[i] <- cv.glm(Wage, glm.fit, K=10)$delta[1]
+    }
+    plot(cv.errors,type="l",xlab="degree",ylab="error")
+    abline(v=which.min(cv.errors),col="red",lty=2)
+    ```
