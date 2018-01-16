@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jeffrey’s Answers to the ISLR Exercises</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.5.15 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/ISLR-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jeffrey Limbacher">
+
+
+<meta name="date" content="2018-01-16">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="chap6.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> Statistical Learning</a></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> Classification</a></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> Resampling Methods</a></li>
+<li class="chapter" data-level="6" data-path="chap6.html"><a href="chap6.html"><i class="fa fa-check"></i><b>6</b> Linear Model Selection and Regularization</a></li>
+<li class="chapter" data-level="7" data-path="chap7.html"><a href="chap7.html"><i class="fa fa-check"></i><b>7</b> Moving Beyond Linearity</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Jeffrey’s Answers to the ISLR Exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap7" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Moving Beyond Linearity</h1>
+<ol style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>Note that if we have <span class="math inline">\(x \leq \xi\)</span>, then <span class="math inline">\((x- \xi)^3_+= 0\)</span>, so <span class="math inline">\(f(x)\)</span> reduces to
+<span class="math display">\[\begin{align}
+f(x) &amp;= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4(x-\xi)^3_+ \\
+&amp;= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3\, .
+\end{align}\]</span>
+This gives coefficients <span class="math inline">\(a_1 = \beta_0\)</span>, <span class="math inline">\(b_1 = \beta_1\)</span>, <span class="math inline">\(c_1 = \beta_2\)</span>, <span class="math inline">\(d_1 = \beta_3\)</span>.</li>
+<li>Remember that <span class="math inline">\((x-\xi)^3 = x^3 - 3x^2 \xi + 3x \xi^2 - \xi^3\)</span>. Then expanding <span class="math inline">\((x-\xi)^3_+\)</span> within <span class="math inline">\(f(x)\)</span> gives
+<span class="math display" id="eq:expandedf">\[\begin{align}
+f(x) &amp;= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4(x-\xi)^3_+ \nonumber \\
+&amp;= \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4(x^3 - 3x^2 \xi + 3x \xi^2 - \xi^3) \nonumber \\
+&amp;= \beta_0 - \beta_4\xi^3 + (\beta_1+ 3 \beta_4 \xi^2)x + (\beta_2 - 3 \beta_4 \xi)x^2 + (\beta_3 + \beta_4) x^3 \, .
+\tag{7.1}
+\end{align}\]</span>
+Equating <span class="math inline">\(f_2(x)\)</span> with <a href="chap7.html#eq:expandedf">(7.1)</a>, we get that <span class="math inline">\(a_2 = \beta_0 - \beta_4 \xi^3\)</span>, <span class="math inline">\(b_2 = \beta_1 + 3 \beta_4 \xi^3\)</span>, <span class="math inline">\(c_2 = \beta_2 - 3 \beta_4 \xi\)</span>, and <span class="math inline">\(d_4 = \beta_3 + \beta_4\)</span>.</li>
+<li>Directly plugging into <span class="math inline">\(f_1(x)\)</span>,
+<span class="math display">\[\begin{equation}
+f_1(\xi) = \beta_0 + \beta_1 \xi + \beta_2 \xi^2 + \beta_3 \xi^3\, .
+\end{equation}\]</span>
+Plugging into <span class="math inline">\(f_2(x)\)</span>,
+<span class="math display">\[\begin{align}
+f_2(\xi) &amp;= \beta_0 - \beta_4 \xi^3 + (\beta_1 + 3\beta_4 \xi^2)\xi +(\beta_2 - 3 \beta_4 \xi)\xi^2 + (\beta_3 + \beta_4) \xi^3 \\
+&amp;= \beta_0 - \beta_4 \xi^3 + \beta_1\xi + 3\beta_4\xi^3 + \beta_2\xi^2 - 3\beta_4\xi^3 + \beta_3 + \beta_4 \xi^3 \\
+&amp;= \beta_0 - \beta_1 \xi + \beta_2 \xi^2 + \beta_3\xi^3\, .
+\end{align}\]</span>
+This gives us that <span class="math inline">\(f_1(\xi) = f_2(\xi)\)</span>.</li>
+<li>First note that
+<span class="math display">\[\begin{align}
+f_1&#39;(x) &amp;= \beta_1+2\beta_2x + 3\beta_3x^2  \, ,\\
+f_2&#39;(x) &amp;= \beta_1 + 3\beta_4\xi^2 + 2(\beta_2- 3\beta_4\xi)x + 3(\beta_3+\beta_4)x^2 \, .
+\end{align}\]</span>
+Plugging in <span class="math inline">\(\xi\)</span> into <span class="math inline">\(f_1&#39;(x)\)</span>,
+<span class="math display">\[\begin{equation}
+f_1&#39;(\xi) = \beta_1+2\beta_2 \xi + 3\beta_3 \xi^2
+\end{equation}\]</span>
+Plugging <span class="math inline">\(\xi\)</span> into <span class="math inline">\(f_2&#39;(x)\)</span>,
+<span class="math display">\[\begin{align}
+f_2&#39;(\xi) &amp;= \beta_1 + 3\beta_4\xi^2 + 2(\beta_2- 3\beta_4\xi)\xi + 3(\beta_3+\beta_4)\xi^2\\
+&amp;= \beta_1 + 3 \beta_4 \xi^2 + 2\beta_2 \xi - 6\beta_4 \xi^2 + 3\beta_3\xi^2 + 3\beta_4\xi^2\\
+&amp;= \beta_1 + 2\beta_2 \xi + 3\beta_3 \xi^2
+\end{align}\]</span>
+which is <span class="math inline">\(f_1&#39;(\xi)\)</span>.</li>
+<li>We have
+<span class="math display">\[\begin{align}
+f_1&#39;&#39;(x) &amp;= 2\beta_2 + 6\beta_3 x \, , \\
+f_2&#39;&#39;(x) &amp;= 2\beta_2 - 6\beta_4 \xi + (6\beta_3 + 6\beta_4) x \, .
+\end{align}\]</span>
+So,
+<span class="math display">\[\begin{equation}
+f_1&#39;&#39;(\xi) = 2\beta_2 + 6\beta_3 \xi \, .
+\end{equation}\]</span>
+And plugging <span class="math inline">\(\xi\)</span> into <span class="math inline">\(f_2&#39;&#39;(x)\)</span>, we have
+<span class="math display">\[\begin{align}
+f_2&#39;&#39;(\xi) &amp;= 2\beta_2 - 6\beta_4 \xi + (6\beta_3 + 6\beta_4) \xi \\
+&amp;= 2 \beta_2 - 6\beta_4 \xi + 6 \beta_3 \xi + 6 \beta_4 \xi \\
+&amp;= 2\beta_2 + 6\beta_3 \xi \, .
+\end{align}\]</span>
+This shows that <span class="math inline">\(f_1&#39;&#39;(\xi) = f_2&#39;&#39;(\xi)\)</span>.</li>
+</ol></li>
+<li>I’m not interested in sketching as much as describing the class of solutions and which solution is best within each one.
+<ol style="list-style-type: lower-alpha">
+<li>If <span class="math inline">\(m=0\)</span>, then we are saying then if <span class="math inline">\(g(x)&gt;0\)</span> at any point (ignoring issues of measure), then <span class="math inline">\(\lambda \int g(x)^2 dx \rightarrow \infty\)</span> as <span class="math inline">\(\lambda \rightarrow \infty\)</span>, so the only solution of <span class="math inline">\(\hat{g}\)</span> is <span class="math inline">\(\hat{g}(x) = 0\)</span>.</li>
+<li>This must be a constant function since <span class="math inline">\(f&#39;(x) = 0\)</span> for any constant function <span class="math inline">\(f\)</span>. In this case, the solution that minimizes the error would be <span class="math inline">\(\hat{g}(x) = \bar{y}\)</span>.</li>
+<li>In this case, it is a linear function since <span class="math inline">\(f&#39;&#39;(x) = 0\)</span> for any linear function. This reduces to the linear least squares solution.</li>
+<li>This would be a quadratic solution linear least squares fit.</li>
+<li>Since <span class="math inline">\(\lambda=0\)</span>, we would probably be the same in the case of <span class="math inline">\(\lambda=0\)</span> and <span class="math inline">\(m=2\)</span>, so we would get an interpolating spline.</li>
+</ol></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>,.<span class="dv">01</span>)
+y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span>(x<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(x<span class="op">&gt;=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(x,y,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-172-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Before we even plot, we can note that <span class="math inline">\(b_2\)</span> actually has no effect for <span class="math inline">\(x \in [-2,2]\)</span>.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, .<span class="dv">01</span>)
+b1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) (x <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;=</span><span class="dv">2</span>)<span class="op">-</span>(x<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>(x<span class="op">&gt;=</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;=</span><span class="dv">2</span>)
+b2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) (x<span class="op">-</span><span class="dv">3</span>)<span class="op">*</span>(x<span class="op">&gt;=</span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;=</span><span class="dv">4</span>)<span class="op">+</span>(x<span class="op">&gt;</span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>x<span class="op">&lt;=</span><span class="dv">5</span>)
+y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">b1</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="kw">b2</span>(x)
+<span class="kw">plot</span>(x,y,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-173-1.png" width="672" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>As <span class="math inline">\(\lambda \rightarrow \infty\)</span>, <span class="math inline">\(\hat{g}_4\)</span> will have the smaller training RSS. That is because it is allowed to have more variability.</li>
+<li>As <span class="math inline">\(\lambda \rightarrow \infty\)</span>, we cannot know if <span class="math inline">\(\hat{g}_1\)</span> or <span class="math inline">\(\hat{g}_2\)</span> will have lower test RSS. We do not know what the true response is, so it is possible it is a very high degree polynomial, in which case <span class="math inline">\(\hat{g}_2\)</span> will fit it better. However, if the true response is a line, then <span class="math inline">\(\hat{g}_1\)</span> will have a better test RSS.</li>
+<li>For <span class="math inline">\(\lambda=0\)</span>, the two models degenerate into the same model, so they will have the same training and test RSS.</li>
+</ol></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Wage,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Wage)</code></pre></div>
+<pre><code>##        year age           maritl     race       education
+## 231655 2006  18 1. Never Married 1. White    1. &lt; HS Grad
+## 86582  2004  24 1. Never Married 1. White 4. College Grad
+## 161300 2003  45       2. Married 1. White 3. Some College
+## 155159 2003  43       2. Married 3. Asian 4. College Grad
+## 11443  2005  50      4. Divorced 1. White      2. HS Grad
+## 376662 2008  54       2. Married 1. White 4. College Grad
+##                    region       jobclass         health health_ins
+## 231655 2. Middle Atlantic  1. Industrial      1. &lt;=Good      2. No
+## 86582  2. Middle Atlantic 2. Information 2. &gt;=Very Good      2. No
+## 161300 2. Middle Atlantic  1. Industrial      1. &lt;=Good     1. Yes
+## 155159 2. Middle Atlantic 2. Information 2. &gt;=Very Good     1. Yes
+## 11443  2. Middle Atlantic 2. Information      1. &lt;=Good     1. Yes
+## 376662 2. Middle Atlantic 2. Information 2. &gt;=Very Good     1. Yes
+##         logwage      wage
+## 231655 4.318063  75.04315
+## 86582  4.255273  70.47602
+## 161300 4.875061 130.98218
+## 155159 5.041393 154.68529
+## 11443  4.318063  75.04315
+## 376662 4.845098 127.11574</code></pre>
+<pre><code>a.
+
+```r
+library(boot)
+set.seed(1)
+cv.errors &lt;- double(10)
+for(i in 1:10) {
+  glm.fit &lt;- glm(wage ~ poly(age,i), data=Wage)
+  cv.errors[i] &lt;- cv.glm(Wage, glm.fit, K=10)$delta[1]
+}
+plot(cv.errors,type=&quot;l&quot;,xlab=&quot;degree&quot;,ylab=&quot;error&quot;)
+abline(v=which.min(cv.errors),col=&quot;red&quot;,lty=2)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-175-1.png&quot; width=&quot;672&quot; /&gt;
+A polynomial of degree 4 is the best fit to the data.
+
+```r
+lm.mods&lt;-list()
+for(i in 1:10) {
+  lm.fit &lt;- lm(wage ~ poly(age,i),data=Wage)
+  lm.mods[[i]] &lt;- lm.fit
+}
+do.call(&quot;anova&quot;,lm.mods)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model  1: wage ~ poly(age, i)
+## Model  2: wage ~ poly(age, i)
+## Model  3: wage ~ poly(age, i)
+## Model  4: wage ~ poly(age, i)
+## Model  5: wage ~ poly(age, i)
+## Model  6: wage ~ poly(age, i)
+## Model  7: wage ~ poly(age, i)
+## Model  8: wage ~ poly(age, i)
+## Model  9: wage ~ poly(age, i)
+## Model 10: wage ~ poly(age, i)
+##    Res.Df     RSS Df Sum of Sq        F    Pr(&gt;F)    
+## 1    2998 5022216                                    
+## 2    2997 4793430  1    228786 143.7638 &lt; 2.2e-16 ***
+## 3    2996 4777674  1     15756   9.9005  0.001669 ** 
+## 4    2995 4771604  1      6070   3.8143  0.050909 .  
+## 5    2994 4770322  1      1283   0.8059  0.369398    
+## 6    2993 4766389  1      3932   2.4709  0.116074    
+## 7    2992 4763834  1      2555   1.6057  0.205199    
+## 8    2991 4763707  1       127   0.0796  0.777865    
+## 9    2990 4756703  1      7004   4.4014  0.035994 *  
+## 10   2989 4756701  1         3   0.0017  0.967529    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+```
+From the analysis of variance, we can see that the stops being significant at the 4th degree polynomial. This agrees with the cross-validaiton results.
+A plot of the polynomial fit is below.
+
+```r
+plot(Wage$age,Wage$wage,xlab=&quot;age&quot;,ylab=&quot;wage&quot;)
+lines(predict(lm.mods[[i]],list(age=seq(from=min(Wage$age),to=max(Wage$age),length.out=100))),col=&quot;red&quot;)
+legend(&quot;topright&quot;,c(&quot;data&quot;,&quot;fit&quot;),pch=c(1,NA),lty=c(NA,1),col=c(&quot;black&quot;,&quot;red&quot;))
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-177-1.png&quot; width=&quot;672&quot; /&gt;
+b.
+
+```r
+set.seed(1)
+cv.errors &lt;- double(10)
+for(i in 1:10) {
+  n_ints &lt;- i+2
+  k_folds &lt;- 10 
+  folds &lt;- cut(seq(1,nrow(Wage)),breaks=k_folds,labels=FALSE)
+  errors &lt;- double(k_folds)
+  breaks &lt;- quantile(Wage$age,p=seq(0,1,by=1/n_ints))
+  Wage$age.cut &lt;- cut(Wage$age,breaks=n_ints)
+  for(k in 1:k_folds){
+    train &lt;- folds != k
+    glm.fit &lt;- lm(wage ~ age.cut, data=Wage, subset=train)
+    y.pred &lt;- predict(glm.fit,Wage[!train,])
+    errors[k] &lt;- mean((y.pred-Wage$wage[!train])^2)
+  }
+  cv.errors[i] &lt;-mean(errors)
+}
+plot(3:12,cv.errors,type=&quot;l&quot;,xlab=&quot;number of intervals&quot;)
+abline(v=which.min(cv.errors)+2,col=&quot;red&quot;,lty=2)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-178-1.png&quot; width=&quot;672&quot; /&gt;
+A plot of the model is below.
+
+```r
+plot(Wage$age,Wage$wage,xlab=&quot;age&quot;,ylab=&quot;wage&quot;)
+lm.fit &lt;- lm(wage ~ cut(age,breaks=8), data=Wage)
+age.grid &lt;- seq(min(Wage$age),max(Wage$age))
+y.pred&lt;-predict(lm.fit,list(age=age.grid))
+lines(age.grid,y.pred,col=&quot;red&quot;)
+legend(&quot;topright&quot;,c(&quot;data&quot;,&quot;fit&quot;),pch=c(1,NA),lty=c(NA,1),col=c(&quot;black&quot;,&quot;red&quot;))
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-179-1.png&quot; width=&quot;672&quot; /&gt;</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Auto,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Auto)</code></pre></div>
+<pre><code>##   mpg cylinders displacement horsepower weight acceleration year origin
+## 1  18         8          307        130   3504         12.0   70      1
+## 2  15         8          350        165   3693         11.5   70      1
+## 3  18         8          318        150   3436         11.0   70      1
+## 4  16         8          304        150   3433         12.0   70      1
+## 5  17         8          302        140   3449         10.5   70      1
+## 6  15         8          429        198   4341         10.0   70      1
+##                        name
+## 1 chevrolet chevelle malibu
+## 2         buick skylark 320
+## 3        plymouth satellite
+## 4             amc rebel sst
+## 5               ford torino
+## 6          ford galaxie 500</code></pre>
+<p>We will find the relationship between horsepower, weight, and mpgs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(splines)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+wgt.cv.errs &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="dv">20</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>){
+  folds &lt;-<span class="st"> </span><span class="kw">cut</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(Auto)),<span class="dt">breaks=</span>k_folds,<span class="dt">labels=</span><span class="ot">FALSE</span>)
+  errors &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="dv">10</span>)
+  <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+    train &lt;-<span class="st"> </span>folds <span class="op">!=</span><span class="st"> </span>k
+    mod&lt;-<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span><span class="kw">ns</span>(weight,<span class="dt">df=</span>i),<span class="dt">data=</span>Auto,<span class="dt">subset=</span>train)
+    y.pred&lt;-<span class="kw">predict</span>(mod,Auto[<span class="op">!</span>train,])
+    errors[k]&lt;-<span class="kw">mean</span>((y.pred<span class="op">-</span>Auto<span class="op">$</span>mpg[<span class="op">!</span>train])<span class="op">^</span><span class="dv">2</span>)
+  }
+  wgt.cv.errs[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(errors)
+}
+<span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(wgt.cv.errs),wgt.cv.errs,<span class="dt">xlab=</span><span class="st">&quot;DF&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Cross validation error&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which.min</span>(wgt.cv.errs),<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-181-1.png" width="672" /> Although 8 is the minimum, 2 appears just as good in addition to being simpler.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span><span class="kw">ns</span>(weight,<span class="dt">df=</span><span class="dv">2</span>),<span class="dt">data=</span>Auto)
+wgt.grid =<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(Auto<span class="op">$</span>weight),<span class="kw">max</span>(Auto<span class="op">$</span>weight),<span class="dt">by=</span><span class="dv">1</span>)
+mpg.pred&lt;-<span class="kw">predict</span>(mod,<span class="kw">list</span>(<span class="dt">weight=</span>wgt.grid))
+<span class="kw">plot</span>(Auto<span class="op">$</span>weight,Auto<span class="op">$</span>mpg,<span class="dt">xlab=</span><span class="st">&quot;weight&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;mpg&quot;</span>)
+<span class="kw">lines</span>(wgt.grid,mpg.pred,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-182-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(splines)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+fit &lt;-<span class="st"> </span><span class="kw">smooth.spline</span>(Auto<span class="op">$</span>horsepower,Auto<span class="op">$</span>mpg,<span class="dt">cv=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Warning in smooth.spline(Auto$horsepower, Auto$mpg, cv = TRUE): cross-
+## validation with non-unique &#39;x&#39; values seems doubtful</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fit,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)
+<span class="kw">points</span>(Auto<span class="op">$</span>horsepower,Auto<span class="op">$</span>mpg)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-183-1.png" width="672" /> Now try with a GAM, but use ANOVA to see if we are adding anything by using the smoothing spline with the natural spline.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gam)</code></pre></div>
+<pre><code>## Loaded gam 1.14-4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gam.m1 &lt;-<span class="st"> </span><span class="kw">gam</span>(mpg <span class="op">~</span><span class="st"> </span><span class="kw">ns</span>(weight,<span class="dv">2</span>),<span class="dt">data=</span>Auto)
+gam.m2 &lt;-<span class="st"> </span><span class="kw">gam</span>(mpg <span class="op">~</span><span class="st"> </span><span class="kw">ns</span>(weight,<span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(horsepower,fit<span class="op">$</span>lambda), <span class="dt">data=</span>Auto)
+<span class="kw">anova</span>(gam.m1,gam.m2)</code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: mpg ~ ns(weight, 2)
+## Model 2: mpg ~ ns(weight, 2) + s(horsepower, fit$lambda)
+##   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+## 1       389     6781.1                          
+## 2       388     6244.6  1   536.52 7.754e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap6.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["ISLR-exercises.pdf", "ISLR-exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
