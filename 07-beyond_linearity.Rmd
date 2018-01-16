@@ -158,3 +158,50 @@ head(Wage)
     lines(age.grid,y.pred,col="red")
     legend("topright",c("data","fit"),pch=c(1,NA),lty=c(NA,1),col=c("black","red"))
     ```
+    
+8.
+```{r include=TRUE, echo=TRUE}
+data(Auto,package="ISLR")
+head(Auto)
+```
+We will find the relationship between horsepower, weight, and mpgs.
+```{r include=TRUE, echo=TRUE}
+library(splines)
+set.seed(1)
+wgt.cv.errs <- double(20)
+for(i in 1:20){
+  folds <- cut(seq(1,nrow(Auto)),breaks=k_folds,labels=FALSE)
+  errors <- double(10)
+  for(k in 1:10) {
+    train <- folds != k
+    mod<-lm(mpg ~ ns(weight,df=i),data=Auto,subset=train)
+    y.pred<-predict(mod,Auto[!train,])
+    errors[k]<-mean((y.pred-Auto$mpg[!train])^2)
+  }
+  wgt.cv.errs[i] <- mean(errors)
+}
+plot(1:length(wgt.cv.errs),wgt.cv.errs,xlab="DF",ylab="Cross validation error",type="l")
+abline(v=which.min(wgt.cv.errs),lty=2,col="red")
+```
+Although 8 is the minimum, 2 appears just as good in addition to being simpler.
+```{r include=TRUE, echo=TRUE}
+mod <- lm(mpg ~ ns(weight,df=2),data=Auto)
+wgt.grid = seq(min(Auto$weight),max(Auto$weight),by=1)
+mpg.pred<-predict(mod,list(weight=wgt.grid))
+plot(Auto$weight,Auto$mpg,xlab="weight",ylab="mpg")
+lines(wgt.grid,mpg.pred,col="red")
+```
+```{r include=TRUE, echo=TRUE}
+library(splines)
+set.seed(1)
+fit <- smooth.spline(Auto$horsepower,Auto$mpg,cv=TRUE)
+plot(fit,type="l",col="red")
+points(Auto$horsepower,Auto$mpg)
+```
+Now try with a GAM, but use ANOVA to see if we are adding anything by using the smoothing spline with the natural spline.
+```{r include=TRUE, echo=TRUE}
+library(gam)
+gam.m1 <- gam(mpg ~ ns(weight,2),data=Auto)
+gam.m2 <- gam(mpg ~ ns(weight,2) + s(horsepower,fit$lambda), data=Auto)
+anova(gam.m1,gam.m2)
+```
