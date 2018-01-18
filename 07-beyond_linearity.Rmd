@@ -205,3 +205,223 @@ gam.m1 <- gam(mpg ~ ns(weight,2),data=Auto)
 gam.m2 <- gam(mpg ~ ns(weight,2) + s(horsepower,fit$lambda), data=Auto)
 anova(gam.m1,gam.m2)
 ```
+
+9.
+```{r include=TRUE, echo=TRUE}
+data(Boston,package="MASS")
+head(Boston)
+```
+    
+    a. 
+    ```{r include=TRUE, echo=TRUE}
+    poly.fit <- lm(nox ~ poly(dis,degree=3), data=Boston)
+    summary(poly.fit)
+    ```
+    Plotting the resulting regression:
+    ```{r include=TRUE, echo=TRUE}
+    dis.grid <- with(Boston, seq(min(dis), max(dis), by=(max(dis)-min(dis))/1000))
+    y.pred <- predict(poly.fit,list(dis=dis.grid))
+    with(Boston, plot(dis,nox))
+    lines(dis.grid, y.pred, type="l", col="red")
+    ```
+    
+    b. Note that we expect the RSS to drop for every higher degree of polynomial here because we will fit to the model better with least squares.
+    ```{r include=TRUE, echo=TRUE}
+    rss <- double(10)
+    for(i in 1:10){
+      poly.fit <- lm(nox ~ poly(dis,degree=i), data=Boston)
+      poly.sum <- summary(poly.fit)
+      rss[i] <- sum(poly.sum$residuals^2)
+    }
+    data.frame(degree=1:10, rss)
+    ```
+    
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(1)
+    cv.errs <- double(10)
+    for(i in 1:10){
+      k.folds <- 10
+      folds <- rep(1:k_folds,length.out = nrow(Boston))
+      errors <- double(10)
+      for(k in 1:10) {
+        train <- folds != k
+        mod<-lm(nox ~ poly(dis,degree=i),data=Boston,subset=train)
+        y.pred<-predict(mod,Boston[!train,])
+        errors[k]<-mean((y.pred-Boston$nox[!train])^2)
+      }
+      cv.errs[i] <- mean(errors)
+    }
+    plot(1:10,cv.errs,xlab="degree",ylab="CV error",type="l")
+    abline(v=which.min(cv.errs),col="red",lty=2)
+    ```
+    The cross-validation suggests that a 3rd degree polynomial gives the best results, but the 2nd degree could also be used for more simplicity.
+    
+    d. 
+    ```{r include=TRUE, echo=TRUE}
+    library(splines)
+    bs.fit <- lm(nox ~ bs(dis,df=4), data=Boston)
+    y.pred <- predict(bs.fit, list(dis=dis.grid))
+    with(Boston,plot(dis,nox))
+    lines(dis.grid, y.pred, type="l", col="red")
+    
+    ```
+    I let `bs` choose the knot for me. `bs` chooses the median in this case.
+    
+    e. We expect it to be lower again since we are fitting a more flexible model to the data.
+    ```{r include=TRUE, echo=TRUE}
+    dfs <- c(3, 4, 5, 7, 10, 15, 25, 50)
+    rss <- double(length(dfs))
+    for(i in seq_along(dfs)){
+      df <- dfs[i]
+      bs.fit <- lm(nox ~ bs(dis,df=df), data=Boston)
+      y.pred <- predict(bs.fit)
+      rss[i] <- sum((y.pred-Boston$nox)^2)
+    }
+    data.frame(df=dfs,rss)
+    ```
+    
+    f.
+    ```{r include=TRUE, echo=TRUE}
+    set.seed(927)
+    dfs <- 3:50
+    cv.errs <- double(length(dfs))
+    for(i in seq_along(dfs)) {
+      df <- dfs[i]
+      k.folds <- 10
+      folds <- rep(1:k_folds,length.out = nrow(Boston))
+      errors <- double(10)
+      for(k in 1:10) {
+        train <- folds != k
+        mod<-lm(nox ~ bs(dis,df=df),data=Boston,subset=train)
+        y.pred<-predict(mod,Boston[!train,])
+        errors[k]<-mean((y.pred-Boston$nox[!train])^2)
+      }
+      cv.errs[i] <- mean(errors)
+    }
+    plot(dfs,cv.errs,type="l")
+    abline(v=dfs[which.min(cv.errs)],lty=2,col="red")
+    ```
+    The minimum occurs at `r dfs[which.min(cv.errs)]`. A plot of it is below.
+    ```{r include=TRUE, echo=TRUE}
+    best.bs.fit <- lm(nox ~ bs(dis,df=dfs[which.min(cv.errs)]), data=Boston)
+    y.pred <- predict(best.bs.fit, list(dis=dis.grid))
+    with(Boston,plot(dis,nox))
+    lines(dis.grid,y.pred,col="red")
+    ```
+    That kind of looks like overfitting. It appears that a df of 5 also gives comparable results while retaining much more accuracy. 
+    ```{r include=TRUE, echo=TRUE}
+    bs.5.fit <- lm(nox ~ bs(dis,df=5), data=Boston)
+    y.pred <- predict(bs.5.fit, list(dis=dis.grid))
+    with(Boston,plot(dis,nox))
+    lines(dis.grid,y.pred,col="red")
+    ```
+
+10. 
+    a. 
+    ```{r include=FALSE}
+    data(College,package="ISLR")
+    library(leaps)
+    set.seed(927)
+    train<-sample(nrow(College),nrow(College)*.5)
+    leaps.subs<-regsubsets(Outstate ~ .,data=College,subset=train, nvmax=Inf)
+    coef(leaps.subs,id=which.min(summary(leaps.subs)$bic))
+    ```
+    b. Let's visualize these relationships before choosing how we want to model these.
+    ```{r echo=TRUE, fig.height=6}
+    library(gam)
+    sig.vars <- c("Private", "Accept", "Enroll", "Room.Board","Terminal", "perc.alumni", "Expend", "Grad.Rate")
+    par(mfcol=c(3,3))
+    for( v in sig.vars){
+      plot(College[train,v],College[train,"Outstate"],xlab=v,ylab="Outstate")
+    }
+    ```
+    Now build a gam. I really have no intuition for how to select which ones. I suppose there must be a lot of cross-validation, then comparing which cross-validation worked best for each technique.
+    ```{r echo=TRUE, fig.height=6}
+    gam.mod <- gam(Outstate ~ Private + s(Room.Board) + lo(Expend,span=.1) + lo(Accept,span=.1) + s(Terminal,df=10) + bs(Grad.Rate, df=4) + lo(Enroll,span=.1) + ns(perc.alumni,df=6), data=College, subset=train)
+    par(mfcol=c(3,3))
+    plot(gam.mod)
+    ```
+    c.
+    ```{r echo=TRUE}
+    gam.pred <- predict(gam.mod, College[-train,])
+    lm.mod <- lm(as.formula(paste(c("Outstate ~ ", sig.vars),"+",TRUE)),data=College, subset=train)
+    lm.pred <- predict(lm.mod, College[-train,])
+    mean((gam.pred-College[-train,"Outstate"])^2)
+    mean((lm.pred-College[-train,"Outstate"])^2)
+    ```
+    In either case, our model performs better than the linear model.
+    d. Terminal, Grad.Rate, and Expend seem to be non-linear.
+
+11.
+    a.
+    ```{r echo=TRUE}
+    set.seed(927)
+    x1 <- rnorm(100,20,5)
+    x2 <- rnorm(100,10,5)
+    y <- 3 + 2*x1 + x2 + rnorm(100)
+    ```
+    b.
+    ```{r echo=TRUE}
+    b1 <- -1
+    ```
+    c.
+    ```{r echo=TRUE}
+    a <- y-b1*x1
+    b2 <- lm(a~x2)$coef[2]
+    ```
+    d.
+    ```{r echo=TRUE}
+    a <- y-b2*x2
+    b1 <- lm(a~x1)$coef[2]
+    ```
+    e. It converges very quickly, so I only plot the first 10 or so.
+    ```{r echo=TRUE}
+    n<-10
+    b0s <- double(n)
+    b1s <- double(n)
+    b2s <- double(n)
+    b0s[1] <- mean(y - b1*x1 - b2*x2)
+    b1s[1] <- b1
+    b2s[1] <- b2
+    for(i in 2:n){
+      a <- y-b1*x1
+      b2 <- lm(a~x2)$coef[2]
+      a <- y-b2*x2
+      b1 <- lm(a~x1)$coef[2]
+      b0 <- mean(y - b1*x1 - b2*x2)
+      b0s[i] <- b0
+      b1s[i] <- b1
+      b2s[i] <- b2
+    }
+    matplot(x=1:n,y=cbind(b0s,b1s,b2s),type="l",lty=c(2,2,2))
+    legend(x="topright",c("beta_0","beta_1","beta_2"),lty=c(2,2,2),col=c(1,2,3))
+    ```
+    f.
+    ```{r echo=TRUE}
+    y.lm <- lm(y ~ x1 + x2)
+    matplot(x=1:n,y=cbind(b0s,b1s,b2s),type="l",lty=c(2,2,2))
+    legend(x="topright",c("beta_0","beta_1","beta_2"),lty=c(2,2,2),col=c(1,2,3))
+    abline(h=y.lm$coef[1],lty=1,col="black")
+    abline(h=y.lm$coef[2],lty=1,col="red")
+    abline(h=y.lm$coef[3],lty=1,col="green")
+    ```
+12.
+```{r echo=TRUE}
+p <- 100
+n<- 1000
+iters <- 10
+B <- sample(-5:5,p,replace=TRUE) #true coefficients
+Bs <- matrix(nrow=iters,ncol=p) #Store the coefficient estimates here for each iteration
+Bs[1,] <- rep(-100,p) #First guess is -100 for each coefficient
+X <- rnorm(p*n)
+dim(X) <- c(n,p)
+y <- X%*%B + rnorm(n) #add noise
+for (i in 1:iters-1){
+  for(j in 1:p){
+    a <- y-X[,-j]%*%Bs[i,-j] #remove all but the jth estimate
+    Bs[i+1,j] <- lm(a ~ X[,j])$coef[2] #fit the jth dimension on the data and store the result
+  }
+}
+```
+    
