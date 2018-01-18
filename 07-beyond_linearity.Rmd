@@ -410,18 +410,21 @@ head(Boston)
 ```{r echo=TRUE}
 p <- 100
 n<- 1000
-iters <- 10
+iters <- 25
 B <- sample(-5:5,p,replace=TRUE) #true coefficients
 Bs <- matrix(nrow=iters,ncol=p) #Store the coefficient estimates here for each iteration
-Bs[1,] <- rep(-100,p) #First guess is -100 for each coefficient
+Bs[1,] <- rep(-10,p) #First guess is -100 for each coefficient
 X <- rnorm(p*n)
 dim(X) <- c(n,p)
-y <- X%*%B + rnorm(n) #add noise
-for (i in 1:iters-1){
+y <- X%*%B  #add noise
+for (i in 1:(iters-1)){
   for(j in 1:p){
-    a <- y-X[,-j]%*%Bs[i,-j] #remove all but the jth estimate
+    a <- y-X[,-j]%*%as.matrix(Bs[i,-j]) #remove all but the jth estimate
     Bs[i+1,j] <- lm(a ~ X[,j])$coef[2] #fit the jth dimension on the data and store the result
   }
 }
+#plot the L2 errors for each iteration
+L2_errs<-sqrt((rowSums(sweep(Bs,2,STATS=B)^2)))
+plot(1:iters,L2_errs, type="l")
 ```
     
