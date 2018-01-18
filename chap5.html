@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jeffrey’s Answers to the ISLR Exercises</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.5.15 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/ISLR-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jeffrey Limbacher">
+
+
+<meta name="date" content="2018-01-18">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="chap4.html">
+<link rel="next" href="chap6.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> Statistical Learning</a></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> Classification</a></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> Resampling Methods</a></li>
+<li class="chapter" data-level="6" data-path="chap6.html"><a href="chap6.html"><i class="fa fa-check"></i><b>6</b> Linear Model Selection and Regularization</a></li>
+<li class="chapter" data-level="7" data-path="chap7.html"><a href="chap7.html"><i class="fa fa-check"></i><b>7</b> Moving Beyond Linearity</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Jeffrey’s Answers to the ISLR Exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap5" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Resampling Methods</h1>
+<ol style="list-style-type: decimal">
+<li>Using the property that <span class="math inline">\(Var(aX+bY) = a^2Var(X) + b^2Var(Y) + 2abCov(X,Y)\)</span>,
+<span class="math display" id="eq:prederivative">\[\begin{equation}
+Var(\alpha X + (1-\alpha)Y) = \alpha^2 \sigma_X^2 + (1-\alpha)^2 \sigma_Y^2 + 2\alpha (1-\alpha) \sigma_{XY} 
+\tag{5.1}
+\end{equation}\]</span>
+Taking the derivative with respect to <span class="math inline">\(\alpha\)</span> gives
+<span class="math display">\[\begin{align*}
+\frac{d}{d\alpha} (\alpha^2 \sigma_X^2 + (1-\alpha)^2 \sigma_Y^2 + 2\alpha (1-\alpha) \sigma_{XY}) &amp;= 2\alpha \sigma_X^2 - 2(1-\alpha)\sigma_Y^2 - 2(1-2\alpha) \sigma_{XY}\\
+&amp;= 2\alpha(\sigma_X^2 + \sigma_Y^2 + 2 \sigma_{XY}) - 2( \sigma_Y^2 - \sigma_{XY})
+\end{align*}\]</span>
+Setting equal to zero and solving we get
+<span class="math display">\[\begin{align*}
+\alpha(\sigma_X^2 + \sigma_Y^2 + 2 \sigma_{XY}) &amp;=  \sigma_Y^2 - \sigma_{XY}\\
+\alpha &amp;= \frac{\sigma_Y^2 - \sigma_{XY}}{\sigma_X^2 + \sigma_Y^2 + 2 \sigma_{XY}}
+\end{align*}\]</span></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>If we choose one at random, then the chance it is the <span class="math inline">\(j\)</span>th observation is <span class="math inline">\(\frac{1}{n}\)</span>, but we want the complement of that, so the probability is <span class="math inline">\(1-\frac{1}{n}\)</span></li>
+<li>We are choosing with replacement, so that means we can draw the first observation again, so the probability stays the same, <span class="math inline">\(1-\frac{1}{n}\)</span>.</li>
+<li>The chance of not choosing <span class="math inline">\(j\)</span> two times in a row is <span class="math inline">\((1-\frac{1}{n})(1-\frac{1}{n})=(1-\frac{1}{n})^2\)</span> since these are independent since we draw with replacement. We are going to draw <span class="math inline">\(n\)</span> times, so it will be <span class="math inline">\((1-\frac{1}{n})^n\)</span>.</li>
+<li><code>(1-1/5)^5=</code> 0.32768</li>
+<li><code>(1-1/100)^100=</code> 0.3660323</li>
+<li><code>(1-1/10000)^10000=</code> 0.367861</li>
+<li>It’s converging. Note it’s horizontal for a lot of the values.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100000</span>,<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100000</span>,<span class="dt">FUN=</span><span class="cf">function</span>(x) (<span class="dv">1</span><span class="op">-</span><span class="dv">1</span><span class="op">/</span>x)<span class="op">^</span>x), <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-107-1.png" width="672" />
+<ol start="8" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+store &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,<span class="dv">10000</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>){
+  store[i]=<span class="kw">sum</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,<span class="dt">rep=</span><span class="ot">TRUE</span>)<span class="op">==</span><span class="dv">4</span>)<span class="op">&gt;</span><span class="dv">0</span>
+}
+<span class="kw">mean</span>(store)</code></pre></div>
+<pre><code>## [1] 0.6327</code></pre>
+Note that <code>1-mean(store)=</code> 0.3673, which is close to our estimate of 100.</li>
+<li><ol style="list-style-type: lower-alpha">
+<li>We divide up our data into <span class="math inline">\(k\)</span> sets. for each <span class="math inline">\(i\)</span>, we train the data on the sets <span class="math inline">\(1, \dots, i-1, i+1, \dots, k\)</span>. We then use the <span class="math inline">\(i\)</span>th to get the mean test error. After we are done, we have <span class="math inline">\(k\)</span> mean test errors.</li>
+<li><ol style="list-style-type: lower-roman">
+<li>The validation set approach will only give us a single value estimate for the error. In addition, the error on the validation set is a poor reflection of the performance of the full model where we use all the data. <span class="math inline">\(k\)</span>-fold CV also uses every single piece of data as both a train and test data point. The disadvantage if that each of our <span class="math inline">\(k\)</span> has more variability individually since our test errors are run on smaller sets.</li>
+<li><span class="math inline">\(k\)</span>-fold CV is much less computationally intensive than LOOCV in general. <span class="math inline">\(k\)</span>-fold also tends to give better estimates of the error over LOOCV. LOOCV however is computationally faster for linear approximators (i.e. they can be represented by a linear system such as <span class="math inline">\(\hat{y} = Ay\)</span>).</li>
+</ol></li>
+</ol></li>
+<li><p>We would use bootstrapping. In order to use it, we take a bootstrap sample of our <span class="math inline">\(X\)</span> data. We then run the model and estimate <span class="math inline">\(Y\)</span> at <span class="math inline">\(X\)</span>. We do that 10,000 (or however many) times to get <span class="math inline">\(Y_{(b)}\)</span>.. Once we do that, we can calculate the standard deviation of <span class="math inline">\(Y_{(1)}, \dots, Y_{(10,000)}\)</span>.</p></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+<span class="kw">data</span>(Default,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Default)</code></pre></div>
+<pre><code>##   default student   balance    income
+## 1      No      No  729.5265 44361.625
+## 2      No     Yes  817.1804 12106.135
+## 3      No      No 1073.5492 31767.139
+## 4      No      No  529.2506 35704.494
+## 5      No      No  785.6559 38463.496
+## 6      No     Yes  919.5885  7491.559</code></pre>
+<pre><code>a. 
+
+```r
+log.mod &lt;- glm(default ~ income + balance, data=Default, family=binomial)
+```
+b. 
+
+```r
+run.validation &lt;- function() {
+  n&lt;-nrow(Default)
+  train.inds &lt;- sample(n,n*.5,replace=FALSE) #i
+  valid.mod &lt;- glm(default ~ income + balance, data=Default, subset=train.inds, family=binomial) #ii
+  valid.pred &lt;- ifelse(predict(valid.mod, Default[-train.inds,], type=&quot;response&quot;)&gt;.5,&quot;Yes&quot;,&quot;No&quot;) #iii
+  mean(valid.pred == Default$default[-train.inds]) #iv
+}
+run.validation()
+```
+
+```
+## [1] 0.9716
+```
+c.
+
+```r
+for(i in 1:3){
+  print(run.validation())
+}
+```
+
+```
+## [1] 0.975
+## [1] 0.9756
+## [1] 0.9726
+```
+d.
+
+```r
+for(i in 1:4){
+  n&lt;-nrow(Default)
+  train.inds &lt;- sample(n,n*.5,replace=FALSE) #i
+  valid.mod &lt;- glm(default ~ income + balance + student, data=Default, subset=train.inds, family=binomial) #ii
+  valid.pred &lt;- ifelse(predict(valid.mod, Default[-train.inds,], type=&quot;response&quot;)&gt;.5,&quot;Yes&quot;,&quot;No&quot;) #iii
+  print(mean(valid.pred == Default$default[-train.inds])) #iv
+}
+```
+
+```
+## [1] 0.9726
+## [1] 0.975
+## [1] 0.9724
+## [1] 0.9784
+```
+The two error rates look pretty similar overall, so adding in student didn&#39;t help much. We can see this in the `summary` out of the model.
+
+```r
+summary(valid.mod)
+```
+
+```
+## 
+## Call:
+## glm(formula = default ~ income + balance + student, family = binomial, 
+##     data = Default, subset = train.inds)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.9885  -0.1644  -0.0707  -0.0293   3.5299  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.006e+01  6.466e-01 -15.553   &lt;2e-16 ***
+## income       6.927e-06  1.135e-05   0.610    0.542    
+## balance      5.166e-03  2.870e-04  18.001   &lt;2e-16 ***
+## studentYes  -5.065e-01  3.242e-01  -1.562    0.118    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1517.1  on 4999  degrees of freedom
+## Residual deviance:  873.5  on 4996  degrees of freedom
+## AIC: 881.5
+## 
+## Number of Fisher Scoring iterations: 8
+```</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+<span class="kw">data</span>(Default,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Default)</code></pre></div>
+<pre><code>##   default student   balance    income
+## 1      No      No  729.5265 44361.625
+## 2      No     Yes  817.1804 12106.135
+## 3      No      No 1073.5492 31767.139
+## 4      No      No  529.2506 35704.494
+## 5      No      No  785.6559 38463.496
+## 6      No     Yes  919.5885  7491.559</code></pre>
+<pre><code>a. 
+
+```r
+glm.mod &lt;- glm(default ~ income + balance, data=Default, family=binomial)
+summary(glm.mod)
+```
+
+```
+## 
+## Call:
+## glm(formula = default ~ income + balance, family = binomial, 
+##     data = Default)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4725  -0.1444  -0.0574  -0.0211   3.7245  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.154e+01  4.348e-01 -26.545  &lt; 2e-16 ***
+## income       2.081e-05  4.985e-06   4.174 2.99e-05 ***
+## balance      5.647e-03  2.274e-04  24.836  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2920.6  on 9999  degrees of freedom
+## Residual deviance: 1579.0  on 9997  degrees of freedom
+## AIC: 1585
+## 
+## Number of Fisher Scoring iterations: 8
+```
+b.
+
+```r
+require(boot)
+```
+
+```
+## Loading required package: boot
+```
+
+```
+## 
+## Attaching package: &#39;boot&#39;
+```
+
+```
+## The following object is masked from &#39;package:lattice&#39;:
+## 
+##     melanoma
+```
+
+```r
+boot.fn &lt;- function(data.set, inds) {
+  glm.mod &lt;- glm(default ~ income + balance, data=data.set, subset=inds, family=binomial)
+  coef(glm.mod)
+}
+```
+c.
+
+```r
+boot(Default, boot.fn,R=1000)
+```
+
+```
+## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = Default, statistic = boot.fn, R = 1000)
+## 
+## 
+## Bootstrap Statistics :
+##          original        bias     std. error
+## t1* -1.154047e+01 -3.538983e-02 4.415928e-01
+## t2*  2.080898e-05 -1.565000e-07 4.819321e-06
+## t3*  5.647103e-03  2.289379e-05 2.322362e-04
+```
+d. They are extremely close. They are the same magnitude, and agree on the first digit.</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Weekly,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)</code></pre></div>
+<pre><code>a. (What is the point of this partof the exercise?)
+
+```r
+all.data &lt;- glm(Direction ~ Lag1 + Lag2, data=Weekly, family=binomial)
+```
+b.
+
+```r
+sans.first &lt;- glm(Direction ~ Lag1 + Lag2, data=Weekly[-1,], family=binomial)
+```
+c. 
+
+```r
+(pred&lt;-ifelse(predict(sans.first, Weekly[1,],type=&quot;response&quot;) &gt; .5,&quot;Up&quot;,&quot;Down&quot;))
+```
+
+```
+##    1 
+## &quot;Up&quot;
+```
+
+```r
+pred == Weekly$Direction[1]
+```
+
+```
+##     1 
+## FALSE
+```
+The model incorrectly classified the first result.
+d.
+
+```r
+errs &lt;- double(nrow(Weekly))
+for(i in 1:nrow(Weekly)){
+  i.mod&lt;-glm(Direction ~ Lag1 + Lag2, data=Weekly[-i,], family=binomial)
+  pred&lt;-ifelse(predict(i.mod,Weekly[i,],type=&quot;response&quot;)&gt;.5,&quot;Up&quot;,&quot;Down&quot;)
+  errs[i] &lt;- pred != Weekly[i,]$Direction
+}
+```
+e. 
+
+```r
+mean(errs)
+```
+
+```
+## [1] 0.4499541
+```</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+x&lt;-<span class="kw">rnorm</span>(<span class="dv">100</span>)
+y &lt;-<span class="st"> </span>x<span class="op">-</span><span class="dv">2</span><span class="op">*</span>x<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</code></pre></div>
+<span class="math inline">\(n=100\)</span>, <span class="math inline">\(p=1\)</span>. The model is <span class="math inline">\(Y = X- 2*X^2+\epsilon\)</span>.
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x,y)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-126-1.png" width="672" />
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simulated &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x,y)
+cv.est &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="dv">4</span>)
+<span class="kw">set.seed</span>(<span class="dv">927</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){
+  cv.mod &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dt">degree=</span>i), <span class="dt">data=</span>simulated)
+  cv.err &lt;-<span class="st"> </span><span class="kw">cv.glm</span>(simulated, cv.mod)
+  cv.est[i] &lt;-<span class="st"> </span>cv.err<span class="op">$</span>delta[<span class="dv">1</span>]
+}
+cv.est</code></pre></div>
+<pre><code>## [1] 7.2881616 0.9374236 0.9566218 0.9539049</code></pre>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>These shouldn’t differ since there is no randomization with LOOCV.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simulated &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x,y)
+cv.est &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="dv">4</span>)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){
+  cv.mod &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dt">degree=</span>i), <span class="dt">data=</span>simulated)
+  cv.err &lt;-<span class="st"> </span><span class="kw">cv.glm</span>(simulated, cv.mod)
+  cv.est[i] &lt;-<span class="st"> </span>cv.err<span class="op">$</span>delta[<span class="dv">1</span>]
+}
+cv.est</code></pre></div>
+<pre><code>## [1] 7.2881616 0.9374236 0.9566218 0.9539049</code></pre>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>The smallest LOOCV estimate is the second model which is the quadratic model. This is what we expect since the original data set was simulated using a quadratic relationship.</li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sums &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">4</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){
+  cv.mod &lt;-<span class="st"> </span><span class="kw">glm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dt">degree=</span>i), <span class="dt">data=</span>simulated)
+  sums[[i]] &lt;-<span class="st"> </span><span class="kw">summary</span>(cv.mod)<span class="op">$</span>coefficients
+}
+sums</code></pre></div>
+<pre><code>## [[1]]
+##                      Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept)         -1.550023  0.2600138 -5.961308 3.953542e-08
+## poly(x, degree = i)  6.188826  2.6001382  2.380191 1.923846e-02
+## 
+## [[2]]
+##                        Estimate Std. Error    t value     Pr(&gt;|t|)
+## (Intercept)           -1.550023 0.09580323 -16.179231 2.656229e-29
+## poly(x, degree = i)1   6.188826 0.95803228   6.459934 4.184810e-09
+## poly(x, degree = i)2 -23.948305 0.95803228 -24.997388 4.584330e-44
+## 
+## [[3]]
+##                         Estimate Std. Error    t value     Pr(&gt;|t|)
+## (Intercept)           -1.5500226 0.09626318 -16.101926 4.995066e-29
+## poly(x, degree = i)1   6.1888256 0.96263178   6.429068 4.971565e-09
+## poly(x, degree = i)2 -23.9483049 0.96263178 -24.877950 1.216703e-43
+## poly(x, degree = i)3   0.2641057 0.96263178   0.274358 7.843990e-01
+## 
+## [[4]]
+##                         Estimate Std. Error     t value     Pr(&gt;|t|)
+## (Intercept)           -1.5500226 0.09590514 -16.1620379 5.169227e-29
+## poly(x, degree = i)1   6.1888256 0.95905143   6.4530695 4.590732e-09
+## poly(x, degree = i)2 -23.9483049 0.95905143 -24.9708243 1.593826e-43
+## poly(x, degree = i)3   0.2641057 0.95905143   0.2753822 7.836207e-01
+## poly(x, degree = i)4   1.2570950 0.95905143   1.3107691 1.930956e-01</code></pre>
+<p>We get pretty high p-values for <span class="math inline">\(\beta_3\)</span> and <span class="math inline">\(\beta_4\)</span> coefficients, so our results agree with the conclusions based on the cross-validation results.</p></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Boston, <span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)
+<span class="kw">head</span>(Boston)</code></pre></div>
+<pre><code>##      crim zn indus chas   nox    rm  age    dis rad tax ptratio  black
+## 1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## 2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## 3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+## 4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
+## 5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
+## 6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
+##   lstat medv
+## 1  4.98 24.0
+## 2  9.14 21.6
+## 3  4.03 34.7
+## 4  2.94 33.4
+## 5  5.33 36.2
+## 6  5.21 28.7</code></pre>
+<pre><code>a. 
+
+```r
+(mu.hat &lt;- mean(Boston$medv))
+```
+
+```
+## [1] 22.53281
+```
+b. 
+
+```r
+(mu.hat.se &lt;- sd(Boston$medv)/sqrt(nrow(Boston)))
+```
+
+```
+## [1] 0.4088611
+```
+c. 
+
+```r
+set.seed(927)
+(mu.hat.boot&lt;-boot(Boston$medv, function(x,i) mean(x[i]) , R=10000))
+```
+
+```
+## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = Boston$medv, statistic = function(x, i) mean(x[i]), 
+##     R = 10000)
+## 
+## 
+## Bootstrap Statistics :
+##     original      bias    std. error
+## t1* 22.53281 0.005333617   0.4001154
+```
+The two estimates differ by less than 0.01.
+d. 
+
+```r
+boot.ci(mu.hat.boot,type=&quot;norm&quot;)
+```
+
+```
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 10000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = mu.hat.boot, type = &quot;norm&quot;)
+## 
+## Intervals : 
+## Level      Normal        
+## 95%   (21.74, 23.31 )  
+## Calculations and Intervals on Original Scale
+```
+e
+
+```r
+(mu.med &lt;- median(Boston$medv))
+```
+
+```
+## [1] 21.2
+```
+f.
+
+```r
+(mu.med.boot &lt;- boot(Boston$medv, function(x,i) median(x[i]), R=10000))
+```
+
+```
+## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = Boston$medv, statistic = function(x, i) median(x[i]), 
+##     R = 10000)
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1*     21.2 -0.006375   0.3800218
+```
+
+```r
+boot.ci(mu.med.boot,type=&quot;norm&quot;)
+```
+
+```
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 10000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = mu.med.boot, type = &quot;norm&quot;)
+## 
+## Intervals : 
+## Level      Normal        
+## 95%   (20.46, 21.95 )  
+## Calculations and Intervals on Original Scale
+```
+We can expect our median error to be within the CI given above.
+g.
+
+```r
+quantile(Boston$medv,probs=.1)
+```
+
+```
+##   10% 
+## 12.75
+```
+f.
+
+```r
+boot(Boston$medv, function(x,i) quantile(x[i],probs=.1), R=10000)
+```
+
+```
+## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = Boston$medv, statistic = function(x, i) quantile(x[i], 
+##     probs = 0.1), R = 10000)
+## 
+## 
+## Bootstrap Statistics :
+##     original   bias    std. error
+## t1*    12.75 0.004175   0.4982235
+```</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["ISLR-exercises.pdf", "ISLR-exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
