@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="chap7.html">
 
-<link rel="next" href="chap2.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -131,17 +131,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Jeffrey’s Answers to the ISLR Exercises</h1>
-<h4 class="author"><em>Jeffrey Limbacher</em></h4>
-<h4 class="date"><em>2018-01-19</em></h4>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>I am writing this to write down my answers to “An Introduction to Statistical Learning: With Applications in R” by James, Witten, Hastie, and Tibshirani. I want to read through the book to learn the basic statistical methods that I see being used so often. Answering the questions allows me to feel like I am challenging myself to learn the material in the book as I read through it. I also want to get used to creating simple bookdowns.</p>
-<p>I will break up the solutions to the exercises by chapter. There is no guarantees that I will solve every problem or finish the book.</p>
-<p>I have a background in mathematics, so hopefully I should the background to breeze through this book and get the correct answers, but we are all hubmled from time to time.</p>
-<p>Please feel free to contact me with any questions.</p>
+<div id="chap8" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Moving Beyond Linearity</h1>
+<ol style="list-style-type: decimal">
+<li><p>Skipping.</p></li>
+<li><p>If we use <span class="math inline">\(d=1\)</span> decision trees, then they will only split on one variable at a time. Let’s say that the data dimensions were ordered in terms of importance, that is we split <span class="math inline">\(x=(x_1,\dots,x_p)\)</span> first on <span class="math inline">\(x_1\)</span>, then on <span class="math inline">\(x_2\)</span>. Then the decision trees will only ever split along one of these variables. One the first step, we will get that function <span class="math inline">\(\hat{f}(x)=\hat{f}^1(x_1)\)</span>. Next, we split on the residuals, so we will split on <span class="math inline">\(x_2\)</span>, so <span class="math inline">\(\hat{f}(x) = \hat{f}^1(x_1) + \hat{f}^2(x)\)</span>. We repeat this process possibly for all <span class="math inline">\(p\)</span>, so <span class="math inline">\(\hat{f}(x) = \sum_{i=1}^p \hat{f}^i(x_i)\)</span>.</p>
+<p>Of course we expect to split variable dimensions multiple times, at least for some of them. Let’s say we split <span class="math inline">\(x_1\)</span> twice, then we get some other function <span class="math inline">\(\hat{g}^1(x_1)\)</span>. This is added so we get <span class="math inline">\(\hat{f}(x) = \sum_{i=1}^p \hat{f}^i(x_i)+ \hat{g}(x_1)\)</span>. We can then update <span class="math inline">\(\hat{f}^{1*}(x_1) = \hat{f}^1(x_1) + \hat{g}^1(x_1)\)</span>. Then our tree is still additive.</p></li>
+<li>As a refresher, here are the equations
+<span class="math display">\[\begin{align}
+E &amp;= 1 - \max(\hat{p}_{m1}, \hat{p}_{m2}) = \max(\hat{p}_{m1}, 1-\hat{p}_{m1}) &amp;\text{Classification error} \\
+G &amp;= \sum_{k=1}^2 \hat{p}_{mk}(1-\hat{p}_{mk}) = 2\hat{p}_{m1}(1-\hat{p}_{m1}) &amp;\text{Gini index} \\
+D &amp;= - \sum_{k=1}^2 \hat{p}_{mk} \log \hat{p}_{mk} = \hat{p}_{m1} \log \hat{p}_{m1} + (1 -\hat{p}_{m1}) \log (1\hat{p}_{m1}) &amp;\text{Entropy}
+\end{align}\]</span></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">E &lt;-<span class="st"> </span><span class="cf">function</span>(p) {
+  <span class="dv">1</span><span class="op">-</span><span class="kw">pmax</span>(p,<span class="dv">1</span><span class="op">-</span>p)
+}
+G &lt;-<span class="st"> </span><span class="cf">function</span>(p) {
+  <span class="dv">2</span><span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)
+}
+D &lt;-<span class="st"> </span><span class="cf">function</span>(p) {
+  <span class="op">-</span>(p<span class="op">*</span><span class="kw">log</span>(p) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">*</span><span class="kw">log</span>(<span class="dv">1</span><span class="op">-</span>p))
+}
+p &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">01</span>)
+<span class="kw">matplot</span>(p,<span class="kw">cbind</span>(<span class="kw">E</span>(p),<span class="kw">G</span>(p),<span class="kw">D</span>(p)),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<span class="kw">legend</span>(<span class="dt">x=</span><span class="st">&quot;topright&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;E&quot;</span>,<span class="st">&quot;G&quot;</span>,<span class="st">&quot;D&quot;</span>),<span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>I don’t know a good way to do this yet.</li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x=</span><span class="ot">NULL</span>,<span class="dt">y=</span><span class="ot">NULL</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3</span>))</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-207-1.png" width="672" /></li>
+</ol>
 
 </div>
             </section>
@@ -149,8 +172,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
+<a href="chap7.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="chap2.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
