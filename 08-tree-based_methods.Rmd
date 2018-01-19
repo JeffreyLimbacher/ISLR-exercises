@@ -1,0 +1,42 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+# Moving Beyond Linearity {#chap8}
+
+1. Skipping.
+
+2. If we use $d=1$ decision trees, then they will only split on one variable at a time. Let's say that the data dimensions were ordered in terms of importance, that is we split $x=(x_1,\dots,x_p)$ first on $x_1$, then on $x_2$. Then the decision trees will only ever split along one of these variables. One the first step, we will get that function $\hat{f}(x)=\hat{f}^1(x_1)$. Next, we split on the residuals, so we will split on $x_2$, so $\hat{f}(x) = \hat{f}^1(x_1) + \hat{f}^2(x)$. We repeat this process possibly for all $p$, so $\hat{f}(x) = \sum_{i=1}^p \hat{f}^i(x_i)$. 
+
+    Of course we expect to split variable dimensions multiple times, at least for some of them. Let's say we split $x_1$ twice, then we get some other function $\hat{g}^1(x_1)$. This is added so we get $\hat{f}(x) = \sum_{i=1}^p \hat{f}^i(x_i)+ \hat{g}(x_1)$. We can then update $\hat{f}^{1*}(x_1) = \hat{f}^1(x_1) + \hat{g}^1(x_1)$. Then our tree is still additive.
+
+3. As a refresher, here are the equations
+\begin{align}
+E &= 1 - \max(\hat{p}_{m1}, \hat{p}_{m2}) = \max(\hat{p}_{m1}, 1-\hat{p}_{m1}) &\text{Classification error} \\
+G &= \sum_{k=1}^2 \hat{p}_{mk}(1-\hat{p}_{mk}) = 2\hat{p}_{m1}(1-\hat{p}_{m1}) &\text{Gini index} \\
+D &= - \sum_{k=1}^2 \hat{p}_{mk} \log \hat{p}_{mk} = \hat{p}_{m1} \log \hat{p}_{m1} + (1 -\hat{p}_{m1}) \log (1\hat{p}_{m1}) &\text{Entropy}
+\end{align}
+```{r echo=TRUE}
+E <- function(p) {
+  1-pmax(p,1-p)
+}
+G <- function(p) {
+  2*p*(1-p)
+}
+D <- function(p) {
+  -(p*log(p) + (1-p)*log(1-p))
+}
+p <- seq(0,1,.01)
+matplot(p,cbind(E(p),G(p),D(p)),type="l")
+legend(x="topright",c("E","G","D"),lty=1:3,col=1:3)
+```
+
+4. 
+    a. I don't know a good way to do this yet.
+    b. 
+    ```{r}
+    plot(x=NULL,y=NULL,xlim=c(0,2),ylim=c(0,3))
+    ```
