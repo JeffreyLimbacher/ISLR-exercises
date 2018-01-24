@@ -326,7 +326,7 @@ points(mtries[which.min(avgErr)],avgErr[which.min(avgErr)],col="red",pch="x")
     set.seed(927)
     bag.mod <- randomForest(Purchase ~ ., data=Caravan,subset=train,mtry=ncol(Caravan)-1,shrinkage=0.01)
     imp.vec<-importance(bag.mod)
-    head(imp.vec[order(imp.df,decreasing=TRUE),])
+    head(imp.vec[order(imp.vec,decreasing=TRUE),])
     ```
     MOSTYPE is customer subtype. MGODGE is no religion (proportion?). PPERSAUT is contribution car policies. MGODPR is protestant. MOPLHOOG is high level education. MKOOPKLA is purchasing power class. The rest of the variable definitions can be found at http://www.liacs.nl/~putten/library/cc2000/data.html.
     c.
