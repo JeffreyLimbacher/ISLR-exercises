@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jeffrey’s Answers to the ISLR Exercises</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.5.17 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/ISLR-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jeffrey Limbacher">
+
+
+<meta name="date" content="2018-01-24">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="chap3.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> Statistical Learning</a></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> Classification</a></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> Resampling Methods</a></li>
+<li class="chapter" data-level="6" data-path="chap6.html"><a href="chap6.html"><i class="fa fa-check"></i><b>6</b> Linear Model Selection and Regularization</a></li>
+<li class="chapter" data-level="7" data-path="chap7.html"><a href="chap7.html"><i class="fa fa-check"></i><b>7</b> Moving Beyond Linearity</a></li>
+<li class="chapter" data-level="8" data-path="chap8.html"><a href="chap8.html"><i class="fa fa-check"></i><b>8</b> Moving Beyond Linearity</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Jeffrey’s Answers to the ISLR Exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap2" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Statistical Learning</h1>
+<ol style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>In the case of large <span class="math inline">\(n\)</span>, small <span class="math inline">\(p\)</span>, it would be best to use a complex learning method. Since there are only a few <span class="math inline">\(p\)</span> relative to the number of observations, the flexible method should be able to accurately capture the true <span class="math inline">\(f\)</span> without the complexity of the flexible model becoming out of control.</li>
+<li>In the case of small <span class="math inline">\(n\)</span>, large <span class="math inline">\(p\)</span>, it would be worse to use a flexible model. Flexible models require a large number of observations or we start fitting to the noise too much. In addition, our problem may even be underdetermined.</li>
+<li>If the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is highly non-linear, we would expect flexible methods to be better. Flexible methods can fit to arbitrary <span class="math inline">\(f\)</span> much better.</li>
+<li>If <span class="math inline">\(Var(\epsilon)\)</span> is extremely high, a flexible model would be worse. This is because the flexible model will start fitting to the high variance whereas the rigid model will be more robust in ignoring the variance.</li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>Regression problem. CEO salary should be treated like a continuous response to the other factors. This is an inference problem since we are trying to understand how the factors interact with the response rather than simply predicting CEO salaries. <span class="math inline">\(n=500\)</span> and <span class="math inline">\(p=3\)</span> (profit, number of employees, and industry).</li>
+<li>Classification problem. The output is qualitative, <em>success</em> or <em>failure</em>. We are interested in prediction since we only care to guess whether our product will succeed. <span class="math inline">\(n=20\)</span>, <span class="math inline">\(p=13\)</span> (price charged, marketing budget, competition price, and 10 others). As further justification that we are interested in prediction, the interplay between the variables and the outcome of the product will probably be highly non-linear resulting in using flexible models with uninterpretable results.</li>
+<li>Regression problem. The % change is quantitative. This is most likely a prediction problem since one imagines we are trying to beat the market, so the goal of the algorithm may be to find strange patterns to boost the prediction results (similar to PCA). <span class="math inline">\(n=52\)</span> (weekly data), <span class="math inline">\(p=3\)</span>.</li>
+</ol></li>
+<li><p>Skipping this for now.</p></li>
+<li><p>Pass.</p></li>
+<li><p>Flexible models are able to capture a much wider range of <span class="math inline">\(f\)</span>’s. They however, come at the cost of needing more training data in proportion to the observed response variables. In addition, their results may be hard to interpret. A more flexible approach may be appropriate when given a large <span class="math inline">\(n\)</span> (see #2, a.), when the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is not obvious. A less flexible approach is preferred if we have a small <span class="math inline">\(n\)</span>, interpretation is the goal, or when the possible shapes of <span class="math inline">\(f\)</span> is limited and understood.</p></li>
+<li><p>A parametric approach has parameters that control the model in an fixed way. These may be coefficients of a line, parameters for parametrized distrubtions, or even statistics of central tendency. Non-parametric approaches general try to estimate the shape of <span class="math inline">\(f\)</span> directly from the data, like using nearest neighbors to guess <span class="math inline">\(Y\)</span>. A parametric approach allows one to understand the interaction between the <span class="math inline">\(X\)</span> and the <span class="math inline">\(Y\)</span>. For example, if we have the coefficient of some <span class="math inline">\(X_i\)</span>, say <span class="math inline">\(\beta_i\)</span>, then we can figure out how changing <span class="math inline">\(X_i\)</span> might change <span class="math inline">\(Y\)</span>. Parametric models also require less data. However, if we get the model assumptions wrong, then parametric approaches can give poor results.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>We’ll write some code to do this for us.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d&lt;-<span class="kw">data.frame</span>(<span class="dt">Obs=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>),
+  <span class="dt">X_1=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),
+  <span class="dt">X_2=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),
+  <span class="dt">X_3=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>),
+  <span class="dt">Y=</span><span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>,<span class="st">&quot;Red&quot;</span>,<span class="st">&quot;Red&quot;</span>,<span class="st">&quot;Green&quot;</span>,<span class="st">&quot;Green&quot;</span>,<span class="st">&quot;Red&quot;</span>)
+  )
+d<span class="op">$</span>Dist=<span class="kw">apply</span>(<span class="kw">cbind</span>(d<span class="op">$</span>X_<span class="dv">1</span>,d<span class="op">$</span>X_<span class="dv">2</span>,d<span class="op">$</span>X_<span class="dv">3</span>), <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="kw">sqrt</span>(<span class="kw">sum</span>(x<span class="op">^</span><span class="dv">2</span>)))
+d</code></pre></div>
+<pre><code>##   Obs X_1 X_2 X_3     Y     Dist
+## 1   1   0   3   0   Red 3.000000
+## 2   2   2   0   0   Red 2.000000
+## 3   3   0   1   3   Red 3.162278
+## 4   4   0   1   2 Green 2.236068
+## 5   5  -1   0   1 Green 1.414214
+## 6   6   1   1   1   Red 1.732051</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Our neighbor closest to the origin is observation 5, so we would predict Green.</li>
+<li>The three closest neighbors are 5,6, and 2 which are Green, Red, Red respectively. We would predict Red since there are more Red observations than Green observations.</li>
+<li>We would expect it the best <span class="math inline">\(K\)</span> to be small. The reason is that the higher the <span class="math inline">\(K\)</span> is, the more far away points we bring in. Over longer distances, the Bayes decision boundary can change a lot.</li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>This may be cheating, but I would rather just read in with the data function.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;College&quot;</span>,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(College)</code></pre></div>
+<pre><code>##                              Private Apps Accept Enroll Top10perc
+## Abilene Christian University     Yes 1660   1232    721        23
+## Adelphi University               Yes 2186   1924    512        16
+## Adrian College                   Yes 1428   1097    336        22
+## Agnes Scott College              Yes  417    349    137        60
+## Alaska Pacific University        Yes  193    146     55        16
+## Albertson College                Yes  587    479    158        38
+##                              Top25perc F.Undergrad P.Undergrad Outstate
+## Abilene Christian University        52        2885         537     7440
+## Adelphi University                  29        2683        1227    12280
+## Adrian College                      50        1036          99    11250
+## Agnes Scott College                 89         510          63    12960
+## Alaska Pacific University           44         249         869     7560
+## Albertson College                   62         678          41    13500
+##                              Room.Board Books Personal PhD Terminal
+## Abilene Christian University       3300   450     2200  70       78
+## Adelphi University                 6450   750     1500  29       30
+## Adrian College                     3750   400     1165  53       66
+## Agnes Scott College                5450   450      875  92       97
+## Alaska Pacific University          4120   800     1500  76       72
+## Albertson College                  3335   500      675  67       73
+##                              S.F.Ratio perc.alumni Expend Grad.Rate
+## Abilene Christian University      18.1          12   7041        60
+## Adelphi University                12.2          16  10527        56
+## Adrian College                    12.9          30   8735        54
+## Agnes Scott College                7.7          37  19016        59
+## Alaska Pacific University         11.9           2  10922        15
+## Albertson College                  9.4          11   9727        55</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#rownames(College)=College[,1] #This is already done in the package data set.</span>
+<span class="kw">head</span>(College) <span class="co">#note that this pops up a little window, so you may want to run this</span></code></pre></div>
+<pre><code>##                              Private Apps Accept Enroll Top10perc
+## Abilene Christian University     Yes 1660   1232    721        23
+## Adelphi University               Yes 2186   1924    512        16
+## Adrian College                   Yes 1428   1097    336        22
+## Agnes Scott College              Yes  417    349    137        60
+## Alaska Pacific University        Yes  193    146     55        16
+## Albertson College                Yes  587    479    158        38
+##                              Top25perc F.Undergrad P.Undergrad Outstate
+## Abilene Christian University        52        2885         537     7440
+## Adelphi University                  29        2683        1227    12280
+## Adrian College                      50        1036          99    11250
+## Agnes Scott College                 89         510          63    12960
+## Alaska Pacific University           44         249         869     7560
+## Albertson College                   62         678          41    13500
+##                              Room.Board Books Personal PhD Terminal
+## Abilene Christian University       3300   450     2200  70       78
+## Adelphi University                 6450   750     1500  29       30
+## Adrian College                     3750   400     1165  53       66
+## Agnes Scott College                5450   450      875  92       97
+## Alaska Pacific University          4120   800     1500  76       72
+## Albertson College                  3335   500      675  67       73
+##                              S.F.Ratio perc.alumni Expend Grad.Rate
+## Abilene Christian University      18.1          12   7041        60
+## Adelphi University                12.2          16  10527        56
+## Adrian College                    12.9          30   8735        54
+## Agnes Scott College                7.7          37  19016        59
+## Alaska Pacific University         11.9           2  10922        15
+## Albertson College                  9.4          11   9727        55</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#code chunk in your own session.</span></code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><ol style="list-style-type: lower-roman">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(College)</code></pre></div>
+<pre><code>##  Private        Apps           Accept          Enroll       Top10perc    
+##  No :212   Min.   :   81   Min.   :   72   Min.   :  35   Min.   : 1.00  
+##  Yes:565   1st Qu.:  776   1st Qu.:  604   1st Qu.: 242   1st Qu.:15.00  
+##            Median : 1558   Median : 1110   Median : 434   Median :23.00  
+##            Mean   : 3002   Mean   : 2019   Mean   : 780   Mean   :27.56  
+##            3rd Qu.: 3624   3rd Qu.: 2424   3rd Qu.: 902   3rd Qu.:35.00  
+##            Max.   :48094   Max.   :26330   Max.   :6392   Max.   :96.00  
+##    Top25perc      F.Undergrad     P.Undergrad         Outstate    
+##  Min.   :  9.0   Min.   :  139   Min.   :    1.0   Min.   : 2340  
+##  1st Qu.: 41.0   1st Qu.:  992   1st Qu.:   95.0   1st Qu.: 7320  
+##  Median : 54.0   Median : 1707   Median :  353.0   Median : 9990  
+##  Mean   : 55.8   Mean   : 3700   Mean   :  855.3   Mean   :10441  
+##  3rd Qu.: 69.0   3rd Qu.: 4005   3rd Qu.:  967.0   3rd Qu.:12925  
+##  Max.   :100.0   Max.   :31643   Max.   :21836.0   Max.   :21700  
+##    Room.Board       Books           Personal         PhD        
+##  Min.   :1780   Min.   :  96.0   Min.   : 250   Min.   :  8.00  
+##  1st Qu.:3597   1st Qu.: 470.0   1st Qu.: 850   1st Qu.: 62.00  
+##  Median :4200   Median : 500.0   Median :1200   Median : 75.00  
+##  Mean   :4358   Mean   : 549.4   Mean   :1341   Mean   : 72.66  
+##  3rd Qu.:5050   3rd Qu.: 600.0   3rd Qu.:1700   3rd Qu.: 85.00  
+##  Max.   :8124   Max.   :2340.0   Max.   :6800   Max.   :103.00  
+##     Terminal       S.F.Ratio      perc.alumni        Expend     
+##  Min.   : 24.0   Min.   : 2.50   Min.   : 0.00   Min.   : 3186  
+##  1st Qu.: 71.0   1st Qu.:11.50   1st Qu.:13.00   1st Qu.: 6751  
+##  Median : 82.0   Median :13.60   Median :21.00   Median : 8377  
+##  Mean   : 79.7   Mean   :14.09   Mean   :22.74   Mean   : 9660  
+##  3rd Qu.: 92.0   3rd Qu.:16.50   3rd Qu.:31.00   3rd Qu.:10830  
+##  Max.   :100.0   Max.   :39.80   Max.   :64.00   Max.   :56233  
+##    Grad.Rate     
+##  Min.   : 10.00  
+##  1st Qu.: 53.00  
+##  Median : 65.00  
+##  Mean   : 65.46  
+##  3rd Qu.: 78.00  
+##  Max.   :118.00</code></pre>
+<ol start="2" style="list-style-type: lower-roman">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(College[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<ol start="3" style="list-style-type: lower-roman">
+<li>Private colleges have higher out of state tuition. No surprises here.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(Outstate <span class="op">~</span><span class="st"> </span>Private, <span class="dt">data=</span>College)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<ol start="4" style="list-style-type: lower-roman">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">College<span class="op">$</span>Elite=<span class="kw">as.factor</span>(<span class="kw">ifelse</span>(College<span class="op">$</span>Top10perc<span class="op">&gt;</span><span class="dv">50</span>,<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>))
+<span class="kw">summary</span>(College<span class="op">$</span>Elite)</code></pre></div>
+<pre><code>##  No Yes 
+## 699  78</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Outstate <span class="op">~</span><span class="st"> </span>Elite,<span class="dt">data=</span>College)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<ol start="22" style="list-style-type: lower-alpha">
+<li>I’m not really highlighting anything insightful here. It is interesting that book costs are so condensed. I’m guessing professors are sensitive to book prices and maybe just assign one so that cost is so well centered. I do feel for the few outliers that are out around $2,000 though.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
+<span class="kw">hist</span>(College<span class="op">$</span>Outstate,<span class="dt">breaks=</span><span class="dv">15</span>)
+<span class="kw">hist</span>(College<span class="op">$</span>Expend,<span class="dt">breaks=</span><span class="dv">20</span>)
+<span class="kw">hist</span>(College<span class="op">$</span>Personal,<span class="dt">breaks=</span><span class="dv">10</span>)
+<span class="kw">hist</span>(College<span class="op">$</span>Books,<span class="dt">breaks=</span><span class="dv">15</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<ol start="6" style="list-style-type: lower-roman">
+<li>Students at non-private (does this necessarily mean public?) report spending more.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(Personal <span class="op">~</span><span class="st"> </span>Private, <span class="dt">data=</span>College)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-10-1.png" width="672" /></li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Auto,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Auto)</code></pre></div>
+<pre><code>##   mpg cylinders displacement horsepower weight acceleration year origin
+## 1  18         8          307        130   3504         12.0   70      1
+## 2  15         8          350        165   3693         11.5   70      1
+## 3  18         8          318        150   3436         11.0   70      1
+## 4  16         8          304        150   3433         12.0   70      1
+## 5  17         8          302        140   3449         10.5   70      1
+## 6  15         8          429        198   4341         10.0   70      1
+##                        name
+## 1 chevrolet chevelle malibu
+## 2         buick skylark 320
+## 3        plymouth satellite
+## 4             amc rebel sst
+## 5               ford torino
+## 6          ford galaxie 500</code></pre>
+The quantitative descriptors are mpg, cylinders, horsepower, weight, acceleration, and year. The qualitative are origin and name. I think cylinders might can be argued to be a qualitative variable, but there is definitel a sense of order to it. For example, we would <em>expect</em> for mpg’s to go up as cylinders goes down.
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Auto<span class="op">$</span>origin&lt;-<span class="kw">factor</span>(Auto<span class="op">$</span>origin)
+Auto_d&lt;-Auto[,<span class="kw">sapply</span>(Auto,is.double)]
+<span class="kw">t</span>(<span class="kw">sapply</span>(Auto_d,range))</code></pre></div>
+<pre><code>##              [,1]   [,2]
+## mpg             9   46.6
+## cylinders       3    8.0
+## displacement   68  455.0
+## horsepower     46  230.0
+## weight       1613 5140.0
+## acceleration    8   24.8
+## year           70   82.0</code></pre>
+I apply range to each column of Auto that is a double with the above code. For each row, the first number is the minimum value and the second number is highest value.
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Auto_d&lt;-Auto[,<span class="kw">sapply</span>(Auto,is.double)]
+<span class="kw">cbind</span>(<span class="dt">Mean=</span><span class="kw">sapply</span>(Auto_d,mean),<span class="dt">StdDev=</span><span class="kw">sapply</span>(Auto_d,sd))</code></pre></div>
+<pre><code>##                     Mean     StdDev
+## mpg            23.445918   7.805007
+## cylinders       5.471939   1.705783
+## displacement  194.411990 104.644004
+## horsepower    104.469388  38.491160
+## weight       2977.584184 849.402560
+## acceleration   15.541327   2.758864
+## year           75.979592   3.683737</code></pre>
+<ol start="4" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Auto_d_rmobs&lt;-Auto_d[<span class="op">-</span><span class="kw">c</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">85</span>),]
+<span class="kw">cbind</span>(<span class="dt">Mean=</span><span class="kw">sapply</span>(Auto_d_rmobs,mean),<span class="dt">StdDev=</span><span class="kw">sapply</span>(Auto_d_rmobs,sd))</code></pre></div>
+<pre><code>##                     Mean     StdDev
+## mpg            24.404430   7.867283
+## cylinders       5.373418   1.654179
+## displacement  187.240506  99.678367
+## horsepower    100.721519  35.708853
+## weight       2935.971519 811.300208
+## acceleration   15.726899   2.693721
+## year           77.145570   3.106217</code></pre>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Displacement, horsepower, and weight show some very strong linear trends.We can also see that acceleration seems inversely proportions to the aforementioned three.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(Auto_d)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p></li>
+</ol>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["ISLR-exercises.pdf", "ISLR-exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

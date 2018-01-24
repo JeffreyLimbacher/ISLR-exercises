@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jeffrey’s Answers to the ISLR Exercises</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.5.17 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/ISLR-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jeffrey Limbacher">
+
+
+<meta name="date" content="2018-01-24">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="chap7.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> Statistical Learning</a></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> Classification</a></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> Resampling Methods</a></li>
+<li class="chapter" data-level="6" data-path="chap6.html"><a href="chap6.html"><i class="fa fa-check"></i><b>6</b> Linear Model Selection and Regularization</a></li>
+<li class="chapter" data-level="7" data-path="chap7.html"><a href="chap7.html"><i class="fa fa-check"></i><b>7</b> Moving Beyond Linearity</a></li>
+<li class="chapter" data-level="8" data-path="chap8.html"><a href="chap8.html"><i class="fa fa-check"></i><b>8</b> Moving Beyond Linearity</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Jeffrey’s Answers to the ISLR Exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap8" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Moving Beyond Linearity</h1>
+<ol style="list-style-type: decimal">
+<li><p>Skipping.</p></li>
+<li><p>If we use <span class="math inline">\(d=1\)</span> decision trees, then they will only split on one variable at a time. Let’s say that the data dimensions were ordered in terms of importance, that is we split <span class="math inline">\(x=(x_1,\dots,x_p)\)</span> first on <span class="math inline">\(x_1\)</span>, then on <span class="math inline">\(x_2\)</span>. Then the decision trees will only ever split along one of these variables. One the first step, we will get that function <span class="math inline">\(\hat{f}(x)=\hat{f}^1(x_1)\)</span>. Next, we split on the residuals, so we will split on <span class="math inline">\(x_2\)</span>, so <span class="math inline">\(\hat{f}(x) = \hat{f}^1(x_1) + \hat{f}^2(x)\)</span>. We repeat this process possibly for all <span class="math inline">\(p\)</span>, so <span class="math inline">\(\hat{f}(x) = \sum_{i=1}^p \hat{f}^i(x_i)\)</span>.</p>
+<p>Of course we expect to split variable dimensions multiple times, at least for some of them. Let’s say we split <span class="math inline">\(x_1\)</span> twice, then we get some other function <span class="math inline">\(\hat{g}^1(x_1)\)</span>. This is added so we get <span class="math inline">\(\hat{f}(x) = \sum_{i=1}^p \hat{f}^i(x_i)+ \hat{g}(x_1)\)</span>. We can then update <span class="math inline">\(\hat{f}^{1*}(x_1) = \hat{f}^1(x_1) + \hat{g}^1(x_1)\)</span>. Then our tree is still additive.</p></li>
+<li>As a refresher, here are the equations
+<span class="math display">\[\begin{align}
+E &amp;= 1 - \max(\hat{p}_{m1}, \hat{p}_{m2}) = \max(\hat{p}_{m1}, 1-\hat{p}_{m1}) &amp;\text{Classification error} \\
+G &amp;= \sum_{k=1}^2 \hat{p}_{mk}(1-\hat{p}_{mk}) = 2\hat{p}_{m1}(1-\hat{p}_{m1}) &amp;\text{Gini index} \\
+D &amp;= - \sum_{k=1}^2 \hat{p}_{mk} \log \hat{p}_{mk} = \hat{p}_{m1} \log \hat{p}_{m1} + (1 -\hat{p}_{m1}) \log (1\hat{p}_{m1}) &amp;\text{Entropy}
+\end{align}\]</span></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">E &lt;-<span class="st"> </span><span class="cf">function</span>(p) {
+  <span class="dv">1</span><span class="op">-</span><span class="kw">pmax</span>(p,<span class="dv">1</span><span class="op">-</span>p)
+}
+G &lt;-<span class="st"> </span><span class="cf">function</span>(p) {
+  <span class="dv">2</span><span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)
+}
+D &lt;-<span class="st"> </span><span class="cf">function</span>(p) {
+  <span class="op">-</span>(p<span class="op">*</span><span class="kw">log</span>(p) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">*</span><span class="kw">log</span>(<span class="dv">1</span><span class="op">-</span>p))
+}
+p &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">01</span>)
+<span class="kw">matplot</span>(p,<span class="kw">cbind</span>(<span class="kw">E</span>(p),<span class="kw">G</span>(p),<span class="kw">D</span>(p)),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<span class="kw">legend</span>(<span class="dt">x=</span><span class="st">&quot;topright&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;E&quot;</span>,<span class="st">&quot;G&quot;</span>,<span class="st">&quot;D&quot;</span>),<span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-206-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>I don’t know a good way to do this yet.</li>
+<li>I will put <code>X1</code> on the x-axis and <code>X2</code> on the y-axis.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x=</span><span class="ot">NULL</span>,<span class="dt">y=</span><span class="ot">NULL</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3</span>),<span class="dt">ylab=</span><span class="st">&quot;X2&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;X1&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">1</span>) <span class="co">#root, X2 &lt; 1</span>
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">2</span>) <span class="co">#first level, second branch, X2 &lt; 2</span>
+<span class="kw">text</span>(<span class="dt">x=</span>.<span class="dv">5</span>,<span class="dt">y=</span><span class="fl">2.5</span>,<span class="st">&quot;2.49&quot;</span>) <span class="co">#this is the right most terminal node</span>
+<span class="kw">lines</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="dt">y=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co">#third level bramch.</span>
+<span class="kw">text</span>(<span class="dt">x=</span><span class="op">-</span>.<span class="dv">5</span>,<span class="dt">y=</span><span class="fl">1.5</span>,<span class="st">&quot;-1.06&quot;</span>) <span class="co">#left branch left terminal node</span>
+<span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.25</span>,<span class="dt">y=</span><span class="fl">1.5</span>,<span class="st">&quot;0.21&quot;</span>) <span class="co">#left branch right terminal mode</span>
+<span class="kw">lines</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>))
+<span class="kw">text</span>(<span class="dt">x=</span><span class="dv">0</span>,<span class="dt">y=</span>.<span class="dv">5</span>,<span class="st">&quot;-1.80&quot;</span>)
+<span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.5</span>,<span class="dt">y=</span>.<span class="dv">5</span>,<span class="st">&quot;0.63&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-207-1.png" width="672" /></p></li>
+<li><p>I will assume that the chance of getting a red and green is the same, or that <span class="math inline">\(P(\text{green}) = 1 - P(\text{red}) = .5\)</span>. Since there are six trees that are voting red, we would say that the majority vote method would yield Red as the estimate. If we average the probabilities, we get 0.45, so we would vote Green.</p></li>
+<li><p>Pass for now.</p></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="kw">data</span>(Boston,<span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)
+train &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Boston), <span class="kw">nrow</span>(Boston)<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+mtries &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">:</span>(<span class="kw">ncol</span>(Boston)<span class="op">-</span><span class="dv">1</span>)
+trees &lt;-<span class="kw">seq</span>(<span class="dv">25</span>,<span class="dv">500</span>,<span class="dt">by=</span><span class="dv">25</span>)
+errors &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow=</span><span class="kw">length</span>(trees),<span class="dt">ncol=</span><span class="kw">length</span>(mtries))
+boston.test=Boston[<span class="op">-</span>train,<span class="st">&quot;medv&quot;</span>]
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(mtries)) {
+  mtry &lt;-<span class="st"> </span>mtries[i]
+  <span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">seq_along</span>(trees)){ 
+    ntrees &lt;-<span class="st"> </span>trees[j]
+    bag.boston &lt;-<span class="st"> </span><span class="kw">randomForest</span>(medv <span class="op">~</span><span class="st"> </span>.,<span class="dt">data=</span>Boston,<span class="dt">subset=</span>train,<span class="dt">mtry=</span>mtry,<span class="dt">importance=</span><span class="ot">TRUE</span>,<span class="dt">ntree=</span>ntrees)
+    yhat.bag &lt;-<span class="st"> </span><span class="kw">predict</span>(bag.boston,<span class="dt">newdata=</span>Boston[<span class="op">-</span>train,])
+    errors[j,i]&lt;-<span class="kw">mean</span>((yhat.bag<span class="op">-</span>boston.test)<span class="op">^</span><span class="dv">2</span>)
+  }
+}
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>)<span class="op">+</span><span class="fl">0.1</span>)<span class="co">#Add more space to the right. Note that the default is c(5,4,4,2)+0.1</span>
+<span class="kw">matplot</span>(trees,errors,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(mtries),<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(mtries))
+<span class="kw">legend</span>(<span class="dt">x=</span><span class="dv">525</span>,<span class="dt">y=</span><span class="fl">16.4</span>,<span class="dt">legend=</span>mtries,<span class="dt">xpd=</span><span class="ot">TRUE</span>,<span class="dt">lty=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(mtries),<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(mtries))</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-209-1.png" width="672" /> The smallest is output by the code below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(best&lt;-<span class="kw">arrayInd</span>(<span class="kw">which.min</span>(errors),<span class="kw">dim</span>(errors)))</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    3    6</code></pre>
+<p>So it appears that <span class="math inline">\(p=\)</span> 7 and 75 trees gives the best result. Averaging the error along the columns also gives the usual bias variance trade-off curve. The minimum occurs at <span class="math inline">\(p=6.\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avgErr &lt;-<span class="st"> </span><span class="kw">colMeans</span>(errors)
+<span class="kw">plot</span>(mtries,avgErr, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Average error&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;p&quot;</span>)
+<span class="kw">points</span>(mtries[<span class="kw">which.min</span>(avgErr)],avgErr[<span class="kw">which.min</span>(avgErr)],<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">pch=</span><span class="st">&quot;x&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
+<ol start="8" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Carseats,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">set.seed</span>(<span class="dv">927</span>)
+train&lt;-<span class="kw">sample.int</span>(<span class="kw">nrow</span>(Carseats),<span class="dt">size=</span><span class="kw">nrow</span>(Carseats)<span class="op">/</span><span class="dv">2</span>)</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tree)
+tree.mod &lt;-<span class="st"> </span><span class="kw">tree</span>(Sales <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>Carseats, <span class="dt">subset=</span>train)
+<span class="kw">plot</span>(tree.mod)
+<span class="kw">text</span>(tree.mod,<span class="dt">pretty=</span><span class="dv">0</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-213-1.png" width="960" /> From the tree, we can see that shelf location is pretty important and results in generally lower sales. After that, we can see that price is second most important since it is the variable in both branches below the root.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.pred&lt;-<span class="kw">predict</span>(tree.mod, Carseats[<span class="op">-</span>train,])
+y.test&lt;-Carseats[<span class="op">-</span>train,]<span class="op">$</span>Sales
+<span class="kw">mean</span>((y.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 5.155457</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+tree.mod.cv &lt;-<span class="st"> </span><span class="kw">cv.tree</span>(tree.mod)
+tree.mod.cv</code></pre></div>
+<pre><code>## $size
+##  [1] 16 15 14 12 11 10  9  8  7  6  5  4  3  2  1
+## 
+## $dev
+##  [1]  822.3025  838.0288  833.1498  805.5810  792.3865  820.8750  852.7767
+##  [8]  904.5314  912.5343  926.3326 1090.8848 1086.3376 1106.7379 1100.6977
+## [15] 1479.5594
+## 
+## $k
+##  [1]      -Inf  14.98722  16.47062  18.21130  18.46919  22.60747  25.26386
+##  [8]  31.85974  36.16413  46.26508  85.18177  88.45656 106.21737 147.19886
+## [15] 387.01956
+## 
+## $method
+## [1] &quot;deviance&quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;prune&quot;         &quot;tree.sequence&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tree.mod.cv)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-216-1.png" width="672" /> The size with the smallest deviance is 11. Let’s see if it improves the test MSE.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.size &lt;-<span class="st"> </span>tree.mod.cv<span class="op">$</span>size[<span class="kw">which.min</span>(tree.mod.cv<span class="op">$</span>dev)]
+prune.mod &lt;-<span class="st"> </span><span class="kw">prune.tree</span>(tree.mod,<span class="dt">best=</span>best.size)
+y.pred&lt;-<span class="kw">predict</span>(prune.mod, Carseats[<span class="op">-</span>train,])
+<span class="kw">mean</span>((y.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 5.034429</code></pre>
+<p>It improved the test MSE somewhat, but not considerably. I’m going to plot the test error as a function of the size.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">errors &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="kw">length</span>(tree.mod.cv<span class="op">$</span>size[<span class="op">-</span><span class="dv">1</span>]))
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(tree.mod.cv<span class="op">$</span>size[<span class="op">-</span><span class="dv">1</span>])){
+  size &lt;-<span class="st"> </span>tree.mod.cv<span class="op">$</span>size[i]
+  prune.mod &lt;-<span class="st"> </span><span class="kw">prune.tree</span>(tree.mod,<span class="dt">best=</span>size)
+  y.pred&lt;-<span class="kw">predict</span>(prune.mod, Carseats[<span class="op">-</span>train,])
+  errors[i] &lt;-<span class="st"> </span><span class="kw">mean</span>((y.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>)
+}
+<span class="kw">plot</span>(tree.mod.cv<span class="op">$</span>size[<span class="op">-</span><span class="dv">1</span>],errors,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-218-1.png" width="672" />
+<ol start="4" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
+<span class="kw">set.seed</span>(<span class="dv">927</span>)
+bag.mod &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Sales <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>Carseats, <span class="dt">subset=</span>train, <span class="dt">mtry=</span>(<span class="kw">ncol</span>(Carseats)<span class="op">-</span><span class="dv">1</span>), <span class="dt">importance=</span><span class="ot">TRUE</span>)
+y.pred&lt;-<span class="kw">predict</span>(bag.mod,Carseats[<span class="op">-</span>train,])
+<span class="kw">mean</span>((y.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 2.955195</code></pre>
+<p>The bagging method improves upon the previous methods dramatically. Here is the importace.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">importance</span>(bag.mod)</code></pre></div>
+<pre><code>##                %IncMSE IncNodePurity
+## CompPrice   26.3089451    162.159898
+## Income       7.1203118     83.821531
+## Advertising 11.2133318     84.206868
+## Population   1.7575225     66.737701
+## Price       49.6763043    393.586030
+## ShelveLoc   62.6657938    470.259185
+## Age         12.7540444    107.060198
+## Education    1.1755872     37.428097
+## Urban       -2.3668327      7.366765
+## US           0.5030577      5.677343</code></pre>
+As before, it indicates that price and shelf location are most important.
+<ol start="5" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtry&lt;-<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+errors &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="kw">length</span>(mtry))
+<span class="kw">set.seed</span>(<span class="dv">927</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(mtry)){
+  m &lt;-<span class="st"> </span>mtry[i]
+  rf.mod &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Sales <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>Carseats, <span class="dt">subset=</span>train, <span class="dt">mtry=</span>m)
+  y.pred&lt;-<span class="kw">predict</span>(rf.mod,Carseats[<span class="op">-</span>train,])
+  errors[i]&lt;-<span class="kw">mean</span>((y.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>)
+}
+<span class="kw">plot</span>(mtry,errors,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>,<span class="dt">pch=</span><span class="st">&quot;x&quot;</span>)
+<span class="kw">points</span>(mtry[<span class="kw">which.min</span>(errors)],<span class="kw">min</span>(errors),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">pch=</span><span class="st">&quot;x&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-221-1.png" width="672" /> The effect start to flatten out after 6 variables. The average of the error for <span class="math inline">\(m=6, \dots 10\)</span> is 2.9627049. The results are pretty similar to bagging.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(OJ,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">set.seed</span>(<span class="dv">927</span>)
+train&lt;-<span class="kw">sample.int</span>(<span class="kw">nrow</span>(OJ),<span class="dt">size=</span><span class="dv">800</span>)</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>First fit the model,</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tree)
+tree.mod &lt;-<span class="st"> </span><span class="kw">tree</span>(Purchase <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>OJ, <span class="dt">subset=</span>train)
+y.test &lt;-<span class="st"> </span>OJ[<span class="op">-</span>train,<span class="st">&quot;Purchase&quot;</span>]
+<span class="kw">summary</span>(tree.mod)</code></pre></div>
+<pre><code>## 
+## Classification tree:
+## tree(formula = Purchase ~ ., data = OJ, subset = train)
+## Variables actually used in tree construction:
+## [1] &quot;LoyalCH&quot;       &quot;DiscMM&quot;        &quot;PriceDiff&quot;     &quot;ListPriceDiff&quot;
+## Number of terminal nodes:  7 
+## Residual mean deviance:  0.7698 = 610.5 / 793 
+## Misclassification error rate: 0.1638 = 131 / 800</code></pre>
+<p>There is seven terminal nodes. The train misclassification rate is below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(tree.mod, OJ[train,], <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)
+y.train&lt;-OJ[train,<span class="st">&quot;Purchase&quot;</span>]
+(unpruned.err &lt;-<span class="st"> </span><span class="kw">mean</span>(y.pred <span class="op">!=</span><span class="st"> </span>y.train))</code></pre></div>
+<pre><code>## [1] 0.16375</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree.mod</code></pre></div>
+<pre><code>## node), split, n, deviance, yval, (yprob)
+##       * denotes terminal node
+## 
+##  1) root 800 1071.000 CH ( 0.60875 0.39125 )  
+##    2) LoyalCH &lt; 0.48285 297  324.400 MM ( 0.23569 0.76431 )  
+##      4) LoyalCH &lt; 0.0356415 54    9.959 MM ( 0.01852 0.98148 ) *
+##      5) LoyalCH &gt; 0.0356415 243  290.000 MM ( 0.28395 0.71605 )  
+##       10) DiscMM &lt; 0.47 218  272.200 MM ( 0.31651 0.68349 ) *
+##       11) DiscMM &gt; 0.47 25    0.000 MM ( 0.00000 1.00000 ) *
+##    3) LoyalCH &gt; 0.48285 503  460.200 CH ( 0.82903 0.17097 )  
+##      6) LoyalCH &lt; 0.764572 238  295.000 CH ( 0.68908 0.31092 )  
+##       12) PriceDiff &lt; -0.165 36   35.470 MM ( 0.19444 0.80556 ) *
+##       13) PriceDiff &gt; -0.165 202  214.300 CH ( 0.77723 0.22277 )  
+##         26) ListPriceDiff &lt; 0.135 31   42.680 MM ( 0.45161 0.54839 ) *
+##         27) ListPriceDiff &gt; 0.135 171  152.500 CH ( 0.83626 0.16374 ) *
+##      7) LoyalCH &gt; 0.764572 265   97.720 CH ( 0.95472 0.04528 ) *</code></pre>
+Looking at terminal 27 and 26, we can see that the list price difference matters at that point in the true.
+<ol start="4" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tree.mod)
+<span class="kw">text</span>(tree.mod,<span class="dt">pretty=</span><span class="dv">0</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-226-1.png" width="672" /> We can see that the root node, loyalty to the branch is very important, and is the deciding factor at the top 3 splits. However, even if loyalty is high (by going right, then left, and then right down the tree), list price still can be a deciding factor.
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Looking at the table, we can see that</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(tree.mod, <span class="dt">newdata=</span>OJ[<span class="op">-</span>train,],<span class="dt">type=</span><span class="st">&quot;class&quot;</span>)
+<span class="kw">table</span>(y.pred,y.test)</code></pre></div>
+<pre><code>##       y.test
+## y.pred  CH  MM
+##     CH 129  13
+##     MM  37  91</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unpruned.test.err &lt;-<span class="st"> </span><span class="kw">mean</span>(y.pred <span class="op">!=</span><span class="st"> </span>y.test)</code></pre></div>
+The test error rate is <code>mean(y.pred != y.test)</code> = 0.1851852.
+<ol start="6" style="list-style-type: lower-alpha">
+<li>and g.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+tree.mod.cv &lt;-<span class="st"> </span><span class="kw">cv.tree</span>(tree.mod,<span class="dt">FUN=</span>prune.misclass)
+<span class="kw">with</span>(tree.mod.cv,<span class="kw">plot</span>(size,dev,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>))</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-228-1.png" width="672" />
+<ol start="8" style="list-style-type: lower-alpha">
+<li>The size with the lowest CV misclassification rate is 4.</li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best&lt;-<span class="kw">with</span>(tree.mod.cv,size[<span class="kw">which.min</span>(dev)])
+tree.mod.prune &lt;-<span class="st"> </span><span class="kw">prune.tree</span>(tree.mod,<span class="dt">best=</span>best)
+<span class="kw">plot</span>(tree.mod.prune)
+<span class="kw">text</span>(tree.mod.prune,<span class="dt">pretty=</span><span class="dv">0</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-229-1.png" width="672" />
+<ol start="10" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.pred.prune &lt;-<span class="st"> </span><span class="kw">predict</span>(tree.mod.prune,OJ[train,],<span class="dt">type=</span><span class="st">&quot;class&quot;</span>)
+pruned.err &lt;-<span class="st"> </span><span class="kw">mean</span>(y.pred.prune <span class="op">!=</span><span class="st"> </span>y.train)
+<span class="kw">cbind</span>(unpruned.err, pruned.err)</code></pre></div>
+<pre><code>##      unpruned.err pruned.err
+## [1,]      0.16375     0.1675</code></pre>
+The pruned error for the training set is slightly larger.
+<ol start="11" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.pred.prune &lt;-<span class="st"> </span><span class="kw">predict</span>(tree.mod.prune,OJ[train,],<span class="dt">type=</span><span class="st">&quot;class&quot;</span>)
+pruned.test.err &lt;-<span class="st"> </span><span class="kw">mean</span>(y.pred.prune <span class="op">!=</span><span class="st"> </span>y.train)
+<span class="kw">cbind</span>(unpruned.test.err, pruned.test.err)</code></pre></div>
+<pre><code>##      unpruned.test.err pruned.test.err
+## [1,]         0.1851852          0.1675</code></pre>
+<p>The pruned test error is much better than the unpruned.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Hitters,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+Hitters &lt;-<span class="st"> </span><span class="kw">na.omit</span>(Hitters)
+Hitters<span class="op">$</span>Salary &lt;-<span class="st"> </span><span class="kw">log</span>(Hitters<span class="op">$</span>Salary)</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">train&lt;-<span class="dv">1</span><span class="op">:</span><span class="dv">200</span></code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>The plot below suggests that there is some overfitting going on considering that the training error just keeps going down.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gbm)</code></pre></div>
+<pre><code>## Loading required package: survival</code></pre>
+<pre><code>## 
+## Attaching package: &#39;survival&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:boot&#39;:
+## 
+##     aml</code></pre>
+<pre><code>## The following object is masked from &#39;package:caret&#39;:
+## 
+##     cluster</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre><code>## Loaded gbm 2.1.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+shrinkages &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">0</span>,<span class="dt">by=</span>.<span class="dv">1</span>))
+errors &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="kw">length</span>(shrinkages))
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(shrinkages)) {
+  s&lt;-shrinkages[i]
+  boost.mod &lt;-<span class="st"> </span><span class="kw">gbm</span>(Salary <span class="op">~</span><span class="st"> </span>.,<span class="dt">data=</span>Hitters[train,],<span class="dt">distribution=</span><span class="st">&quot;gaussian&quot;</span>,<span class="dt">n.trees=</span><span class="dv">1000</span>,<span class="dt">shrinkage=</span>s)
+  y.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(boost.mod,<span class="dt">n.trees=</span><span class="dv">1000</span>)
+  errors[i] &lt;-<span class="st"> </span><span class="kw">mean</span>((y.pred<span class="op">-</span>Hitters[train,]<span class="op">$</span>Salary)<span class="op">^</span><span class="dv">2</span>)
+}
+<span class="kw">plot</span>(shrinkages,errors,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-234-1.png" width="672" />
+<ol start="4" style="list-style-type: lower-alpha">
+<li>It appears that the test error seems to bottom out at just below .01.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+shrinkages &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^</span>(<span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">0</span>,<span class="dt">by=</span>.<span class="dv">1</span>))
+test.errs &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="kw">length</span>(shrinkages))
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(shrinkages)) {
+  s &lt;-<span class="st"> </span>shrinkages[i]
+  boost.mod &lt;-<span class="st"> </span><span class="kw">gbm</span>(Salary <span class="op">~</span><span class="st"> </span>.,<span class="dt">data=</span>Hitters[train,],<span class="dt">distribution=</span><span class="st">&quot;gaussian&quot;</span>,<span class="dt">n.trees=</span><span class="dv">1000</span>,<span class="dt">shrinkage=</span>s)
+  y.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(boost.mod,Hitters[<span class="op">-</span>train,],<span class="dt">n.trees=</span><span class="dv">1000</span>)
+  test.errs[i] &lt;-<span class="st"> </span><span class="kw">mean</span>((y.pred<span class="op">-</span>Hitters[<span class="op">-</span>train,]<span class="op">$</span>Salary)<span class="op">^</span><span class="dv">2</span>)
+}
+<span class="kw">plot</span>(shrinkages,test.errs,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">log=</span><span class="st">&quot;x&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-235-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best.shrink &lt;-<span class="st"> </span>shrinkages[<span class="kw">which.min</span>(test.errs)]</code></pre></div>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>First, a simple linear regression</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.test &lt;-<span class="st"> </span>Hitters[<span class="op">-</span>train,<span class="st">&quot;Salary&quot;</span>]
+lm.mod &lt;-<span class="st"> </span><span class="kw">lm</span>(Salary <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>Hitters, <span class="dt">subset=</span>train)
+lm.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(lm.mod, Hitters[<span class="op">-</span>train,])
+(lm.err &lt;-<span class="st"> </span><span class="kw">mean</span>((lm.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 0.4917959</code></pre>
+<p>Now for the Lasso.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(glmnet)
+x&lt;-<span class="kw">model.matrix</span>(Salary<span class="op">~</span>.,Hitters,<span class="dt">subset=</span>train)[,<span class="op">-</span><span class="dv">1</span>]
+y&lt;-Hitters<span class="op">$</span>Salary
+lasso.cv &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[train,],y[train],<span class="dt">alpha=</span><span class="dv">1</span>)
+bestlam &lt;-<span class="st"> </span>lasso.cv<span class="op">$</span>lambda.min
+lasso.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[train,],y[train],<span class="dt">alpha=</span><span class="dv">1</span>)
+lasso.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(lasso.mod,<span class="dt">s=</span>bestlam,<span class="dt">newx=</span>x[<span class="op">-</span>train,])
+(lasso.err &lt;-<span class="st"> </span><span class="kw">mean</span>((lasso.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 0.4709719</code></pre>
+<p>Comparing the results.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boost.mod &lt;-<span class="st"> </span><span class="kw">gbm</span>(Salary <span class="op">~</span><span class="st"> </span>.,<span class="dt">data=</span>Hitters[train,],<span class="dt">distribution=</span><span class="st">&quot;gaussian&quot;</span>,<span class="dt">n.trees=</span><span class="dv">1000</span>,<span class="dt">shrinkage=</span>best.shrink)
+y.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(boost.mod,Hitters[<span class="op">-</span>train,],<span class="dt">n.trees=</span><span class="dv">1000</span>)
+boost.err &lt;-<span class="st"> </span><span class="kw">mean</span>((y.pred<span class="op">-</span>Hitters[<span class="op">-</span>train,]<span class="op">$</span>Salary)<span class="op">^</span><span class="dv">2</span>)
+<span class="kw">rbind</span>(lm.err,lasso.err,boost.err)</code></pre></div>
+<pre><code>##                [,1]
+## lm.err    0.4917959
+## lasso.err 0.4709719
+## boost.err 0.2883988</code></pre>
+We can see that the boosting outperformed that linear regression and lasso considerably.
+<ol start="6" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(boost.mod,<span class="dt">plotit=</span><span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>##                 var    rel.inf
+## CAtBat       CAtBat 17.5891423
+## CRBI           CRBI  8.9092457
+## Years         Years  7.8985139
+## CRuns         CRuns  7.5641642
+## PutOuts     PutOuts  6.8435706
+## CHits         CHits  6.8225708
+## CHmRun       CHmRun  6.4953350
+## Walks         Walks  6.2231730
+## CWalks       CWalks  5.9689286
+## Hits           Hits  5.2046670
+## Assists     Assists  3.8874446
+## HmRun         HmRun  3.6736184
+## RBI             RBI  3.3908016
+## AtBat         AtBat  3.0983749
+## Errors       Errors  2.7066416
+## Runs           Runs  2.2884151
+## Division   Division  0.7817312
+## NewLeague NewLeague  0.5083451
+## League       League  0.1453164</code></pre>
+At bats is the most important.
+<ol start="7" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
+bag.mod &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Salary <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>Hitters, <span class="dt">subset=</span>train,<span class="dt">mtry=</span><span class="kw">ncol</span>(Hitters)<span class="op">-</span><span class="dv">1</span>)
+bag.pred&lt;-<span class="kw">predict</span>(bag.mod,Hitters[<span class="op">-</span>train,])
+(bag.err &lt;-<span class="st"> </span><span class="kw">mean</span>((bag.pred<span class="op">-</span>y.test)<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 0.2246912</code></pre>
+<p>Bagging performs the best.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Caravan,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+train&lt;-<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>The most important variables are listed below.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
+<span class="kw">set.seed</span>(<span class="dv">927</span>)
+bag.mod &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Purchase <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span>Caravan,<span class="dt">subset=</span>train,<span class="dt">mtry=</span><span class="kw">ncol</span>(Caravan)<span class="op">-</span><span class="dv">1</span>,<span class="dt">shrinkage=</span><span class="fl">0.01</span>)
+imp.vec&lt;-<span class="kw">importance</span>(bag.mod)
+<span class="kw">head</span>(imp.vec[<span class="kw">order</span>(imp.vec,<span class="dt">decreasing=</span><span class="ot">TRUE</span>),])</code></pre></div>
+<pre><code>##  MOSTYPE PPERSAUT   MGODGE MOPLHOOG   MGODPR   PBRAND 
+## 4.365011 4.149740 4.115921 3.546324 3.236479 3.016892</code></pre>
+MOSTYPE is customer subtype. MGODGE is no religion (proportion?). PPERSAUT is contribution car policies. MGODPR is protestant. MOPLHOOG is high level education. MKOOPKLA is purchasing power class. The rest of the variable definitions can be found at <a href="http://www.liacs.nl/~putten/library/cc2000/data.html" class="uri">http://www.liacs.nl/~putten/library/cc2000/data.html</a>.
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.test &lt;-<span class="st"> </span>Caravan[<span class="op">-</span>train,]<span class="op">$</span>Purchase
+y.pred &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">predict</span>(bag.mod,Caravan[<span class="op">-</span>train,],<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="st">&quot;Yes&quot;</span>]<span class="op">&gt;</span>.<span class="dv">2</span>,<span class="st">&quot;Yes&quot;</span>,<span class="st">&quot;No&quot;</span>)
+<span class="kw">table</span>(y.pred,y.test)</code></pre></div>
+<pre><code>##       y.test
+## y.pred   No  Yes
+##    No  4120  231
+##    Yes  413   58</code></pre>
+<p>The proportion of people predicted to make a purchase that do make a purchase is 0.1231423. Logistic regression is below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.mod &lt;-<span class="st"> </span><span class="kw">glm</span>(Purchase <span class="op">~</span><span class="st"> </span>., <span class="dt">family=</span>binomial, <span class="dt">data=</span>Caravan,<span class="dt">subset=</span>train)</code></pre></div>
+<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.pred &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">predict</span>(log.mod, Caravan[<span class="op">-</span>train,], <span class="dt">type=</span><span class="st">&quot;response&quot;</span>) <span class="op">&gt;</span><span class="st"> </span>.<span class="dv">2</span>, <span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>)</code></pre></div>
+<pre><code>## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
+## ifelse(type == : prediction from a rank-deficient fit may be misleading</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(log.pred,y.test)</code></pre></div>
+<pre><code>##         y.test
+## log.pred   No  Yes
+##      No  4183  231
+##      Yes  350   58</code></pre>
+<p>The porportion for logistic regression is 0.1421569 so it performs a little better. Let’s try KNN.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(class)
+train.X &lt;-<span class="st"> </span>Caravan[train,<span class="op">-</span><span class="kw">ncol</span>(Caravan)]
+train.Y &lt;-<span class="st"> </span>Caravan[train,<span class="kw">ncol</span>(Caravan)]
+test.X &lt;-<span class="st"> </span>Caravan[<span class="op">-</span>train,<span class="op">-</span><span class="kw">ncol</span>(Caravan)]
+knn.pred &lt;-<span class="st"> </span><span class="kw">knn</span>(train.X,test.X,train.Y,<span class="dt">k=</span><span class="dv">2</span>)
+<span class="kw">table</span>(knn.pred, y.test)</code></pre></div>
+<pre><code>##         y.test
+## knn.pred   No  Yes
+##      No  4276  267
+##      Yes  257   22</code></pre></li>
+</ol>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap7.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["ISLR-exercises.pdf", "ISLR-exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

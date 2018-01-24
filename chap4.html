@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jeffrey’s Answers to the ISLR Exercises</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.5.17 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/ISLR-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jeffrey Limbacher">
+
+
+<meta name="date" content="2018-01-24">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="chap3.html">
+<link rel="next" href="chap5.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> Statistical Learning</a></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> Classification</a></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> Resampling Methods</a></li>
+<li class="chapter" data-level="6" data-path="chap6.html"><a href="chap6.html"><i class="fa fa-check"></i><b>6</b> Linear Model Selection and Regularization</a></li>
+<li class="chapter" data-level="7" data-path="chap7.html"><a href="chap7.html"><i class="fa fa-check"></i><b>7</b> Moving Beyond Linearity</a></li>
+<li class="chapter" data-level="8" data-path="chap8.html"><a href="chap8.html"><i class="fa fa-check"></i><b>8</b> Moving Beyond Linearity</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Jeffrey’s Answers to the ISLR Exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap4" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Classification</h1>
+<ol style="list-style-type: decimal">
+<li>Note that
+<span class="math display">\[\begin{align*}
+1 - p(X) &amp;= 1 - \frac{e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}} \\
+&amp;= \frac{1 + e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}} - \frac{e^{\beta_0+\beta_1X}}{1+e^{\beta_0+\beta_1X}} \\
+&amp;= \frac{1}{1 + e^{\beta_0+\beta_1X}}\, .
+\end{align*}\]</span>
+Then
+<span class="math display">\[\begin{align*}
+\frac{p(X)}{1-p(X)} &amp;= \frac{\frac{e^{\beta_0+\beta_1X}}{1 + e^{\beta_0+\beta_1X}}}{\frac{1}{1+e^{\beta_0+\beta_1X}}} \\
+&amp;= e^{\beta_0+\beta_1X}\, .
+\end{align*}\]</span></li>
+<li>Since <span class="math inline">\(p_k(x)\)</span> has the same denominator for all <span class="math inline">\(k\)</span>, so we can ignore it, so we are left with <span class="math display">\[p_k^*(x) = \pi_k \frac{1}{\sqrt{2 \pi }\sigma} \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right)\, .\]</span> In addition, the <span class="math inline">\(\frac{1}{\sqrt{2 \pi}\sigma}\)</span> term is the same, so we just need to maximize <span class="math display">\[p_k^{**}(x) = \pi_k \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right)\, . \]</span> Logarithms preserve order, i.e. if <span class="math inline">\(p^{**}_i(x) &lt; p^{**}_j(x)\)</span>, then <span class="math inline">\(\log(p^{**}_i(x)) &lt; \log(p^{**}_j(x))\)</span>. Taking a log of <span class="math inline">\(p^{**}_k(x)\)</span> gives
+<span class="math display">\[\begin{align*}
+\log(p^{**}_k(x)) &amp;= \log \left( \pi_k \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right) \right) \\
+&amp;= \log(\pi_k) -\frac{1}{2 \sigma^2}(x - \mu_k)^2 \\
+&amp;= \log(\pi_k) -\frac{1}{2 \sigma^2}(x^2 - 2x \mu_k + \mu_k^2) \\
+&amp;= \log(\pi_k) - \frac{x^2}{2 \sigma^2} + \frac{x \mu_k}{\sigma^2} - \frac{\mu_k^2}{2 \sigma^2} \, .
+\end{align*}\]</span>
+<p>Since <span class="math inline">\(\sigma^2\)</span> is constant, we have that the <span class="math inline">\(\frac{x^2}{2 \sigma^2}\)</span> term is the same for all <span class="math inline">\(\log(\pi^{**}(x))\)</span> terms, so we can ignore it when maximizing. Removing this term from the last equation gives <span class="math display">\[ \delta_k(x) = \log(\pi_k) + \frac{x \mu_k}{\sigma^2} -\frac{\mu_k^2}{2 \sigma^2} \, .\]</span> From this we can conclude that maximizing our original equation is equivalent to maximizing the last equation.</p></li>
+<li>We can follow the arguments as the last problem, but we will end up with
+<span class="math display" id="eq:sigmak">\[\begin{equation}
+p_k^*(x) = \pi_k \frac{1}{\sqrt{2 \pi }\sigma_k} \exp \left(-\frac{1}{2 \sigma^2}(x - \mu_k)^2 \right)\, .
+\tag{4.1}
+\end{equation}\]</span>
+Note that we can’t drop the <span class="math inline">\(\sigma_k\)</span> as in problem 2 since it is unique for each population. Taking the log of the <a href="chap4.html#eq:sigmak">(4.1)</a> we get
+<span class="math display">\[\begin{align}
+\log(p_k^*(x)) &amp;= \log(\pi_k) - \log(\sqrt(2 \pi) \sigma_k) + \frac{1}{2 \sigma_k^2} (x - \mu_k)^2 \nonumber \\
+&amp;= \log(\pi_k) - \log(\sqrt(2 \pi) \sigma_k) + \frac{1}{2 \sigma_k^2} (x^2 - 2x\mu_k + \mu_k^2) \nonumber \\
+\end{align}\]</span>
+<p>Note that we cannot drop the <span class="math inline">\(1/(2 \sigma_k^2)\)</span> term since it varies between each group. Therefore, the above equation is quadratic.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>The question is essentially asking us to compute <span class="math inline">\(P(|X_2-X_1|&lt;.05)\)</span> where <span class="math inline">\(X_2\)</span> is our current observation and <span class="math inline">\(X_1\)</span> is our data. However, there is some issues along the edges of the interval that make it annoying to compute. I am going to ignore these since it won’t really add much more value even though the answer is more accurate. Given some <span class="math inline">\(x\)</span>, the probability that our observation falls within <span class="math inline">\(\pm 0.05\)</span> of <span class="math inline">\(x\)</span> is <span class="math inline">\(P(x-0.05 \leq X \leq x+0.05) = .1\)</span>.</li>
+<li>Same as before, given <span class="math inline">\((x_1,x_2) \in \mathbb{R}^2\)</span>, <span class="math inline">\(P(x_1 - 0.05 \leq X_1 \leq x_1 + 0.05, x_2 - 0.05 \leq X_2 \leq x_2 + 0.05)\)</span> <span class="math inline">\(=P(x_1 - 0.05 \leq X_1 \leq x_1)P(x_2 - 0.05 \leq X_2 \leq x_2 + 0.05)\)</span> <span class="math inline">\(=P(x_1 - 0.05 \leq X_1 \leq x_1)^2 = 0.1^2 = 0.01\)</span>. I used independence to separate the probability into two probabilities, and then use i.i.d. assumption to conclude that the probabilities were equal.</li>
+<li>It’s clear what the pattern is at this point, <span class="math inline">\(P(x_1 - 0.05 \leq X_1 \leq x_1 + 0.05, \dots, x_{100} - 0.05 \leq X_{100} \leq x_{100} + 0.05) = P(x_1 - 0.05 \leq X_1 \leq x_1 + 0.05) ^ 100 = 0.1^{100}\)</span>. That number is miniscule.</li>
+<li>We can expect to find a very small amount of training data “near” our data set when <span class="math inline">\(p\)</span> is large. This means that we are using observations that are completely unlike our prediction value to try and guess the characteristics of <span class="math inline">\(Y\)</span>.</li>
+<li>If <span class="math inline">\(l\)</span> is the length of hypercube (<span class="math inline">\(l \leq 1\)</span>), then <span class="math inline">\(P(x_1 - \frac{l}{2} \leq X_1 \leq x_1 + \frac{l}{2}, \dots, x_p - \frac{l}{2} \leq X_p \leq x_p + \frac{l}{2}) = l^p\)</span>. Thus, if we want 10%, we need to find <span class="math inline">\(l\)</span> such that <span class="math inline">\(\sqrt[p]{.1} = l\)</span>. I use <code>R</code> to calculate the lengths for some values of <span class="math inline">\(p\)</span>.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">10</span>,<span class="dv">25</span>,<span class="dv">50</span>,<span class="dv">100</span>)
+(<span class="kw">cbind</span>(p,.<span class="dv">1</span><span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>p)))</code></pre></div>
+<pre><code>##        p          
+## [1,]   1 0.1000000
+## [2,]   2 0.3162278
+## [3,]   3 0.4641589
+## [4,]  10 0.7943282
+## [5,]  25 0.9120108
+## [6,]  50 0.9549926
+## [7,] 100 0.9772372</code></pre></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>Initially, I expected the QDA to outperform the LDA on every training set (similar to least squares), but below is an example where the QDA performs worse on the training set.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(MASS)</code></pre></div>
+<pre><code>## Loading required package: MASS</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+n &lt;-<span class="st"> </span><span class="dv">1000</span>
+n1 &lt;-<span class="st"> </span><span class="dv">500</span>
+n2 &lt;-<span class="st"> </span>n<span class="op">-</span>n1
+x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rnorm</span>(n1,<span class="op">-</span>.<span class="dv">25</span>,<span class="dv">1</span>),<span class="kw">rnorm</span>(n2,.<span class="dv">25</span>,<span class="dv">1</span>))
+y &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">times=</span><span class="kw">c</span>(n1,n2)))
+lda_wrong &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">predict</span>(<span class="kw">lda</span>(y<span class="op">~</span>x))<span class="op">$</span>class<span class="op">!=</span>y)
+qda_wrong &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">predict</span>(<span class="kw">qda</span>(y<span class="op">~</span>x))<span class="op">$</span>class<span class="op">!=</span>y)
+<span class="kw">cbind</span>(<span class="dt">LDA=</span>lda_wrong,<span class="dt">QDA=</span>qda_wrong)</code></pre></div>
+<pre><code>##      LDA QDA
+## [1,] 414 419</code></pre>
+It’s a little hard to say which is expected to do better, but I think the the LDA is better than QDA in general. The reason I suspect this has to do with the way the variance is calculated. If the Bayes decision boundary is linear, then know that for all <span class="math inline">\(k\)</span>, <span class="math inline">\(\sigma_k=\sigma\)</span>. So when we estimate <span class="math inline">\(\sigma\)</span>, we can use the observations from all the different populations. But when we do QDA, we have to estimate <span class="math inline">\(\sigma_k\)</span> differently for each <span class="math inline">\(k\)</span>. This means that we have to divide up our observations to estimate each <span class="math inline">\(\sigma_k\)</span>. Thus, when using QDA, we might have a bunch of <span class="math inline">\(\sigma_k\)</span> that are slightly off from <span class="math inline">\(\sigma\)</span>, creating a source of error. I think it is safe to concldue that LDA would do better on the test set. Otherwise, why even bother doing LDA?
+<ol start="2" style="list-style-type: lower-alpha">
+<li>This question depends on the non-linearity of the boundary. In general, we would expect QDA to outperform LDA on both training and test sets. However, one can image a tiny pertubration to linearity might still be better suited for LDA. For example, if <span class="math inline">\(\sigma_1=\sigma+\epsilon\)</span> and <span class="math inline">\(\sigma_2=\sigma\)</span> where <span class="math inline">\(\epsilon\)</span> is some number small relative to <span class="math inline">\(\sigma\)</span>.</li>
+<li>We would expect the test accuracy of QDA to improve versus LDA. This is because as we get more <span class="math inline">\(n\)</span>, we get much better estimates to <span class="math inline">\(\sigma_k\)</span>. If it turns out that <span class="math inline">\(\sigma_k=\sigma\)</span> for all <span class="math inline">\(k\)</span>, then QDA will still capture this really well. Especially since variance estimates have diminishing returns relative to <span class="math inline">\(n\)</span>.</li>
+<li>False, for the reasons stated in a.</li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">5</span>; b_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="fl">0.05</span>; b_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="dv">1</span>
+p &lt;-<span class="st"> </span><span class="kw">exp</span>(b_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>b_<span class="dv">1</span><span class="op">*</span><span class="dv">40</span> <span class="op">+</span><span class="st"> </span>b_<span class="dv">2</span><span class="op">*</span><span class="fl">3.5</span>)
+p<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>p)</code></pre></div>
+<pre><code>## [1] 0.6224593</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Note if <span class="math inline">\(p = .5\)</span>, that means that <span class="math display">\[ \frac{1}{2} = \frac{\exp(\beta \cdot x)}{1+\exp(\beta \cdot x)} \]</span> or that <span class="math inline">\(\exp(\beta \cdot x) = 1\)</span>. Note that I switched to vector notation. Taking logs of both sides, we have <span class="math inline">\(\beta \cdot x = 0\)</span>. Going back to our problem-specific model, we have <span class="math inline">\(\beta_0 + \beta_1 x_1 + \beta_2 x_2 = 0\)</span>. Solving for <span class="math inline">\(x_2\)</span> gives <span class="math display">\[x_2 = \frac{-\beta_0 - \beta_2 x_2}{\beta_1}\]</span></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span>b_<span class="dv">0</span> <span class="op">-</span><span class="st"> </span>b_<span class="dv">2</span><span class="op">*</span><span class="fl">3.5</span>)<span class="op">/</span>b_<span class="dv">1</span></code></pre></div>
+<pre><code>## [1] 30</code></pre></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sigma &lt;-<span class="st"> </span><span class="dv">6</span>
+mu1 &lt;-<span class="st"> </span><span class="dv">10</span>
+mu2 &lt;-<span class="st"> </span><span class="dv">0</span>
+pi1 &lt;-<span class="st"> </span>.<span class="dv">8</span>
+pi2 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>pi1
+f1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">4</span>,mu1,sigma)
+f2 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(<span class="dv">4</span>,mu2,sigma)
+pi1<span class="op">*</span>f1<span class="op">/</span>(pi1<span class="op">*</span>f1<span class="op">+</span>pi2<span class="op">*</span>f2)</code></pre></div>
+<pre><code>## [1] 0.7518525</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li><p>Since we can expect a 1-nearest neighbor to have perfect test error, we know and the data set is divided evenly, that the test error was 36%, so we would go with the logsitic regression.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>Let <span class="math inline">\(O\)</span> be the odds. <span class="math inline">\(1/(1-p) = O\)</span> gives <span class="math inline">\(p=O/(1+O)\)</span>.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">.<span class="dv">37</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>.<span class="dv">37</span>)</code></pre></div>
+<pre><code>## [1] 0.270073</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">.<span class="dv">16</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>.<span class="dv">16</span>)</code></pre></div>
+<pre><code>## [1] 0.1904762</code></pre></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Weekly,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Weekly)</code></pre></div>
+<pre><code>##   Year   Lag1   Lag2   Lag3   Lag4   Lag5    Volume  Today Direction
+## 1 1990  0.816  1.572 -3.936 -0.229 -3.484 0.1549760 -0.270      Down
+## 2 1990 -0.270  0.816  1.572 -3.936 -0.229 0.1485740 -2.576      Down
+## 3 1990 -2.576 -0.270  0.816  1.572 -3.936 0.1598375  3.514        Up
+## 4 1990  3.514 -2.576 -0.270  0.816  1.572 0.1616300  0.712        Up
+## 5 1990  0.712  3.514 -2.576 -0.270  0.816 0.1537280  1.178        Up
+## 6 1990  1.178  0.712  3.514 -2.576 -0.270 0.1544440 -1.372      Down</code></pre>
+<pre><code>a.
+
+```r
+summary(Weekly)
+```
+
+```
+##       Year           Lag1               Lag2               Lag3         
+##  Min.   :1990   Min.   :-18.1950   Min.   :-18.1950   Min.   :-18.1950  
+##  1st Qu.:1995   1st Qu.: -1.1540   1st Qu.: -1.1540   1st Qu.: -1.1580  
+##  Median :2000   Median :  0.2410   Median :  0.2410   Median :  0.2410  
+##  Mean   :2000   Mean   :  0.1506   Mean   :  0.1511   Mean   :  0.1472  
+##  3rd Qu.:2005   3rd Qu.:  1.4050   3rd Qu.:  1.4090   3rd Qu.:  1.4090  
+##  Max.   :2010   Max.   : 12.0260   Max.   : 12.0260   Max.   : 12.0260  
+##       Lag4               Lag5              Volume       
+##  Min.   :-18.1950   Min.   :-18.1950   Min.   :0.08747  
+##  1st Qu.: -1.1580   1st Qu.: -1.1660   1st Qu.:0.33202  
+##  Median :  0.2380   Median :  0.2340   Median :1.00268  
+##  Mean   :  0.1458   Mean   :  0.1399   Mean   :1.57462  
+##  3rd Qu.:  1.4090   3rd Qu.:  1.4050   3rd Qu.:2.05373  
+##  Max.   : 12.0260   Max.   : 12.0260   Max.   :9.32821  
+##      Today          Direction 
+##  Min.   :-18.1950   Down:484  
+##  1st Qu.: -1.1540   Up  :605  
+##  Median :  0.2410             
+##  Mean   :  0.1499             
+##  3rd Qu.:  1.4050             
+##  Max.   : 12.0260
+```
+
+```r
+cor(Weekly[,-c(1,9)])
+```
+
+```
+##                Lag1        Lag2        Lag3         Lag4         Lag5
+## Lag1    1.000000000 -0.07485305  0.05863568 -0.071273876 -0.008183096
+## Lag2   -0.074853051  1.00000000 -0.07572091  0.058381535 -0.072499482
+## Lag3    0.058635682 -0.07572091  1.00000000 -0.075395865  0.060657175
+## Lag4   -0.071273876  0.05838153 -0.07539587  1.000000000 -0.075675027
+## Lag5   -0.008183096 -0.07249948  0.06065717 -0.075675027  1.000000000
+## Volume -0.064951313 -0.08551314 -0.06928771 -0.061074617 -0.058517414
+## Today  -0.075031842  0.05916672 -0.07124364 -0.007825873  0.011012698
+##             Volume        Today
+## Lag1   -0.06495131 -0.075031842
+## Lag2   -0.08551314  0.059166717
+## Lag3   -0.06928771 -0.071243639
+## Lag4   -0.06107462 -0.007825873
+## Lag5   -0.05851741  0.011012698
+## Volume  1.00000000 -0.033077783
+## Today  -0.03307778  1.000000000
+```
+This graph is all pairwise comparisons of the predictors with the color denoting the direction. It&#39;s hard to see a trend here.
+
+```r
+pairs(Weekly[-(8:9)],col=Weekly$Direction)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-74-1.png&quot; width=&quot;672&quot; /&gt;
+Plotting the predictors against the `Today` variable also makes it hard to see any trends. 
+
+```r
+par(mfcol=c(3,2))
+predictors &lt;- c(paste0(&quot;Lag&quot;,1:5),&quot;Volume&quot;)
+for (p in predictors){
+  plot(Weekly[,p],Weekly[,&quot;Today&quot;],
+       ylab=&quot;Today&quot;,
+       xlab=p,
+       col=Weekly[,&quot;Direction&quot;])
+}
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-75-1.png&quot; width=&quot;672&quot; /&gt;
+Boxplots prove unhelpful too.
+
+```r
+par(mfcol=c(3,2))
+for(p in predictors){
+  boxplot(as.formula(paste0(p,&quot;~Direction&quot;)),data=Weekly)
+}
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-76-1.png&quot; width=&quot;672&quot; /&gt;
+I&#39;m out of ideas for plots. This is not an easy data set to work with.
+b.
+
+```r
+glm.fit &lt;- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume,data=Weekly, family=binomial)
+summary(glm.fit)
+```
+
+```
+## 
+## Call:
+## glm(formula = Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + 
+##     Volume, family = binomial, data = Weekly)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6949  -1.2565   0.9913   1.0849   1.4579  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept)  0.26686    0.08593   3.106   0.0019 **
+## Lag1        -0.04127    0.02641  -1.563   0.1181   
+## Lag2         0.05844    0.02686   2.175   0.0296 * 
+## Lag3        -0.01606    0.02666  -0.602   0.5469   
+## Lag4        -0.02779    0.02646  -1.050   0.2937   
+## Lag5        -0.01447    0.02638  -0.549   0.5833   
+## Volume      -0.02274    0.03690  -0.616   0.5377   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1496.2  on 1088  degrees of freedom
+## Residual deviance: 1486.4  on 1082  degrees of freedom
+## AIC: 1500.4
+## 
+## Number of Fisher Scoring iterations: 4
+```
+The Lag2 is statistically significant at a p-value of .03, but this is a pretty low bar considering we have 6 predictors.
+c. 
+
+```r
+glm.probs &lt;- predict(glm.fit,type=&quot;response&quot;)
+glm.pred &lt;- rep(&quot;Down&quot;,nrow(Weekly))
+glm.pred[glm.probs &gt; .5] &lt;- &quot;Up&quot;
+table(glm.pred,Weekly$Direction) #confusion table
+```
+
+```
+##         
+## glm.pred Down  Up
+##     Down   54  48
+##     Up    430 557
+```
+
+```r
+sum(glm.pred==Weekly$Direction)/nrow(Weekly) #overall fraction of correct answers
+```
+
+```
+## [1] 0.5610652
+```
+From the confusion table, we can see that our model is simply predicting `Up` a lot of times. Our overall accuracy of 56% isn&#39;t bad. Since the data is roughly divided between down and up, the overall accuracy is a good measure of how good our model is. Our model seems to say that just saying the market is going up is a pretty good bet most of the time.
+d.
+
+```r
+train.inds &lt;- Weekly$Year &lt;= 2008
+train.data &lt;- Weekly[train.inds,]
+test.data &lt;- Weekly[!train.inds,]
+test.n &lt;- nrow(test.data)
+lag2.mod &lt;- glm(Direction ~ Lag2, data=Weekly, family=binomial, subset=train.inds)
+summary(lag2.mod)
+```
+
+```
+## 
+## Call:
+## glm(formula = Direction ~ Lag2, family = binomial, data = Weekly, 
+##     subset = train.inds)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.536  -1.264   1.021   1.091   1.368  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept)  0.20326    0.06428   3.162  0.00157 **
+## Lag2         0.05810    0.02870   2.024  0.04298 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1354.7  on 984  degrees of freedom
+## Residual deviance: 1350.5  on 983  degrees of freedom
+## AIC: 1354.5
+## 
+## Number of Fisher Scoring iterations: 4
+```
+
+```r
+lag2.pred &lt;- rep(&quot;Down&quot;,test.n)
+lag2.probs &lt;- predict(glm.fit,test.data,type=&quot;response&quot;)
+lag2.pred[lag2.probs&gt;.5] &lt;- &quot;Up&quot;
+table(lag2.pred,test.data$Direction)
+```
+
+```
+##          
+## lag2.pred Down Up
+##      Down   17 13
+##      Up     26 48
+```
+
+```r
+sum(lag2.pred==test.data$Direction)/test.n
+```
+
+```
+## [1] 0.625
+```
+e. 
+
+```r
+library(MASS) #For lda function
+lag2.lda&lt;-lda(Direction ~ Lag2, data=train.data)
+lag2.lda.pred &lt;- predict(lag2.lda, test.data)$class
+table(lag2.lda.pred,test.data$Direction)
+```
+
+```
+##              
+## lag2.lda.pred Down Up
+##          Down    9  5
+##          Up     34 56
+```
+
+```r
+sum(lag2.lda.pred==test.data$Direction)/test.n
+```
+
+```
+## [1] 0.625
+```
+f.
+
+```r
+library(MASS) #For lda function
+lag2.qda&lt;-qda(Direction ~ Lag2, data=train.data)
+lag2.qda.pred &lt;- predict(lag2.qda, test.data)$class
+table(lag2.qda.pred,test.data$Direction)
+```
+
+```
+##              
+## lag2.qda.pred Down Up
+##          Down    0  0
+##          Up     43 61
+```
+
+```r
+sum(lag2.qda.pred==test.data$Direction)/test.n
+```
+
+```
+## [1] 0.5865385
+```
+g. 
+
+```r
+library(class)
+set.seed(1)
+train.X &lt;- as.matrix(train.data[,&quot;Lag2&quot;])
+train.Y &lt;- as.matrix(train.data[,&quot;Direction&quot;])
+test.X &lt;- as.matrix(test.data[,&quot;Lag2&quot;])
+test.Y &lt;- as.matrix(test.data[,&quot;Direction&quot;])
+lag2.knn.pred &lt;- knn(train.X,test.X,train.Y,k=1)
+table(lag2.knn.pred,test.Y)
+```
+
+```
+##              test.Y
+## lag2.knn.pred Down Up
+##          Down   21 30
+##          Up     22 31
+```
+
+```r
+sum(lag2.knn.pred == test.Y)/test.n
+```
+
+```
+## [1] 0.5
+```
+h. It appears that both the LDA and the logistic regression performed similarly on the test set. Let&#39;s see which one has lower training error.
+
+```r
+glm.probs &lt;- predict(lag2.mod) #logistic regression
+glm.preds &lt;- rep(&quot;Down&quot;,length(glm.probs))
+glm.preds[glm.probs&gt;.5] &lt;- &quot;Up&quot;
+glm.train.acc &lt;- sum(glm.preds == train.data$Direction)/nrow(train.data)
+lda.preds &lt;- predict(lag2.lda,type=&quot;response&quot;)$class
+lda.train.acc &lt;- sum(lda.preds == train.data$Direction)/nrow(train.data)
+cbind(lda.train.acc,glm.train.acc)
+```
+
+```
+##      lda.train.acc glm.train.acc
+## [1,]     0.5543147     0.4568528
+```
+Since the LDA has higher training accuraccy, I will say that the LDA provides the best results.
+i. I will simply experiment with different values of $K$.
+
+```r
+k.vals &lt;- 1:50
+err &lt;- double(50)
+for (k in k.vals){
+  train.X &lt;- as.matrix(train.data[,&quot;Lag2&quot;])
+  train.Y &lt;- as.matrix(train.data[,&quot;Direction&quot;])
+  test.X &lt;- as.matrix(test.data[,&quot;Lag2&quot;])
+  test.Y &lt;- as.matrix(test.data[,&quot;Direction&quot;])
+  lag2.knn.pred &lt;- knn(train.X,test.X,train.Y,k=k)
+  table(lag2.knn.pred,test.Y)
+  err[k]&lt;-sum(lag2.knn.pred == test.Y)/test.n
+}
+plot(k.vals,err,type=&quot;b&quot;)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-85-1.png&quot; width=&quot;672&quot; /&gt;
+The results are everywhere, but surprisingly, it seems like $k=1$ gives the best result on the test data.</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Auto,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+<span class="kw">head</span>(Auto)</code></pre></div>
+<pre><code>##   mpg cylinders displacement horsepower weight acceleration year origin
+## 1  18         8          307        130   3504         12.0   70      1
+## 2  15         8          350        165   3693         11.5   70      1
+## 3  18         8          318        150   3436         11.0   70      1
+## 4  16         8          304        150   3433         12.0   70      1
+## 5  17         8          302        140   3449         10.5   70      1
+## 6  15         8          429        198   4341         10.0   70      1
+##                        name
+## 1 chevrolet chevelle malibu
+## 2         buick skylark 320
+## 3        plymouth satellite
+## 4             amc rebel sst
+## 5               ford torino
+## 6          ford galaxie 500</code></pre>
+<pre><code>a. 
+
+```r
+Auto01 &lt;- data.frame(Auto,mpg01=(as.integer(Auto$mpg &gt;= median(Auto$mpg))))
+```
+b. After fiddling around, I felt like boxplots were the best plot for almost all the views. The only view I don&#39;t use a boxplot for is `mpg01 ~ origin`. It seems like a lot of the variables are pretty good predictors. 
+
+```r
+par(mfcol=c(2,3))
+for (p in 2:7){
+  var&lt;-names(Auto01)[p]
+  f &lt;- as.formula(paste0(var,&quot;~mpg01&quot;))
+  boxplot(f ,xlab=names(Auto01)[p], data = Auto01)
+}
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-88-1.png&quot; width=&quot;672&quot; /&gt;
+
+```r
+plot(factor(Auto01$mpg01),factor(Auto01$origin),xlab=&quot;mpg01&quot;,ylab=&quot;origin&quot;)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-88-2.png&quot; width=&quot;672&quot; /&gt;
+c. I will split the data into a 60% training set and a 40% test set.
+
+```r
+set.seed(927)
+n &lt;- nrow(Auto01)
+sample.inds&lt;-sample.int(n, round(n*.6))
+train&lt;-Auto01[sample.inds,]
+test&lt;-Auto01[-sample.inds,]
+```
+d. I exclude acceleration because the association appears weak. In addition, I leave out origin since I am not sure how it handles factor variables. The test error comes out to 11.5%.
+
+```r
+require(MASS)
+form &lt;- mpg01 ~ cylinders + horsepower + displacement + weight + year
+lda.mod &lt;- lda(form, data=train)
+lda.pred &lt;- predict(lda.mod,test)$class
+sum(lda.pred != test$mpg01)/nrow(test) # test error
+```
+
+```
+## [1] 0.1146497
+```
+e. The test error for the QDA s 12.7%.
+
+```r
+qda.mod &lt;- qda(form, data=train)
+qda.pred &lt;- predict(qda.mod,test)$class
+sum(qda.pred != test$mpg01)/nrow(test)
+```
+
+```
+## [1] 0.1273885
+```
+f. Logistic regression gives 9.5% test error.
+
+```r
+log.mod &lt;- glm(form, data=train, family=binomial)
+log.pred &lt;- predict(log.mod, test, type=&quot;response&quot;)
+log.pred &lt;- ifelse(log.pred &gt; .5, 1, 0)
+sum(log.pred != test$mpg01)/nrow(test)
+```
+
+```
+## [1] 0.0955414
+```
+g. It appears that $k=10$ is probably the best choice.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">require</span>(class)
+    <span class="kw">set.seed</span>(<span class="dv">927</span>)
+    res&lt;-<span class="kw">data.frame</span>(<span class="dt">ks=</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>,<span class="dt">errs=</span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)
+    preds&lt;-<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">6</span>)
+    <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dt">along=</span>res<span class="op">$</span>ks)){
+      k &lt;-<span class="st"> </span>res<span class="op">$</span>ks[i]
+      knn.pred &lt;-<span class="st"> </span><span class="kw">knn</span>(train[,preds],test[,preds],train[,<span class="st">&quot;mpg01&quot;</span>],<span class="dt">k=</span>k)
+      res<span class="op">$</span>errs[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(knn.pred<span class="op">!=</span>test<span class="op">$</span>mpg01)<span class="op">/</span><span class="kw">nrow</span>(test)
+    }
+    <span class="kw">plot</span>(res<span class="op">$</span>ks,res<span class="op">$</span>err,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">head</span>(res[<span class="kw">order</span>(res<span class="op">$</span>errs),])</code></pre></div>
+<pre><code>##    ks      errs
+## 10 10 0.1019108
+## 11 11 0.1019108
+## 3   3 0.1082803
+## 5   5 0.1082803
+## 12 12 0.1082803
+## 13 13 0.1082803</code></pre>
+<ol start="12" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Power &lt;-<span class="st"> </span><span class="cf">function</span>() <span class="kw">print</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">3</span>) 
+<span class="kw">Power</span>()</code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Power2 &lt;-<span class="st"> </span><span class="cf">function</span>(x,a) <span class="kw">print</span>(x<span class="op">^</span>a)
+<span class="kw">Power2</span>(<span class="dv">3</span>,<span class="dv">8</span>)</code></pre></div>
+<pre><code>## [1] 6561</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Power2</span>(<span class="dv">10</span>,<span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 1000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Power2</span>(<span class="dv">8</span>,<span class="dv">17</span>)</code></pre></div>
+<pre><code>## [1] 2.2518e+15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Power2</span>(<span class="dv">131</span>,<span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 2248091</code></pre>
+<ol start="4" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Power3 &lt;-<span class="st"> </span><span class="cf">function</span>(x,a) x<span class="op">^</span>a</code></pre></div>
+<ol start="5" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="kw">Power3</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">2</span>),<span class="dt">main=</span><span class="st">&quot;f(x)=x^2&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;x&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;x^2&quot;</span>,<span class="dt">log=</span><span class="st">&quot;y&quot;</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-98-1.png" width="672" />
+<ol start="6" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PlotPower &lt;-<span class="st"> </span><span class="cf">function</span>(x, a) <span class="kw">plot</span>(x,<span class="kw">Power3</span>(x,a),<span class="dt">main=</span><span class="kw">paste0</span>(<span class="st">&quot;f(x)=x^&quot;</span>,a),<span class="dt">ylab=</span><span class="kw">paste0</span>(<span class="st">&quot;x^&quot;</span>,a))
+<span class="kw">PlotPower</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">3</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Boston,<span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)
+<span class="kw">head</span>(Boston)</code></pre></div>
+<pre><code>##      crim zn indus chas   nox    rm  age    dis rad tax ptratio  black
+## 1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## 2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## 3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+## 4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
+## 5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
+## 6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
+##   lstat medv
+## 1  4.98 24.0
+## 2  9.14 21.6
+## 3  4.03 34.7
+## 4  2.94 33.4
+## 5  5.33 36.2
+## 6  5.21 28.7</code></pre>
+<p>create our indicator variable to see if crime is above or below the median</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Boston<span class="op">$</span>crim01 &lt;-<span class="st"> </span>Boston<span class="op">$</span>crim <span class="op">&gt;</span><span class="st"> </span><span class="kw">median</span>(Boston<span class="op">$</span>crim)
+<span class="kw">summary</span>(Boston<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>##    Mode   FALSE    TRUE 
+## logical     253     253</code></pre>
+<p>Looking for relationships:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bp_vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;zn&quot;</span>, <span class="st">&quot;indus&quot;</span>, <span class="st">&quot;nox&quot;</span>, <span class="st">&quot;rm&quot;</span>,<span class="st">&quot;age&quot;</span>,<span class="st">&quot;dis&quot;</span>,<span class="st">&quot;tax&quot;</span>,<span class="st">&quot;ptratio&quot;</span>,<span class="st">&quot;black&quot;</span>,<span class="st">&quot;lstat&quot;</span>,<span class="st">&quot;medv&quot;</span>) <span class="co"># variables I want to make boxplots of</span>
+<span class="kw">par</span>(<span class="dt">mfcol=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>))
+<span class="cf">for</span> (v <span class="cf">in</span> bp_vars) {
+  <span class="kw">boxplot</span>(<span class="kw">as.formula</span>(<span class="kw">paste0</span>(v,<span class="st">&quot;~ crim01&quot;</span>)),<span class="dt">data=</span>Boston,<span class="dt">main=</span>v)
+}
+<span class="kw">plot</span>(<span class="kw">table</span>(Boston<span class="op">$</span>crim01,Boston<span class="op">$</span>chas),<span class="dt">main=</span><span class="st">&quot;chas&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-102-1.png" width="672" /> I will compare hand picked variables versus using all of them on train and test sets for all the different methods. I will use accuracy as our error metric since our data is very evenly split between above and below median.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(caret)</code></pre></div>
+<pre><code>## Loading required package: caret</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+train.inds &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(Boston<span class="op">$</span>crim01,<span class="dt">p=</span>.<span class="dv">6</span>,<span class="dt">list=</span><span class="ot">FALSE</span>,<span class="dt">times=</span><span class="dv">1</span>)
+train &lt;-<span class="st"> </span>Boston[train.inds,]
+test &lt;-<span class="st"> </span>Boston[<span class="op">-</span>train.inds,]
+vars.hand &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;zn&quot;</span>, <span class="st">&quot;tax&quot;</span>, <span class="st">&quot;lstat&quot;</span>, <span class="st">&quot;Indus&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;ptratio&quot;</span>, <span class="st">&quot;nox&quot;</span>, <span class="st">&quot;dis&quot;</span>)
+hand.form &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">paste0</span>(<span class="st">&quot;crim01 ~&quot;</span>,vars.hand))
+hand.mod &lt;-<span class="st"> </span><span class="kw">glm</span>(hand.form, <span class="dt">data=</span>train, <span class="dt">family=</span>binomial)
+all.mod &lt;-<span class="st"> </span><span class="kw">glm</span>(crim01 <span class="op">~</span><span class="st"> </span>. <span class="op">-</span><span class="st"> </span>crim, <span class="dt">data=</span>train, <span class="dt">family=</span>binomial) <span class="co">#generates warning</span></code></pre></div>
+<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hand.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(hand.mod, test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>) <span class="op">&gt;</span><span class="st"> </span>.<span class="dv">5</span>
+all.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(all.mod, test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>) <span class="op">&gt;</span><span class="st"> </span>.<span class="dv">5</span>
+
+<span class="kw">table</span>(hand.pred, test<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>##          
+## hand.pred FALSE TRUE
+##     FALSE    51    6
+##     TRUE     50   95</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(all.pred, test<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>##         
+## all.pred FALSE TRUE
+##    FALSE    92   12
+##    TRUE      9   89</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(hand.pred <span class="op">==</span><span class="st"> </span>test<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>## [1] 0.7227723</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(all.pred<span class="op">==</span>test<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>## [1] 0.8960396</code></pre>
+<p>It seems like using all the variables is better. I’m curious if reducing via the <code>step</code> function will increase the accuracy.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">step.mod &lt;-<span class="st"> </span><span class="kw">step</span>(all.mod)</code></pre></div>
+<pre><code>## Start:  AIC=144.74
+## crim01 ~ (crim + zn + indus + chas + nox + rm + age + dis + rad + 
+##     tax + ptratio + black + lstat + medv) - crim
+## 
+##           Df Deviance    AIC
+## - rm       1   117.39 143.39
+## - medv     1   118.01 144.01
+## - chas     1   118.18 144.18
+## - zn       1   118.70 144.71
+## &lt;none&gt;         116.73 144.74
+## - age      1   119.06 145.06
+## - indus    1   119.27 145.27
+## - ptratio  1   119.98 145.98
+## - dis      1   120.05 146.05
+## - lstat    1   120.36 146.37
+## - tax      1   121.01 147.01
+## - black    1   128.26 154.26
+## - rad      1   137.42 163.42
+## - nox      1   148.98 174.98
+## 
+## Step:  AIC=143.39
+## crim01 ~ zn + indus + chas + nox + age + dis + rad + tax + ptratio + 
+##     black + lstat + medv
+## 
+##           Df Deviance    AIC
+## - chas     1   118.70 142.71
+## - zn       1   119.26 143.26
+## &lt;none&gt;         117.39 143.39
+## - indus    1   119.82 143.82
+## - lstat    1   120.37 144.37
+## - dis      1   121.41 145.41
+## - tax      1   121.57 145.57
+## - age      1   122.75 146.75
+## - ptratio  1   122.82 146.82
+## - medv     1   127.40 151.40
+## - black    1   129.03 153.03
+## - rad      1   138.64 162.64
+## - nox      1   150.55 174.55
+## 
+## Step:  AIC=142.7
+## crim01 ~ zn + indus + nox + age + dis + rad + tax + ptratio + 
+##     black + lstat + medv
+## 
+##           Df Deviance    AIC
+## - indus    1   120.52 142.52
+## &lt;none&gt;         118.70 142.71
+## - zn       1   121.19 143.19
+## - lstat    1   122.40 144.40
+## - dis      1   122.57 144.57
+## - ptratio  1   123.15 145.15
+## - tax      1   123.91 145.91
+## - age      1   125.09 147.09
+## - black    1   129.60 151.60
+## - medv     1   129.69 151.69
+## - rad      1   143.59 165.59
+## - nox      1   150.60 172.60
+## 
+## Step:  AIC=142.52
+## crim01 ~ zn + nox + age + dis + rad + tax + ptratio + black + 
+##     lstat + medv
+## 
+##           Df Deviance    AIC
+## &lt;none&gt;         120.52 142.52
+## - lstat    1   123.12 143.12
+## - zn       1   123.34 143.34
+## - dis      1   124.32 144.32
+## - ptratio  1   124.48 144.48
+## - age      1   126.57 146.57
+## - tax      1   128.85 148.85
+## - medv     1   130.60 150.60
+## - black    1   130.62 150.62
+## - rad      1   150.74 170.74
+## - nox      1   150.92 170.92</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">step.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(step.mod, test, <span class="dt">type=</span><span class="st">&quot;response&quot;</span>) <span class="op">&gt;</span><span class="st"> </span>.<span class="dv">5</span>
+<span class="kw">mean</span>(step.pred <span class="op">==</span><span class="st"> </span>test<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>## [1] 0.8861386</code></pre>
+<p>I guess using all the predictors is the best choice here. Let’s compare with all the other models.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(MASS)
+lda.mod &lt;-<span class="st"> </span><span class="kw">lda</span>(crim01 <span class="op">~</span><span class="st"> </span>. <span class="op">-</span><span class="st"> </span>crim, <span class="dt">data=</span>train)
+qda.mod &lt;-<span class="st"> </span><span class="kw">qda</span>(crim01 <span class="op">~</span><span class="st"> </span>. <span class="op">-</span><span class="st"> </span>crim, <span class="dt">data=</span>train)
+
+lda.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(lda.mod, test)<span class="op">$</span>class
+qda.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(qda.mod, test)<span class="op">$</span>class
+
+<span class="kw">mean</span>(lda.pred <span class="op">==</span><span class="st"> </span>test<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>## [1] 0.8366337</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(qda.pred <span class="op">==</span><span class="st"> </span>test<span class="op">$</span>crim01)</code></pre></div>
+<pre><code>## [1] 0.8663366</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(class)
+train[,<span class="op">-</span><span class="dv">15</span>]&lt;-<span class="kw">scale</span>(train[,<span class="op">-</span><span class="dv">15</span>])
+accs &lt;-<span class="st"> </span><span class="kw">double</span>()
+<span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>){
+  knn.pred &lt;-<span class="st"> </span><span class="kw">knn</span>(train[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)],test[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)],train<span class="op">$</span>crim01,<span class="dt">k=</span>k)
+  accs[k]&lt;-<span class="kw">mean</span>(knn.pred <span class="op">==</span><span class="st"> </span>test<span class="op">$</span>crim01)
+}
+best.k &lt;-<span class="st"> </span><span class="kw">which</span>(accs<span class="op">==</span><span class="kw">max</span>(accs),<span class="dt">arr.ind=</span><span class="ot">TRUE</span>)[<span class="dv">1</span>]
+accs[best.k]</code></pre></div>
+<pre><code>## [1] 0.5940594</code></pre>
+<p>It looks like logistic regression wins on just using all the predictors.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["ISLR-exercises.pdf", "ISLR-exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

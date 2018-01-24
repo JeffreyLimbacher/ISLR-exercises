@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jeffrey’s Answers to the ISLR Exercises</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook.">
+  <meta name="generator" content="bookdown 0.5.17 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/ISLR-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jeffrey’s Answers to the ISLR Exercises" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jeffrey Limbacher">
+
+
+<meta name="date" content="2018-01-24">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="chap5.html">
+<link rel="next" href="chap7.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chap2.html"><a href="chap2.html"><i class="fa fa-check"></i><b>2</b> Statistical Learning</a></li>
+<li class="chapter" data-level="3" data-path="chap3.html"><a href="chap3.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a></li>
+<li class="chapter" data-level="4" data-path="chap4.html"><a href="chap4.html"><i class="fa fa-check"></i><b>4</b> Classification</a></li>
+<li class="chapter" data-level="5" data-path="chap5.html"><a href="chap5.html"><i class="fa fa-check"></i><b>5</b> Resampling Methods</a></li>
+<li class="chapter" data-level="6" data-path="chap6.html"><a href="chap6.html"><i class="fa fa-check"></i><b>6</b> Linear Model Selection and Regularization</a></li>
+<li class="chapter" data-level="7" data-path="chap7.html"><a href="chap7.html"><i class="fa fa-check"></i><b>7</b> Moving Beyond Linearity</a></li>
+<li class="chapter" data-level="8" data-path="chap8.html"><a href="chap8.html"><i class="fa fa-check"></i><b>8</b> Moving Beyond Linearity</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Jeffrey’s Answers to the ISLR Exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chap6" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Linear Model Selection and Regularization</h1>
+<ol style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>Best subset will have the best training RSS. This is because it exhaustively searches every possible choice, whereas forward and backward-selection do not, so they might miss the optimal choice.</li>
+<li>There is not enough information to conclude which one will have the smallest test RSS.</li>
+<li><ol style="list-style-type: lower-roman">
+<li>True. Forward selection works by retaining the selectors chosen in the previous step.</li>
+<li>True. Backward selection removes the worst predictor at each step, retaining the predictors at the previous step.</li>
+<li>False. Backwards might select a different set than the forward selection at a given <span class="math inline">\(k\)</span>.</li>
+<li>False.</li>
+<li>False. Best subset might replace a predictor going from <span class="math inline">\(k\)</span> to <span class="math inline">\(k+1\)</span>. See Table 6.1 on page 209.</li>
+</ol></li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>iii is Correct. The tuning parameter allows us to select a simpler model. Since simpler models have less bias, we expect the error to go down as long as the increase in variance is less than the increase in bias.</li>
+<li>iii, for the same reason.</li>
+<li>ii is correct for non-linear models. They can fit a wider class of functions than just linear models (often linear is a subset). This means the model does not bias towards a specific class of functions. However, this comes at the cost of increased variance.</li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li><ol start="4" style="list-style-type: lower-roman">
+<li>is correct. As we increase <span class="math inline">\(s\)</span>, we allow the <span class="math inline">\(\beta_j\)</span> more freedom is minimizing the square residuals. The more freedom we allow, the better we will fit the training data.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-roman">
+<li>is correct. At this point, we are facing the bias-variance trade-off which comes in the usual U-shaped curve.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-roman">
+<li>We allow more flexibility in the model which means we will have more variance.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: lower-roman">
+<li>As we increase <span class="math inline">\(\lambda\)</span>, we bias away from only allowing a few large (relative to their least squares values) coefficients.</li>
+</ol></li>
+<li><ol start="22" style="list-style-type: lower-alpha">
+<li>The irreducible error is not affected by the choice of model.</li>
+</ol></li>
+</ol></li>
+<li>These answers are the same as 3.</li>
+<li>My solution to this is a little hand-wavey and not nearly rigorous enough. I will have to come back to it if it really irks me.
+<ol style="list-style-type: lower-alpha">
+<li>We wish to minimize
+<span class="math display">\[\begin{equation}
+(y_1 - \beta_1 x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 - \lambda( \beta_1^2 + \beta_2^2).
+\end{equation}\]</span></li>
+<li>If <span class="math inline">\(x_{11} = x_{12}\)</span> and <span class="math inline">\(x_{21}=x_{22}\)</span>, then we can write
+<span class="math display" id="eq:rewritten">\[\begin{equation}
+\begin{split}
+(y_1 - \beta_1 x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 = \\
+(y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2
+\end{split}
+\tag{6.1}
+\end{equation}\]</span>
+Then we want to minimize
+<span class="math display">\[\begin{equation}
+(y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2 + \lambda(\beta_1^2+\beta_2^2)
+\end{equation}\]</span>
+there is some <span class="math inline">\(\beta_1 + \beta_2 = c\)</span> that minimizes the above solution. However, there are ininfitely many <span class="math inline">\(\beta_1,\beta_2\)</span> combinations such that <span class="math inline">\(\beta_1 + \beta_2 = c\)</span>. Then note that <span class="math inline">\(\beta_1 = c - \beta_2\)</span>. Plugging into <span class="math inline">\(\lambda(\beta_1^2 - (c-\beta_1)^2)\)</span> which has a known minimum at <span class="math inline">\(\beta_1 = \beta_2\)</span>, thus there is only one solution, that is <span class="math inline">\(\beta_1 = \beta_2\)</span>.</li>
+<li><span class="math display">\[\begin{equation}
+(y_1 - \beta_1x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 - \lambda( |\beta_1| + |\beta_2|).
+\end{equation}\]</span></li>
+<li>Same argument as before, but now we have that
+<span class="math display">\[\begin{equation}
+\begin{split}
+(y_1 - \beta_1x_{11} - \beta_2 x_{12})^2 + (y_2 - \beta_1 x_{21} - \beta_2 x_{22})^2 = \\
+(y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))
+\end{split}
+\end{equation}\]</span>
+and
+<span class="math display">\[\begin{equation}
+(y_1 - x_{11}(\beta_1 + \beta_2))^2 + (y_2 - x_{21}(\beta_1 + \beta_2 ))^2 + \lambda(|\beta_1|+|\beta_2|).
+\end{equation}\]</span>
+Now note that there is some <span class="math inline">\(\beta_1+\beta_2 = c\)</span> that minimizes the above equation. However, now <span class="math inline">\(|\beta_1| + |\beta_2|\)</span> has an infiniten umber of minimizers. Any such <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> such that <span class="math inline">\(\beta_1+\beta_2=c\)</span> works. Note that if <span class="math inline">\(\beta_2 = c\)</span>, then <span class="math inline">\(\beta_1=0\)</span>. Likewise, we can have <span class="math inline">\(\beta_1 = c\)</span> and <span class="math inline">\(\beta_2 = 0\)</span>. The valid solutions are on the line <span class="math inline">\(\beta_1 + \beta_2 = c\)</span> such that <span class="math inline">\(0 \leq \beta_1,\beta_2 \leq c\)</span>.</li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>The plot below shows <span class="math inline">\(\beta\)</span> versus <span class="math inline">\((y_1 - \beta)^2 + \lambda \beta^2\)</span> on the solid black line. The red dotted line corresponds to where <span class="math inline">\(y_1/(1+\lambda)\)</span> is. We can see that the ridge regression value is minimized at the red dotted line.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y1 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#y</span>
+l &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co">#lambda</span>
+betas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">01</span>)
+estimates &lt;-<span class="st"> </span>(y1<span class="op">-</span>betas)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>l<span class="op">*</span>betas<span class="op">^</span><span class="dv">2</span>
+<span class="kw">plot</span>(betas,estimates,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">v=</span>y1<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>l),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-139-1.png" width="672" /> b.The same plot is shown below. Since there is three cases, I made a plot for each</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfcol=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
+ys=<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)
+<span class="cf">for</span>(y1 <span class="cf">in</span> ys){
+  l &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#lambda</span>
+  betas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">01</span>)
+  estimates &lt;-<span class="st"> </span>(y1<span class="op">-</span>betas)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>l<span class="op">*</span><span class="kw">abs</span>(betas)
+  <span class="kw">plot</span>(betas,estimates,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+  best_est &lt;-<span class="st"> </span>y1 <span class="op">-</span><span class="st"> </span>l<span class="op">/</span><span class="dv">2</span>
+  <span class="cf">if</span>(y1 <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span>l<span class="op">/</span><span class="dv">2</span>) best_est &lt;-<span class="st"> </span>y1 <span class="op">+</span><span class="st"> </span>l<span class="op">/</span><span class="dv">2</span>
+  <span class="cf">else</span> <span class="cf">if</span>(<span class="kw">abs</span>(y1) <span class="op">&lt;=</span><span class="st"> </span>l<span class="op">/</span><span class="dv">2</span>) best_est&lt;-<span class="dv">0</span>;
+  <span class="kw">abline</span>(<span class="dt">v=</span>best_est,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>)
+}</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>The likelihood for this function will be
+<span class="math display">\[\begin{equation}
+\begin{split}
+L &amp;= \prod_{i=1}^n \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left(-\frac{(y_i - (\beta_0 + \sum_{j=1}^px_{ij}\beta_j))^2}{2\sigma^2} \right)\\
+&amp;= \left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2}{2 \sigma^2} \right)
+\end{split}
+\end{equation}\]</span></li>
+<li>The posterior is
+<span class="math display" id="eq:likelihood">\[\begin{equation}
+\begin{split}
+&amp;\left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2}{2 \sigma^2} \right) \prod_{j=1}^n \frac{1}{2b} \exp \left(\frac{-|\beta_j|}{b} \right)\\
+=&amp; \left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2 - \frac{2\sigma^2}{b} \sum_{j=1}^n |\beta_j|}{2 \sigma^2} \right)
+\end{split}
+\tag{6.2}
+\end{equation}\]</span></li>
+<li>Looking at this last equation, we can see that if we let <span class="math inline">\(\lambda = \frac{2 \sigma^2}{b}\)</span>, then the when we minimize
+<span class="math display">\[\begin{equation}
+\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2 - \lambda \sum_{j=1}^n |\beta_j|
+\end{equation}\]</span>
+then we maximize <a href="chap6.html#eq:likelihood">(6.2)</a>. Maximizing <a href="chap6.html#eq:likelihood">(6.2)</a> is equivalent to the mode.</li>
+<li><span class="math display" id="eq:likelihoodridge">\[\begin{equation}
+\begin{split}
+&amp;\left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij}\beta_j))^2}{2 \sigma^2} \right) \prod_{j=1}^n \frac{1}{\sqrt{2 \pi c}} \exp \left(-\frac{\beta_j^2}{2c} \right) \\
+=&amp; \left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij} \beta_j))^2 + \frac{\sigma^2}{c} \sum_{j=1}^p \beta_j^2}{2 \sigma^2} \right)
+\end{split}
+\tag{6.3}
+\end{equation}\]</span></li>
+<li>Now let <span class="math inline">\(\lambda = \frac{\sigma^2}{c}\)</span>.
+<span class="math display">\[\begin{equation}
+\left( \frac{1}{\sqrt{2 \pi \sigma^2}} \right)^n \exp \left(-\frac{\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij} \beta_j))^2 + \lambda \sum_{j=1}^p \beta_j^2}{2 \sigma^2} \right)
+\end{equation}\]</span>
+Ridge regression minimizes
+<span class="math display" id="eq:quad">\[\begin{equation}
+\sum_{i=1}^n (y_i - (\beta_0 + \sum_{j=1}^p x_{ij} \beta_j))^2 + \lambda \sum_{j=1}^p \beta_j^2
+\tag{6.4}
+\end{equation}\]</span>
+and therefore minimizes <a href="chap6.html#eq:likelihoodridge">(6.3)</a>, so is the mode. It is also the mean since the exponent <a href="chap6.html#eq:quad">(6.4)</a> is a quadratic function which is symmetric around its minimum.</li>
+</ol></li>
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">927</span>)
+x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)
+eps &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="dv">2</span>; b_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="dv">2</span>; b_<span class="dv">2</span> &lt;-<span class="st"> </span>.<span class="dv">5</span>; b_<span class="dv">3</span> &lt;-<span class="st"> </span>.<span class="dv">5</span>
+y &lt;-<span class="st"> </span>b_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>b_<span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>b_<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>b_<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span></code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaps)
+regfit.full &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, <span class="dt">degree=</span><span class="dv">10</span>, <span class="dt">raw=</span><span class="ot">TRUE</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(x,y),<span class="dt">nvmax=</span><span class="dv">11</span>)
+reg.summary &lt;-<span class="st"> </span><span class="kw">summary</span>(regfit.full)
+<span class="kw">print</span>(<span class="st">&quot;Best adjr2 model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best adjr2 model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.max</span>(reg.summary<span class="op">$</span>adjr2))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Best BIC model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best BIC model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.min</span>(reg.summary<span class="op">$</span>bic))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Best Cp model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best Cp model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.min</span>(reg.summary<span class="op">$</span>cp))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<p>We can see that they all return the 3 variable model, which is good. Below is a plot of the three different measures.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfcol=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
+<span class="kw">plot</span>(reg.summary<span class="op">$</span>adjr2,<span class="dt">xlab=</span><span class="st">&quot;Number of Variables&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Adjusted R^2&quot;</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<span class="kw">plot</span>(reg.summary<span class="op">$</span>bic,<span class="dt">xlab=</span><span class="st">&quot;Number of Variables&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;BIC&quot;</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)
+<span class="kw">plot</span>(reg.summary<span class="op">$</span>cp,<span class="dt">xlab=</span><span class="st">&quot;Number of Variables&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;AIC&quot;</span>, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-144-1.png" width="672" /> We can see that the plots all cap out or minimize basically at three.
+<ol start="4" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regfit.fwd &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">10</span>,<span class="dt">raw=</span><span class="ot">TRUE</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(x,y),<span class="dt">nvmax=</span><span class="dv">11</span>, <span class="dt">method=</span><span class="st">&quot;forward&quot;</span>)
+reg.summary.f &lt;-<span class="st"> </span><span class="kw">summary</span>(regfit.fwd)
+<span class="kw">print</span>(<span class="st">&quot;Best foward adjr2 model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best foward adjr2 model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.max</span>(reg.summary.f<span class="op">$</span>adjr2))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Best forward BIC model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best forward BIC model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.min</span>(reg.summary.f<span class="op">$</span>bic))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Best forward Cp model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best forward Cp model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.min</span>(reg.summary.f<span class="op">$</span>cp))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<p>The forward still returns the three variable models.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regfit.bwd &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">10</span>,<span class="dt">raw=</span><span class="ot">TRUE</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(x,y),<span class="dt">nvmax=</span><span class="dv">11</span>, <span class="dt">method=</span><span class="st">&quot;backward&quot;</span>)
+reg.summary.b &lt;-<span class="st"> </span><span class="kw">summary</span>(regfit.bwd)
+<span class="kw">print</span>(<span class="st">&quot;True coefficients&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;True coefficients&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(b_<span class="dv">0</span>,b_<span class="dv">1</span>,b_<span class="dv">2</span>,b_<span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 2.0 2.0 0.5 0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Best backward adjr2 model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best backward adjr2 model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.max</span>(reg.summary.b<span class="op">$</span>adjr2))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Best backward BIC model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best backward BIC model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.min</span>(reg.summary.b<span class="op">$</span>bic))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="st">&quot;Best backward Cp model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best backward Cp model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(regfit.full, <span class="dt">id=</span><span class="kw">which.min</span>(reg.summary.b<span class="op">$</span>cp))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)1 
+##                               2.0                               2.0 
+## poly(x, degree = 10, raw = TRUE)2 poly(x, degree = 10, raw = TRUE)3 
+##                               0.5                               0.5</code></pre>
+<p>The backwards also chooses the 3 variable models. Let’s compare the results for the BIC to see if they were the same for all the models.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbind</span>(<span class="dt">full=</span>reg.summary<span class="op">$</span>bic,
+      <span class="dt">forward=</span>reg.summary.f<span class="op">$</span>bic,
+      <span class="dt">backward=</span>reg.summary.b<span class="op">$</span>bic)</code></pre></div>
+<pre><code>##               [,1]      [,2]      [,3]      [,4]      [,5]      [,6]
+## full     -294.9239 -360.2096 -7056.899 -7052.388 -7048.760 -7045.127
+## forward  -294.9239 -360.2096 -7056.899 -7052.388 -7048.760 -7044.375
+## backward -294.9239 -360.2096 -7056.899 -7052.359 -7048.708 -7044.578
+##               [,7]      [,8]      [,9]     [,10]
+## full     -7040.571 -7036.856 -7033.163 -7028.707
+## forward  -7040.171 -7036.856 -7033.163 -7028.707
+## backward -7040.274 -7036.856 -7033.163 -7028.707</code></pre>
+<ol start="5" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(glmnet)</code></pre></div>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Loading required package: foreach</code></pre>
+<pre><code>## Loaded glmnet 2.0-13</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+x.mod &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">10</span>,<span class="dt">raw=</span><span class="ot">TRUE</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>y,<span class="dt">y=</span>y))[,<span class="op">-</span><span class="dv">1</span>]
+cv.out &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x.mod,y,<span class="dt">alpha=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(cv.out)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bestlam&lt;-cv.out<span class="op">$</span>lambda.min
+lambda.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x.mod,y,<span class="dt">alpha=</span><span class="dv">1</span>)
+<span class="kw">predict</span>(lambda.mod,<span class="dt">type=</span><span class="st">&quot;coefficients&quot;</span>,<span class="dt">s=</span>bestlam)</code></pre></div>
+<pre><code>## 11 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                                             1
+## (Intercept)                        0.04818897
+## poly(x, degree = 10, raw = TRUE)1  0.96800733
+## poly(x, degree = 10, raw = TRUE)2  .         
+## poly(x, degree = 10, raw = TRUE)3  .         
+## poly(x, degree = 10, raw = TRUE)4  .         
+## poly(x, degree = 10, raw = TRUE)5  .         
+## poly(x, degree = 10, raw = TRUE)6  .         
+## poly(x, degree = 10, raw = TRUE)7  .         
+## poly(x, degree = 10, raw = TRUE)8  .         
+## poly(x, degree = 10, raw = TRUE)9  .         
+## poly(x, degree = 10, raw = TRUE)10 .</code></pre>
+The results of the Lasso aren’t great. I imagine this is because the linear model is perfect, so I don’t see how the Lasso would improve on anything.
+<ol start="6" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b_<span class="dv">7</span> &lt;-<span class="st"> </span><span class="fl">2.5</span>
+y7 &lt;-<span class="st"> </span>b_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>b_<span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">7</span> <span class="op">+</span><span class="st"> </span>eps
+deg7.full &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(y7 <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">10</span>,<span class="dt">raw=</span><span class="ot">TRUE</span>),<span class="kw">data.frame</span>(x,y7))
+<span class="kw">print</span>(<span class="st">&quot;Best Cp model&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Best Cp model&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(deg7.full, <span class="dt">id=</span><span class="kw">which.min</span>(reg.summary<span class="op">$</span>cp))</code></pre></div>
+<pre><code>##                       (Intercept) poly(x, degree = 10, raw = TRUE)3 
+##                        1.86157516                        0.18909447 
+## poly(x, degree = 10, raw = TRUE)5 poly(x, degree = 10, raw = TRUE)7 
+##                       -0.09457088                        2.00877704</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x7.mod &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y7 <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">10</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(x,y7))[,<span class="op">-</span><span class="dv">1</span>]
+cv.out &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x7.mod,y7,<span class="dt">alpha=</span><span class="dv">1</span>)
+bestlam &lt;-<span class="st"> </span>cv.out<span class="op">$</span>lambda.min
+lambda.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x.mod,y7,<span class="dt">alpha=</span><span class="dv">1</span>)
+<span class="kw">predict</span>(lambda.mod,<span class="dt">type=</span><span class="st">&quot;coefficients&quot;</span>,<span class="dt">s=</span>bestlam)</code></pre></div>
+<pre><code>## 11 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                                              1
+## (Intercept)                        -5.11224579
+## poly(x, degree = 10, raw = TRUE)1  17.43961036
+## poly(x, degree = 10, raw = TRUE)2  -7.78762588
+## poly(x, degree = 10, raw = TRUE)3   0.87266323
+## poly(x, degree = 10, raw = TRUE)4  -0.01318214
+## poly(x, degree = 10, raw = TRUE)5   .         
+## poly(x, degree = 10, raw = TRUE)6   .         
+## poly(x, degree = 10, raw = TRUE)7   .         
+## poly(x, degree = 10, raw = TRUE)8   .         
+## poly(x, degree = 10, raw = TRUE)9   .         
+## poly(x, degree = 10, raw = TRUE)10  .</code></pre>
+<p>Once again, the regular linear regression out performs the lasso. Lasso is performing pretty terribly. Am I doing something wrong?</p></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(College,<span class="dt">package=</span><span class="st">&quot;ISLR&quot;</span>)
+n&lt;-<span class="kw">nrow</span>(College)</code></pre></div>
+<pre><code>a.
+
+```r
+set.seed(1)
+train &lt;- sample(1:n, n/2)
+test &lt;- (-train)
+#reference MSE if using just the mean
+y.test &lt;- College$Apps[test]
+y.train &lt;- College$Apps[train]
+(ref.err&lt;-mean((mean(y.test)-y.test)^2))
+```
+
+```
+## [1] 11205007
+```
+b.
+
+```r
+lm.mod &lt;- lm(Apps ~ ., data=College[train,])
+lm.pred &lt;- predict(lm.mod, College[test,])
+(lm.err&lt;-mean((lm.pred-y.test)^2))
+```
+
+```
+## [1] 1108531
+```
+c.
+
+```r
+set.seed(1)
+x.mod &lt;- model.matrix(Apps ~ ., data=College)[,-1]
+ridge.mod.cv&lt;-cv.glmnet(x.mod[train,],y.train,alpha=0)
+ridge.best.lam &lt;- ridge.mod.cv$lambda.min
+ridge.mod &lt;- glmnet(x.mod[train,],y.train,alpha=0)
+ridge.pred &lt;- predict(ridge.mod,newx=x.mod[test,],s=ridge.best.lam)
+(ridge.err&lt;-mean((ridge.pred-y.test)^2))
+```
+
+```
+## [1] 1037616
+```
+d.
+
+```r
+set.seed(1)
+x.mod &lt;- model.matrix(Apps ~ ., data=College)[,-1]
+lasso.mod.cv &lt;- cv.glmnet(x.mod[train,],y.train,alpha=1)
+lasso.best.lam &lt;- lasso.mod.cv$lambda.min
+lasso.mod &lt;- glmnet(x.mod[train,],y.train,alpha=1)
+lasso.pred &lt;- predict(lasso.mod,newx=x.mod[test,],s=lasso.best.lam)
+(lasso.err&lt;-mean((lasso.pred-y.test)^2))
+```
+
+```
+## [1] 1030941
+```
+e.
+
+```r
+library(pls)
+```
+
+```
+## 
+## Attaching package: &#39;pls&#39;
+```
+
+```
+## The following object is masked from &#39;package:caret&#39;:
+## 
+##     R2
+```
+
+```
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     loadings
+```
+
+```r
+set.seed(1)
+pcr.mod &lt;- pcr(Apps ~ ., data=College, subset=train, scale=TRUE, validation=&quot;CV&quot;)
+validationplot(pcr.mod,val.type=&quot;MSEP&quot;)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-155-1.png&quot; width=&quot;672&quot; /&gt;
+
+```r
+summary(pcr.mod)
+```
+
+```
+## Data:    X dimension: 388 17 
+##  Y dimension: 388 1
+## Fit method: svdpc
+## Number of components considered: 17
+## 
+## VALIDATION: RMSEP
+## Cross-validated using 10 random segments.
+##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+## CV            4335     4179     2364     2374     1996     1844     1845
+## adjCV         4335     4182     2360     2374     1788     1831     1838
+##        7 comps  8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
+## CV        1850     1863     1809      1809      1812      1815      1825
+## adjCV     1844     1857     1801      1800      1804      1808      1817
+##        14 comps  15 comps  16 comps  17 comps
+## CV         1810      1823      1273      1281
+## adjCV      1806      1789      1260      1268
+## 
+## TRAINING: % variance explained
+##       1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps
+## X      31.216    57.68    64.73    70.55    76.33    81.30    85.01
+## Apps    6.976    71.47    71.58    83.32    83.44    83.45    83.46
+##       8 comps  9 comps  10 comps  11 comps  12 comps  13 comps  14 comps
+## X       88.40    91.16     93.36     95.38     96.94     97.96     98.76
+## Apps    83.47    84.53     84.86     84.98     84.98     84.99     85.24
+##       15 comps  16 comps  17 comps
+## X        99.40     99.87    100.00
+## Apps     90.87     93.93     93.97
+```
+
+```r
+pcr.pred &lt;- predict(pcr.mod,College[test,],ncomp=16)
+(pcr.err&lt;-mean((pcr.pred-y.test)^2))
+```
+
+```
+## [1] 1166897
+```
+f. For Partial Least Squares, a lot of the componenets have roughly the same CV after 4 components.
+
+```r
+set.seed(1)
+pls.mod &lt;- plsr(Apps ~ ., data=College, subset=train, validation=&quot;CV&quot;)
+validationplot(pls.mod, val.type=&quot;MSEP&quot;)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-156-1.png&quot; width=&quot;672&quot; /&gt;
+
+```r
+summary(pls.mod)
+```
+
+```
+## Data:    X dimension: 388 17 
+##  Y dimension: 388 1
+## Fit method: kernelpls
+## Number of components considered: 17
+## 
+## VALIDATION: RMSEP
+## Cross-validated using 10 random segments.
+##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+## CV            4335     2123     1986     1792     1411     1375     1383
+## adjCV         4335     2115     1896     1767     1398     1366     1373
+##        7 comps  8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
+## CV        1390     1397     1314      1311      1300      1296      1281
+## adjCV     1379     1385     1321      1300      1289      1283      1269
+##        14 comps  15 comps  16 comps  17 comps
+## CV         1281      1283      1283      1281
+## adjCV      1269      1271      1272      1268
+## 
+## TRAINING: % variance explained
+##       1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps
+## X       42.26    51.47    90.73    97.48    98.65    99.02    99.27
+## Apps    78.91    87.10    88.93    91.89    91.99    92.05    92.12
+##       8 comps  9 comps  10 comps  11 comps  12 comps  13 comps  14 comps
+## X       99.97    99.99    100.00    100.00    100.00    100.00    100.00
+## Apps    92.13    92.30     93.08     93.38     93.73     93.74     93.75
+##       15 comps  16 comps  17 comps
+## X       100.00    100.00    100.00
+## Apps     93.75     93.76     93.97
+```
+
+```r
+pls.pred &lt;- predict(pls.mod,College[test,],ncomp=4)
+(pls.err&lt;-mean((pls.pred-y.test)^2))
+```
+
+```
+## [1] 1232841
+```
+g. The lasso and ridge performed better than the rest of the methods. We can see that the lasso did the best, whereas PLS did the worst. In addition, just a linear model outperformed both PCR and PLS.
+
+```r
+rbind(ref.err,lm.err,ridge.err,lasso.err,pcr.err,pls.err)
+```
+
+```
+##               [,1]
+## ref.err   11205007
+## lm.err     1108531
+## ridge.err  1037616
+## lasso.err  1030941
+## pcr.err    1166897
+## pls.err    1232841
+```</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+X &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">20</span><span class="op">*</span><span class="dv">1000</span>)
+<span class="kw">dim</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>,<span class="dv">20</span>)
+(B &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span>.<span class="dv">5</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">size=</span><span class="dv">20</span>,<span class="dt">replace=</span><span class="ot">TRUE</span>,<span class="dt">prob=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</code></pre></div>
+<pre><code>##  [1]  0.0  0.0  0.0  0.0  0.0 -1.0  0.0  1.0  1.0  0.0  0.0  1.0  0.0  0.0
+## [15]  0.5  0.0 -2.0  0.0  0.5 -2.0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Y&lt;-X<span class="op">%*%</span>B<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">20</span>)</code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">train &lt;-<span class="st"> </span><span class="kw">sample.int</span>(<span class="dv">1000</span>,<span class="dt">size=</span><span class="dv">100</span>)
+test &lt;-<span class="st"> </span><span class="op">-</span><span class="st"> </span>train</code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaps)
+full.fit &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(Y<span class="op">~</span>.,<span class="dt">data=</span><span class="kw">data.frame</span>(Y,X)[train,],<span class="dt">nvmax=</span><span class="dv">20</span>)
+X.mod &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(Y <span class="op">~</span><span class="st"> </span>X)
+val.errors &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="dv">20</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>){
+  coefi&lt;-<span class="kw">coef</span>(full.fit,<span class="dt">id=</span>i)
+  pred &lt;-<span class="st"> </span>X.mod[train,<span class="kw">names</span>(coefi)]<span class="op">%*%</span>coefi
+  val.errors[i]=<span class="kw">mean</span>((Y[train]<span class="op">-</span>pred)<span class="op">^</span><span class="dv">2</span>)
+}
+<span class="kw">plot</span>(val.errors,<span class="dt">type=</span><span class="st">&#39;l&#39;</span>)
+<span class="kw">points</span>(val.errors,<span class="dt">pch=</span><span class="dv">4</span>)
+<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which.min</span>(val.errors),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-160-1.png" width="672" />
+<ol start="4" style="list-style-type: lower-alpha">
+<li>The minimum occurs at 8 variables, which is true to the original <span class="math inline">\(\beta\)</span>.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test.errs &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="dv">20</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>){
+  coefi&lt;-<span class="kw">coef</span>(full.fit,<span class="dt">id=</span>i)
+  pred &lt;-<span class="st"> </span>X.mod[test,<span class="kw">names</span>(coefi)]<span class="op">%*%</span>coefi
+  test.errs[i]=<span class="kw">mean</span>((Y[test]<span class="op">-</span>pred)<span class="op">^</span><span class="dv">2</span>)
+}
+<span class="kw">plot</span>(test.errs,<span class="dt">type=</span><span class="st">&#39;l&#39;</span>)
+<span class="kw">points</span>(test.errs,<span class="dt">pch=</span><span class="dv">4</span>)
+<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which.min</span>(test.errs),<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
+<img src="ISLR-exercises_files/figure-html/unnamed-chunk-161-1.png" width="672" />
+<ol start="6" style="list-style-type: lower-alpha">
+<li>The minimum value occurs at 8 variables, which is true to our model, <code>sum(B==0)=</code> 12. Comparing the coefficients:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(B) &lt;-<span class="st"> </span><span class="kw">colnames</span>(X.mod)[<span class="dv">2</span><span class="op">:</span><span class="dv">21</span>]
+True.B &lt;-<span class="st"> </span>B[B<span class="op">!=</span><span class="dv">0</span>]
+True.B &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">`</span><span class="dt">(Intercept)</span><span class="st">`</span>=<span class="dv">0</span>,True.B)
+Fitted &lt;-<span class="st"> </span><span class="kw">coef</span>(full.fit,<span class="dt">id=</span><span class="dv">8</span>)
+<span class="kw">rbind</span>(True.B, Fitted, <span class="dt">Err=</span>(True.B<span class="op">-</span>Fitted))</code></pre></div>
+<pre><code>##        (Intercept)         X6         X8          X9        X12        X15
+## True.B    0.000000 -1.0000000 1.00000000  1.00000000  1.0000000 0.50000000
+## Fitted    0.260937 -0.7966302 0.97115844  1.03481958  1.1459732 0.42127106
+## Err      -0.260937 -0.2033698 0.02884156 -0.03481958 -0.1459732 0.07872894
+##                X17       X19          X20
+## True.B -2.00000000 0.5000000 -2.000000000
+## Fitted -2.04178071 0.3910316 -2.007931041
+## Err     0.04178071 0.1089684  0.007931041</code></pre>
+<ol start="7" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">norms &lt;-<span class="st"> </span><span class="kw">double</span>(<span class="dv">20</span>)
+B2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,B)
+<span class="kw">names</span>(B2) &lt;-<span class="st"> </span><span class="kw">colnames</span>(X.mod)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>){
+  coefi &lt;-<span class="st"> </span><span class="kw">coef</span>(full.fit,<span class="dt">id=</span>i)
+  temp&lt;-<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">21</span>)
+  <span class="kw">names</span>(temp)&lt;-<span class="kw">colnames</span>(X.mod)
+  temp[<span class="kw">names</span>(coefi)] &lt;-<span class="st"> </span>coefi
+  norms[i]=<span class="kw">sqrt</span>(<span class="kw">sum</span>((B2<span class="op">-</span>temp)<span class="op">^</span><span class="dv">2</span>))
+}
+<span class="kw">plot</span>(norms,<span class="dt">xlab=</span><span class="st">&quot;r&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;norm&quot;</span>,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="ISLR-exercises_files/figure-html/unnamed-chunk-163-1.png" width="672" /> We can see that it looks pretty similar to the test MSE plot. The minimum of the plot occurs at 8, which is the same as the index of the test errors, 8.</p></li>
+<li></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Boston,<span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)
+<span class="kw">head</span>(Boston)</code></pre></div>
+<pre><code>##      crim zn indus chas   nox    rm  age    dis rad tax ptratio  black
+## 1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## 2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## 3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+## 4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
+## 5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
+## 6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
+##   lstat medv
+## 1  4.98 24.0
+## 2  9.14 21.6
+## 3  4.03 34.7
+## 4  2.94 33.4
+## 5  5.33 36.2
+## 6  5.21 28.7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Boston.mat &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(crim <span class="op">~</span><span class="st"> </span>., Boston)</code></pre></div>
+<pre><code>a. First, split up the set into a test set and a training set.
+
+```r
+set.seed(1)
+train&lt;-sample.int(nrow(Boston),size=nrow(Boston)*.5)
+test&lt;--train
+y.train &lt;- Boston$crim[train]
+y.test &lt;- Boston$crim[test]
+```
+First linear models. I use best subsets to select the best train set using BIC, then get the MSE on the test set.
+
+```r
+full.fit &lt;- regsubsets(crim ~ ., data=Boston[train,],nvmax=ncol(Boston))
+lm.best.coef &lt;- coef(full.fit,id=which.min(summary(full.fit)$bic))
+lm.pred &lt;- Boston.mat[test,names(lm.best.coef)]%*%lm.best.coef
+(lm.err &lt;- mean((lm.pred-y.test)^2))
+```
+
+```
+## [1] 39.46705
+```
+
+```r
+full.lm.mod &lt;- lm(crim ~ ., Boston, subset=train)
+lm.full.pred &lt;- predict(full.lm.mod, Boston[test,])
+(lm.full.err &lt;- mean((lm.full.pred - y.test)^2))
+```
+
+```
+## [1] 39.27592
+```
+Next, Ridge and Lasso using cross validation.
+
+```r
+library(glmnet)
+runGlmNet &lt;- function(alpha) {
+  set.seed(927)
+  cv &lt;- cv.glmnet(Boston.mat[train,],y.train,alpha=alpha)
+  best.lam &lt;- cv$lambda.min
+  mod &lt;- glmnet(Boston.mat[train,],y.train,alpha=alpha)
+  pred &lt;- predict(mod,newx=Boston.mat[test,],s=best.lam)
+  err&lt;-mean((pred-y.test)^2)
+  list(mod=mod,cv=cv,best.lam=best.lam,err=err)
+}
+#Ridge first
+ridge.mod&lt;-runGlmNet(0)
+ridge.mod$err
+```
+
+```
+## [1] 38.36353
+```
+
+```r
+#Lasso
+lasso.mod&lt;-runGlmNet(1)
+lasso.mod$err
+```
+
+```
+## [1] 38.34268
+```
+Last, PCR. 9 components looks pretty good.
+
+```r
+library(pls)
+set.seed(927)
+pcr.mod &lt;- pcr(crim~.,data=Boston,subset=train,scale=TRUE,validation=&quot;CV&quot;)
+summary(pcr.mod)
+```
+
+```
+## Data:    X dimension: 253 13 
+##  Y dimension: 253 1
+## Fit method: svdpc
+## Number of components considered: 13
+## 
+## VALIDATION: RMSEP
+## Cross-validated using 10 random segments.
+##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+## CV           8.892    7.481    7.468    7.177    7.200    7.180    7.240
+## adjCV        8.892    7.476    7.463    7.171    7.185    7.172    7.227
+##        7 comps  8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
+## CV       7.236    7.214    7.165     7.124     7.158     7.211     7.079
+## adjCV    7.220    7.209    7.144     7.101     7.133     7.182     7.051
+## 
+## TRAINING: % variance explained
+##       1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps
+## X       49.04    60.72    69.75    76.49    83.02    88.40    91.73
+## crim    30.39    30.93    36.63    37.31    37.35    37.98    38.85
+##       8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
+## X       93.77    95.73     97.36     98.62     99.57    100.00
+## crim    39.94    41.89     42.73     42.73     43.55     45.48
+```
+
+```r
+validationplot(pcr.mod,val.type = &quot;MSEP&quot;)
+```
+
+&lt;img src=&quot;ISLR-exercises_files/figure-html/unnamed-chunk-169-1.png&quot; width=&quot;672&quot; /&gt;
+
+```r
+pcr.pred &lt;- predict(pcr.mod,Boston[test,],ncomp=9)
+(pcr.err &lt;- mean((pcr.pred-y.test)^2))
+```
+
+```
+## [1] 39.52134
+```
+Now let&#39;s summarize the errors:
+
+```r
+lasso.err &lt;- lasso.mod$err
+ridge.err &lt;- ridge.mod$err
+rbind(lm.err, lm.full.err, ridge.err, lasso.err, pcr.err)
+```
+
+```
+##                 [,1]
+## lm.err      39.46705
+## lm.full.err 39.27592
+## ridge.err   38.36353
+## lasso.err   38.34268
+## pcr.err     39.52134
+```
+It appears Lasso outperforms the rest of the models, but ridge is close behind. PCR doesn&#39;t do too well. Our best subsets didn&#39;t improve on the full lm either using the validation set approach, but they are close that it might not be significant.
+b. I&#39;ll just propose the Lasso model
+
+```r
+coef(lasso.mod$mod, s=lasso.mod$best.lam)
+```
+
+```
+## 15 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                        1
+## (Intercept)  6.581848709
+## (Intercept)  .          
+## zn           0.036372942
+## indus       -0.030858830
+## chas        -0.509062651
+## nox         -9.125346045
+## rm           1.156872387
+## age          .          
+## dis         -0.939767796
+## rad          0.513033837
+## tax          .          
+## ptratio     -0.204441060
+## black       -0.002435222
+## lstat        0.175839323
+## medv        -0.187702907
+```
+c. We can see that Lasso only removed two coefficients. </code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chap5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chap7.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["ISLR-exercises.pdf", "ISLR-exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
