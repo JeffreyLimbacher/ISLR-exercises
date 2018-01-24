@@ -36,7 +36,317 @@ legend(x="topright",c("E","G","D"),lty=1:3,col=1:3)
 
 4. 
     a. I don't know a good way to do this yet.
-    b. 
+    b. I will put `X1` on the x-axis and `X2` on the y-axis.
     ```{r}
-    plot(x=NULL,y=NULL,xlim=c(0,2),ylim=c(0,3))
+    plot(x=NULL,y=NULL,xlim=c(-1,2),ylim=c(0,3),ylab="X2",xlab="X1")
+    abline(h=1) #root, X2 < 1
+    abline(h=2) #first level, second branch, X2 < 2
+    text(x=.5,y=2.5,"2.49") #this is the right most terminal node
+    lines(x=c(0,0),y=c(1,2)) #third level bramch.
+    text(x=-.5,y=1.5,"-1.06") #left branch left terminal node
+    text(x=1.25,y=1.5,"0.21") #left branch right terminal mode
+    lines(x=c(1,1),y=c(-2,1))
+    text(x=0,y=.5,"-1.80")
+    text(x=1.5,y=.5,"0.63")
+    ```
+    
+5. I will assume that the chance of getting a red and green is the same, or that $P(\text{green}) = 1 - P(\text{red}) = .5$. Since there are six trees that are voting red, we would say that the majority vote method would yield Red as the estimate. If we average the probabilities, we get `r mean(c(.1,.15,.2,.2,.55,.6,.6,.65,.7,.75))`, so we would vote Green.
+
+6. Pass for now.
+
+7. 
+```{r echo=TRUE, message=FALSE}
+library(randomForest)
+set.seed(1)
+data(Boston,package="MASS")
+train <- sample(1:nrow(Boston), nrow(Boston)/2)
+```
+```{r echo=TRUE}
+set.seed(927)
+mtries <- 2:(ncol(Boston)-1)
+trees <-seq(25,500,by=25)
+errors <- matrix(nrow=length(trees),ncol=length(mtries))
+boston.test=Boston[-train,"medv"]
+for (i in seq_along(mtries)) {
+  mtry <- mtries[i]
+  for (j in seq_along(trees)){ 
+    ntrees <- trees[j]
+    bag.boston <- randomForest(medv∼.,data=Boston,subset=train,mtry=mtry,importance=TRUE,ntree=ntrees)
+    yhat.bag <- predict(bag.boston,newdata=Boston[-train,])
+    errors[j,i]<-mean((yhat.bag-boston.test)^2)
+  }
+}
+par(mar=c(5,4,4,5)+0.1)#Add more space to the right. Note that the default is c(5,4,4,2)+0.1
+matplot(trees,errors,type="l",lty=1:length(mtries),col=1:length(mtries))
+legend(x=525,y=16.4,legend=mtries,xpd=TRUE,lty=1:length(mtries),col=1:length(mtries))
+```
+The smallest is output by the code below.
+```{r echo=TRUE}
+(best<-arrayInd(which.min(errors),dim(errors)))
+```
+So it appears that $p=$ `r mtries[best[2]]` and `r trees[best[1]]` trees gives the best result. Averaging the error along the columns also gives the usual bias variance trade-off curve. The minimum occurs at $p=6.$
+```{r} 
+avgErr <- colMeans(errors)
+plot(mtries,avgErr, type="l",ylab="Average error",xlab="p")
+points(mtries[which.min(avgErr)],avgErr[which.min(avgErr)],col="red",pch="x")
+```
+
+8.
+    a.
+    ```{r echo=TRUE}
+    data(Carseats,package="ISLR")
+    set.seed(927)
+    train<-sample.int(nrow(Carseats),size=nrow(Carseats)/2)
+    ```
+    b.
+    ```{r echo=TRUE,fig.width=10}
+    library(tree)
+    tree.mod <- tree(Sales ~ ., data=Carseats, subset=train)
+    plot(tree.mod)
+    text(tree.mod,pretty=0)
+    ```
+    From the tree, we can see that shelf location is pretty important and results in generally lower sales. After that, we can see that price is second most important since it is the variable in both branches below the root. 
+    ```{r echo=TRUE}
+    y.pred<-predict(tree.mod, Carseats[-train,])
+    y.test<-Carseats[-train,]$Sales
+    mean((y.pred-y.test)^2)
+    ```
+    
+    c.
+    ```{r echo=TRUE}
+    set.seed(927)
+    tree.mod.cv <- cv.tree(tree.mod)
+    tree.mod.cv
+    ```
+    ```{r echo=TRUE}
+    plot(tree.mod.cv)
+    ```
+    The size with the smallest deviance is `r tree.mod.cv$size[which.min(tree.mod.cv$dev)]`. Let's see if it improves the test MSE.
+    ```{r echo=TRUE}
+    best.size <- tree.mod.cv$size[which.min(tree.mod.cv$dev)]
+    prune.mod <- prune.tree(tree.mod,best=best.size)
+    y.pred<-predict(prune.mod, Carseats[-train,])
+    mean((y.pred-y.test)^2)
+    ```
+    It improved the test MSE somewhat, but not considerably. I'm going to plot the test error as a function of the size.
+    ```{r echo=TRUE}
+    errors <- double(length(tree.mod.cv$size[-1]))
+    for(i in seq_along(tree.mod.cv$size[-1])){
+      size <- tree.mod.cv$size[i]
+      prune.mod <- prune.tree(tree.mod,best=size)
+      y.pred<-predict(prune.mod, Carseats[-train,])
+      errors[i] <- mean((y.pred-y.test)^2)
+    }
+    plot(tree.mod.cv$size[-1],errors,type="b")
+    ```
+    d. 
+    ```{r ehco=TRUE}
+    library(randomForest)
+    set.seed(927)
+    bag.mod <- randomForest(Sales ~ ., data=Carseats, subset=train, mtry=(ncol(Carseats)-1), importance=TRUE)
+    y.pred<-predict(bag.mod,Carseats[-train,])
+    mean((y.pred-y.test)^2)
+    ```
+    The bagging method improves upon the previous methods dramatically. Here is the importace.
+    ```{r echo=TRUE}
+    importance(bag.mod)
+    ```
+    As before, it indicates that price and shelf location are most important.
+    e. 
+    ```{r include=TRUE, echo=TRUE}
+    mtry<-1:10
+    errors <- double(length(mtry))
+    set.seed(927)
+    for(i in seq_along(mtry)){
+      m <- mtry[i]
+      rf.mod <- randomForest(Sales ~ ., data=Carseats, subset=train, mtry=m)
+      y.pred<-predict(rf.mod,Carseats[-train,])
+      errors[i]<-mean((y.pred-y.test)^2)
+    }
+    plot(mtry,errors,type="b",pch="x")
+    points(mtry[which.min(errors)],min(errors),col="red",pch="x")
+    ```
+    The effect start to flatten out after 6 variables. The average of the error for $m=6, \dots 10$ is `r mean(errors[6:10])`. The results are pretty similar to bagging.
+    
+9.
+    a. 
+    ```{r echo=TRUE}
+    data(OJ,package="ISLR")
+    set.seed(927)
+    train<-sample.int(nrow(OJ),size=800)
+    ```
+    b. First fit the model,
+    ```{r echo=TRUE}
+    library(tree)
+    tree.mod <- tree(Purchase ~ ., data=OJ, subset=train)
+    y.test <- OJ[-train,"Purchase"]
+    summary(tree.mod)
+    ```
+    There is seven terminal nodes. The train misclassification rate is below.
+    ```{r echo=TRUE}
+    y.pred <- predict(tree.mod, OJ[train,], type="class")
+    y.train<-OJ[train,"Purchase"]
+    (unpruned.err <- mean(y.pred != y.train))
+    ```
+    c.
+    ```{r echo=TRUE}
+    tree.mod
+    ```
+    Looking at terminal 27 and 26, we can see that the list price difference matters at that point in the true. 
+    d. 
+    ```{r echo=TRUE}
+    plot(tree.mod)
+    text(tree.mod,pretty=0)
+    ```
+    We can see that the root node, loyalty  to the branch is very important, and is the deciding factor at the top 3 splits. However, even if loyalty is high (by going right, then left, and then right down the tree), list price still can be a deciding factor.
+    e. Looking at the table, we can see that 
+    ```{r echo=TRUE}
+    y.pred <- predict(tree.mod, newdata=OJ[-train,],type="class")
+    table(y.pred,y.test)
+    unpruned.test.err <- mean(y.pred != y.test)
+    ```
+    The test error rate is `mean(y.pred != y.test)` = `r (unpruned.test.err <- mean(y.pred != y.test))`.
+    f. and g.
+    ```{r echo=TRUE}
+    set.seed(927)
+    tree.mod.cv <- cv.tree(tree.mod,FUN=prune.misclass)
+    with(tree.mod.cv,plot(size,dev,type="b"))
+    ```
+    h. The size with the lowest CV misclassification rate is `r (best<-with(tree.mod.cv,size[which.min(dev)]))`.
+    i. 
+    ```{r echo=TRUE}
+    best<-with(tree.mod.cv,size[which.min(dev)])
+    tree.mod.prune <- prune.tree(tree.mod,best=best)
+    plot(tree.mod.prune)
+    text(tree.mod.prune,pretty=0)
+    ```
+    j.
+    ```{r echo=TRUE}
+    y.pred.prune <- predict(tree.mod.prune,OJ[train,],type="class")
+    pruned.err <- mean(y.pred.prune != y.train)
+    cbind(unpruned.err, pruned.err)
+    ```
+    The pruned error for the training set is slightly larger.
+    k.
+    ```{r echo=TRUE}
+    y.pred.prune <- predict(tree.mod.prune,OJ[train,],type="class")
+    pruned.test.err <- mean(y.pred.prune != y.train)
+    cbind(unpruned.test.err, pruned.test.err)
+    ```
+    The pruned test error is much better than the unpruned.
+    
+10.
+    a.
+    ```{r echo=TRUE}
+    data(Hitters,package="ISLR")
+    Hitters <- na.omit(Hitters)
+    Hitters$Salary <- log(Hitters$Salary)
+    ```
+    b.
+    ```{r echo=TRUE}
+    train<-1:200
+    ```
+    c. The plot below suggests that there is some overfitting going on considering that the training error just keeps going down.
+    ```{r echo=TRUE}
+    library(gbm)
+    set.seed(927)
+    shrinkages <- 10^(seq(-4,0,by=.1))
+    errors <- double(length(shrinkages))
+    for(i in seq_along(shrinkages)) {
+      s<-shrinkages[i]
+      boost.mod <- gbm(Salary ~ .,data=Hitters[train,],distribution="gaussian",n.trees=1000,shrinkage=s)
+      y.pred <- predict(boost.mod,n.trees=1000)
+      errors[i] <- mean((y.pred-Hitters[train,]$Salary)^2)
+    }
+    plot(shrinkages,errors,type="l",log="x")
+    ```
+    d. It appears that the test error seems to bottom out at just below .01.
+    ```{r echo=TRUE}
+    set.seed(927)
+    shrinkages <- 10^(seq(-4,0,by=.1))
+    test.errs <- double(length(shrinkages))
+    for(i in seq_along(shrinkages)) {
+      s <- shrinkages[i]
+      boost.mod <- gbm(Salary ~ .,data=Hitters[train,],distribution="gaussian",n.trees=1000,shrinkage=s)
+      y.pred <- predict(boost.mod,Hitters[-train,],n.trees=1000)
+      test.errs[i] <- mean((y.pred-Hitters[-train,]$Salary)^2)
+    }
+    plot(shrinkages,test.errs,type="l",log="x")
+    best.shrink <- shrinkages[which.min(test.errs)]
+    ```
+    e. First, a simple linear regression
+    ```{r echo=TRUE}
+    y.test <- Hitters[-train,"Salary"]
+    lm.mod <- lm(Salary ~ ., data=Hitters, subset=train)
+    lm.pred <- predict(lm.mod, Hitters[-train,])
+    (lm.err <- mean((lm.pred-y.test)^2))
+    ```
+    Now for the Lasso.
+    ```{r echo=TRUE}
+    library(glmnet)
+    x<-model.matrix(Salary~.,Hitters,subset=train)[,-1]
+    y<-Hitters$Salary
+    lasso.cv <- cv.glmnet(x[train,],y[train],alpha=1)
+    bestlam <- lasso.cv$lambda.min
+    lasso.mod <- glmnet(x[train,],y[train],alpha=1)
+    lasso.pred <- predict(lasso.mod,s=bestlam,newx=x[-train,])
+    (lasso.err <- mean((lasso.pred-y.test)^2))
+    ```
+    Comparing the results.
+    ```{r echo=TRUE}
+    boost.mod <- gbm(Salary ~ .,data=Hitters[train,],distribution="gaussian",n.trees=1000,shrinkage=best.shrink)
+    y.pred <- predict(boost.mod,Hitters[-train,],n.trees=1000)
+    boost.err <- mean((y.pred-Hitters[-train,]$Salary)^2)
+    rbind(lm.err,lasso.err,boost.err)
+    ```
+    We can see that the boosting outperformed that linear regression and lasso considerably.
+    f.
+    ```{r echo=TRUE}
+    summary(boost.mod,plotit=FALSE)
+    ```
+    At bats is the most important.
+    g.
+    ```{r echo=TRUE}
+    library(randomForest)
+    bag.mod <- randomForest(Salary ~ ., data=Hitters, subset=train,mtry=ncol(Hitters)-1)
+    bag.pred<-predict(bag.mod,Hitters[-train,])
+    (bag.err <- mean((bag.pred-y.test)^2))
+    ```
+    Bagging performs the best.
+
+11.
+    a.
+    ```{r echo=TRUE}
+    data(Caravan,package="ISLR")
+    train<-1:1000
+    ```
+    b. The most important variables are listed below.
+    ```{r echo=TRUE}
+    library(randomForest)
+    set.seed(927)
+    bag.mod <- randomForest(Purchase ~ ., data=Caravan,subset=train,mtry=ncol(Caravan)-1,shrinkage=0.01)
+    imp.vec<-importance(bag.mod)
+    head(imp.vec[order(imp.df,decreasing=TRUE),])
+    ```
+    MOSTYPE is customer subtype. MGODGE is no religion (proportion?). PPERSAUT is contribution car policies. MGODPR is protestant. MOPLHOOG is high level education. MKOOPKLA is purchasing power class. The rest of the variable definitions can be found at http://www.liacs.nl/~putten/library/cc2000/data.html.
+    c.
+    ```{r include=TRUE, echo=TRUE}
+    y.test <- Caravan[-train,]$Purchase
+    y.pred <- ifelse(predict(bag.mod,Caravan[-train,],type="prob")[,"Yes"]>.2,"Yes","No")
+    table(y.pred,y.test)
+    ```
+    The proportion of people predicted to make a purchase that do make a purchase is `r 58/(413+58)`. Logistic regression is below.
+    ```{r echo=TRUE}
+    log.mod <- glm(Purchase ~ ., family=binomial, data=Caravan,subset=train)
+    log.pred <- ifelse(predict(log.mod, Caravan[-train,], type="response") > .2, "Yes", "No")
+    table(log.pred,y.test)
+    ```
+    The porportion for logistic regression is `r 58/(350+58)` so it performs a little better. Let's try KNN.
+    ```{r echo=TRUE}
+    library(class)
+    train.X <- Caravan[train,-ncol(Caravan)]
+    train.Y <- Caravan[train,ncol(Caravan)]
+    test.X <- Caravan[-train,-ncol(Caravan)]
+    knn.pred <- knn(train.X,test.X,train.Y,k=2)
+    table(knn.pred, y.test)
     ```
