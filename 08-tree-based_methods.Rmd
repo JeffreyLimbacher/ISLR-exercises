@@ -71,7 +71,7 @@ for (i in seq_along(mtries)) {
   mtry <- mtries[i]
   for (j in seq_along(trees)){ 
     ntrees <- trees[j]
-    bag.boston <- randomForest(medv∼.,data=Boston,subset=train,mtry=mtry,importance=TRUE,ntree=ntrees)
+    bag.boston <- randomForest(medv ~ .,data=Boston,subset=train,mtry=mtry,importance=TRUE,ntree=ntrees)
     yhat.bag <- predict(bag.boston,newdata=Boston[-train,])
     errors[j,i]<-mean((yhat.bag-boston.test)^2)
   }
