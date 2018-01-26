@@ -2,5 +2,5 @@ Package: placeholder
 Type: Book
 Title: Does not matter.
 Version: 0.0.1
-Imports: bookdown, ggplot2, ISLR, pls, boot, glmnet, leaps, class, caret, gam, randomForest, gbm, tree
+Imports: bookdown, ggplot2, ISLR, pls, boot, glmnet, leaps, class, caret, gam, randomForest, gbm, tree, ROCR, e1071
 Remotes: rstudio/bookdown
