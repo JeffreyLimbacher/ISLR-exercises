@@ -95,19 +95,20 @@ output:
     x<-sort(rnorm(100,1,2))
     y<-rnorm(100)
     f <- function(x) 1.5*(x)*(x-1)*(x-3)
-    labs<-factor(ifelse(y>f(x),0,1))
+    labs<-factor(ifelse(y>f(x),"black","red"))
     plot(x,y,col=labs)
     lines(x,f(x))
     ```
     Now to classify with SVM.
     ```{r echo=TRUE}
     library(e1071)
-    train<-sample.int(100,80)
     set.seed(1)
+    train<-sample.int(100,80)
     dat <- data.frame(x,labs)
     (poly.tune<-tune(svm,labs~.,data=dat[train,],kernel="polynomial",ranges=list(d=1:5,cost=c(.001,.01,.1,1,10))))
     ```
     ```{r echo=TRUE}
+    set.seed(1)
     (exp.tune <-tune(svm,labs~.,data=dat[train,],kernel="radial",ranges=list(gamma=c(.01,.05,.1,.5,1,5),cost=c(.001,.01,.1,10))))
     ```
     Now we test the best poly versus the best radial on the test set.
@@ -121,10 +122,12 @@ output:
       plot(perf,...)
     }
     fitted=attributes(predict(poly.mod,dat[-train,],decision.values=T))$decision.values
-    rocplot(fitted,dat[-train,"labs"],main="Test Data")
+    rocplot(-fitted,dat[-train,"labs"],main="Test Data") #for some reason, I have to make the 
+    #fitted values negative for the ROC curve to display correctly.
     fitted=attributes(predict(exp.mod,dat[-train,],decision.values=T))$decision.values
-    rocplot(fitted,dat[-train,"labs"],add=T,col="red")
+    rocplot(-fitted,dat[-train,"labs"],add=T,col="red")
     ```
+    The ROC curve tells us that the radial kernel works best. The tables below show how the final models classified. They ended up performing just as well as each other on the data.
     ```{r echo=TRUE}
     poly.fit=predict(poly.mod,dat[-train,])
     table(poly.fit,dat[-train,]$labs)
@@ -133,4 +136,42 @@ output:
     exp.fit=predict(poly.mod,dat[-train,])
     table(exp.fit,dat[-train,]$labs)
     ```
+
+5.
+    a. I will jus copy their example.
+    ```{r echo=TRUE}
+    set.seed(92)
+    x1<-runif(500)-0.5
+    x2<-runif(500)-0.5
+    y<-1*(x1^2-x2^2 > 0)
+    ```
+    b.
+    ```{r echo=TRUE}
+    plot(x1,x2,col=y+1)
+    ```
+    c. 
+    ```{r echo=TRUE}
+    log.mod <- glm(y ~ x1+x2,family=binomial)
+    ```
+    d.
+    ```{r echo=TRUE}
+    y.pred<-predict(log.mod,type="response")
+    y.pred<-1*(y.pred>.5)
+    plot(x1,x2,col=y.pred+1)
+    ```
+    Note that a single value was predicted to be 0.
+    ```{r echo=TRUE}
+    any(predict(log.mod,type="response")<.5)
+    ```
+    e.
+    ```{r echo=TRUE}
+    log.nl.mod <- glm(y ~ poly(x1,d=2)*poly(x2,d=2),family=binomial)
+    ```
+    f.
+    ```{r echo=TRUE}
+    y.pred<-predict(log.nl.mod,type="response")
+    y.pred<-1*(y.pred>.5)
+    plot(x1,x2,col=y.pred+1)
+    ```
+    Looks better, but there is still misclassification.
     
