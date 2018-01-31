@@ -138,20 +138,22 @@ output:
     ```
 
 5.
-    a. I will jus copy their example.
+    a. I will copy their example.
     ```{r echo=TRUE}
-    set.seed(92)
+    set.seed(927)
     x1<-runif(500)-0.5
     x2<-runif(500)-0.5
-    y<-1*(x1^2-x2^2 > 0)
+    yn <- (x1^2-x2^2 > 0)*1
+    y<-factor(yn)
+    dat <- data.frame(y,x1,x2)
     ```
     b.
     ```{r echo=TRUE}
-    plot(x1,x2,col=y+1)
+    plot(x1,x2,col=yn+1)
     ```
     c. 
     ```{r echo=TRUE}
-    log.mod <- glm(y ~ x1+x2,family=binomial)
+    log.mod <- glm(y ~ x1+x2,family=binomial,data=dat)
     ```
     d.
     ```{r echo=TRUE}
@@ -159,14 +161,16 @@ output:
     y.pred<-1*(y.pred>.5)
     plot(x1,x2,col=y.pred+1)
     ```
-    Note that a single value was predicted to be 0.
+    Note that not a single value was predicted to be 0.
     ```{r echo=TRUE}
     any(predict(log.mod,type="response")<.5)
     ```
     e.
     ```{r echo=TRUE}
-    log.nl.mod <- glm(y ~ poly(x1,d=2)*poly(x2,d=2),family=binomial)
+    log.nl.mod <- glm(y ~ poly(x1,d=3)*poly(x2,d=3),family=binomial)
+    summary(log.nl.mod)
     ```
+    Logistic regression does poorly at capturing the model.
     f.
     ```{r echo=TRUE}
     y.pred<-predict(log.nl.mod,type="response")
@@ -174,4 +178,58 @@ output:
     plot(x1,x2,col=y.pred+1)
     ```
     Looks better, but there is still misclassification.
+    g.
+    ```{r echo=TRUE}
+    svm.lin.mod <- svm(y ~ x1 + x2, data=dat, kernel="linear")
+    svm.lin.pred <- predict(svm.lin.mod)
+    plot(x1,x2,col=svm.lin.pred)
+    ```
+    h. 
+    ```{r echo=TRUE}
+    svm.mod <- svm(y ~ x1 + x2, data=dat, kernel="polynomial", d=3, cost=1)
+    svm.pred <- predict(svm.mod)
+    plot(x1,x2,col=svm.pred)
+    ```
+    ```{r echo=TRUE}
+    svm.mod <- svm(y ~ x1 + x2, data=dat, kernel="radial", cost=1)
+    svm.pred <- predict(svm.mod)
+    plot(x1,x2,col=svm.pred)
+    ```
+    ```{r echo=TRUE}
+    svm.trn.mod <- svm(y~poly(x1,d=2)*poly(x2,d=2),data=dat,kernel="linear")
+    svm.trn.pred <- predict(svm.trn.mod)
+    plot(x1,x2,col=svm.trn.pred)
+    ```
+    i. The SvM with the transformed predictors and linear kernel seems to do the best. 
+
+6. 
+    a.
+    ```{r echo=TRUE}
+    set.seed(927)
+    n<-50
+    x<-matrix(runif(n*2),ncol=2)
+    y<-factor(x[,2]>x[,1])
+    dat<-data.frame(x,y)
+    costs <- 10^(seq(-3,3,by=.5))
+    res<-tune(svm,y~X1+X2,data=dat,kernel="linear",ranges=list(cost=costs))
+    summary(res)
+    ```
+    The best cost is `r res$best.parameters$cost`.
+    ```{r echo=TRUE}
+    set.seed(1)
+    best.cost <- res$best.parameters$cost
+    test.x <- matrix(runif(10*n*2),ncol=2)
+    test.y<-factor(test.x[,2]>test.x[,1])
+    test.dat<-data.frame(test.x,y=test.y)
+    cost.performances <- double(length(costs))
+    for(i in seq_along(costs))
+    {
+      c <- costs[i]
+      svm.mod <- svm(y ~ X1 + X2, data=dat, kernel="linear",cost=c)
+      pred.y <- predict(svm.mod,test.dat)
+      cost.performances[i] <- mean(pred.y==test.y)
+    }
+    cbind(costs,cost.performances)
+    ```
+
     
