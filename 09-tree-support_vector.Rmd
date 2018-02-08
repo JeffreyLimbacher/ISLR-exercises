@@ -203,7 +203,7 @@ output:
     i. The SvM with the transformed predictors and linear kernel seems to do the best. 
 
 6. 
-    a.
+    a. + b.
     ```{r echo=TRUE}
     set.seed(927)
     n<-50
@@ -215,6 +215,7 @@ output:
     summary(res)
     ```
     The best cost is `r res$best.parameters$cost`.
+    c.
     ```{r echo=TRUE}
     set.seed(1)
     best.cost <- res$best.parameters$cost
@@ -231,5 +232,93 @@ output:
     }
     cbind(costs,cost.performances)
     ```
-
+    d. 
+    
+7.
+    a.
+    ```{r echo=TRUE}
+    data(Auto,package="ISLR")
+    Auto$mpg01 <- with(Auto,factor(mpg > median(mpg)))
+    ```
+    b.
+    ```{r echo=TRUE}
+    set.seed(1)
+    costs <- 10^(seq(-2,4,by=.5))
+    lin.res <- tune(svm, mpg01 ~ ., data=Auto, ranges=list(cost=costs), kernel="linear")
+    lin.res
+    ```
+    c.
+    ```{r echo=TRUE}
+    set.seed(2)
+    gammas <- 10^(seq(-3,-1,by=1))
+    costs2 <- 10^(seq(0,4,by=1))
+    rad.res <- tune(svm, mpg01 ~ ., data=Auto, ranges=list(cost=costs,gamma=gammas),kernel="radial")
+    summary(rad.res)
+    ```
+    ```{r echo=TRUE}
+    set.seed(3)
+    poly.res <- tune(svm, mpg01 ~ ., data=Auto, ranges=list(cost=costs,d=2:4),kernel="polynomial")
+    summary(poly.res)
+    ```
+    The error was 0.0101.
+    d. We know that the mpg varies a lot with weight and acceleration.
+    ```{r}
+    
+    svm.lin <- lin.res$best.model
+    plot(svm.lin, Auto, weight ~ displacement)
+    
+    svm.rad <- rad.res$best.model
+    plot(svm.rad, Auto, weight ~ displacement)
+  
+    svm.poly <- poly.res$best.model
+    plot(svm.poly, Auto, weight ~ displacement)
+    ```
+    We can see that 
+  
+8.
+    a.
+    ```{r}
+    data(OJ,package="ISLR")
+    set.seed(927)
+    train <- sample.int(nrow(OJ), size=800)
+    
+    ```
+    b.
+    ```{r}
+    library(e1071)
+    svm.class <- svm(Purchase ~ ., data=OJ[train,], cost=0.01, kernel="linear")
+    summary(svm.class)
+    ```
+    c. 
+    ```{r}
+    #Training error
+    class.train.pred <- predict(svm.class)
+    pur.train <- OJ[train,"Purchase"]
+    (class.train.err <- mean(pur.train != class.train.pred))
+    ```
+    ```{r}
+    #Test error
+    class.test.pred <- predict(svm.class, OJ[-train,])
+    pur.test <- OJ[-train,"Purchase"]
+    (class.test.err <- mean(pur.test != class.test.pred))
+    ```
+    d. 
+    ```{r}
+    set.seed(927)
+    costs<-10^seq(-2,2,by=.25)
+    class.res <- tune(svm, Purchase ~ ., data=OJ[train,], ranges=list(cost=costs), kernel="linear")
+    summary(class.res)
+    ```
+    e.
+    ```{r}
+    #Training error
+    #svm.best.class <- svm(Purchase ~ ., data=OJ[train,], cost=class.res$best.parameters$cost, kernel="linear")
+    svm.best.class <- class.res$best.model
+    svm.best.class.pred <- predict(svm.best.class)
+    (best.class.train.err <- mean(pur.train != svm.best.class.pred))
+    
+    #Test error
+    svm.best.class.test <- predict(svm.best.class, OJ[-train,])
+    (best.class.test.err <- mean(pur.test != svm.best.class.test))
+    ```
     
